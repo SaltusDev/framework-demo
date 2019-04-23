@@ -1,0 +1,50 @@
+{
+	"name": "saltus/pluginframework",
+	"description": "Saltus Plugin Framework",
+	"type": "wordpress-plugin",
+	"keywords": [
+		"wordpress",
+		"plugin"
+	],
+	"homepage": "https://saltus.io/",
+	"license": "GPL-3.0+",
+	"authors": [
+		{
+			"name": "Saltus Framework",
+			"email": "web@saltus.io",
+			"homepage": "https://saltus.io/"
+		}
+	],
+	"support": {
+		"issues": "https://saltus.io/",
+		"source": "https://saltus.io/"
+	},
+	"repositories": {
+		"0": {
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		},
+		"1": {
+			"type": "path",
+			"url": "../../../../packages/saltus-framework"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\": "../src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\Tests\\": "../tests/"
+		}
+	},
+	"config": {
+		"vendor-dir": "../lib/"
+	},
+	"require-dev": {},
+	"require": {
+		"saltus/framework": "*"
+	},
+	"minimum-stability": "dev"
+}
