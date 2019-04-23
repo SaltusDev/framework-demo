@@ -1,8 +1,6 @@
 <?php
 namespace Saltus\WP\Plugin\Saltus\PluginFramework;
 
-use Noodlehaus\Config;
-
 /**
  * The core class, where logic is defined.
  */
@@ -88,15 +86,6 @@ class Core {
 	private function add_assets() {
 		$assets = new Plugin\Assets( $this );
 		$assets->load_assets();
-	}
-
-
-	/**
-	 * Load Custom Types and taxonomies
-	 */
-	private function run_loader() {
-		$i18n = new Loader( $this );
-		$i18n->run();
 	}
 
 }
