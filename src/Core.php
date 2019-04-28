@@ -1,5 +1,5 @@
 <?php
-namespace Saltus\WP\Plugin\Saltus\PluginFramework;
+namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 
 /**
  * The core class, where logic is defined.
@@ -67,8 +67,6 @@ class Core {
 		$this->set_locale();
 
 		$this->add_assets();
-
-		$this->run_loader();
 
 	}
 

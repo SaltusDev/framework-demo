@@ -3,21 +3,21 @@
  * Saltus Framework
  *
  * @wordpress-plugin
- * Plugin Name:       Saltus Framework
+ * Plugin Name:       Saltus Framework Demo
  * Plugin URI:        https://saltus.io/
- * Description:       Saltus Plugin Framework.
+ * Description:       Saltus Plugin Framework Demo.
  * Version:           0.0.1
  * Author:            Saltus
  * Author URI:        https://saltus.io/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       saltus-framework
+ * Text Domain:       saltus-framework-demo
  * Domain Path:       /languages
  */
 
-namespace Saltus\WP\Plugin\Saltus\PluginFramework;
+namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 
-use Saltus\WP\Plugin\Saltus\Framework;
+use Saltus\WP\Framework;
 
 // If this file is called directly, quit.
 if ( ! defined( 'WPINC' ) ) {

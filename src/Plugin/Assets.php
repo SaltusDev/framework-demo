@@ -1,7 +1,7 @@
 <?php
-namespace Saltus\WP\Plugin\Saltus\PluginFramework\Plugin;
+namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin;
 
-use Saltus\WP\Plugin\Saltus\PluginFramework\Core;
+use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Core;
 
 /**
  * Manage Assets like scripts and styles.

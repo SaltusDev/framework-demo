@@ -25,18 +25,18 @@
 			"url": "https://wpackagist.org"
 		},
 		"1": {
-			"type": "path",
-			"url": "../../../../packages/saltus-framework"
+			"type": "vcs",
+			"url": "git@bitbucket.org:carmoreira/saltus-framework.git"
 		}
 	},
 	"autoload": {
 		"psr-4": {
-			"Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\": "../src/"
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\": "../src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\Tests\\": "../tests/"
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Tests\\": "../tests/"
 		}
 	},
 	"config": {

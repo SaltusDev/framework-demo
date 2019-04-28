@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit81dd07a72d54cfba2a2beaa1fe7e252a
+class ComposerStaticInit00505270b7a0656284c195f40a0b9930
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -19,9 +19,9 @@ class ComposerStaticInit81dd07a72d54cfba2a2beaa1fe7e252a
             'Symfony\\Component\\Yaml\\' => 23,
             'Sober\\Models\\Model\\' => 19,
             'Sober\\Models\\' => 13,
-            'Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\Tests\\' => 46,
-            'Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\' => 40,
-            'Saltus\\WP\\Plugin\\Saltus\\Framework\\' => 34,
+            'Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Tests\\' => 50,
+            'Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\' => 44,
+            'Saltus\\WP\\Framework\\' => 20,
         ),
         'N' => 
         array (
@@ -50,15 +50,15 @@ class ComposerStaticInit81dd07a72d54cfba2a2beaa1fe7e252a
         array (
             0 => __DIR__ . '/..' . '/soberwp/models/src',
         ),
-        'Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\Tests\\' => 
+        'Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..'.'/build' . '/../tests',
         ),
-        'Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\' => 
+        'Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\' => 
         array (
             0 => __DIR__ . '/../..'.'/build' . '/../src',
         ),
-        'Saltus\\WP\\Plugin\\Saltus\\Framework\\' => 
+        'Saltus\\WP\\Framework\\' => 
         array (
             0 => __DIR__ . '/..' . '/saltus/framework/src',
         ),
@@ -75,8 +75,8 @@ class ComposerStaticInit81dd07a72d54cfba2a2beaa1fe7e252a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit81dd07a72d54cfba2a2beaa1fe7e252a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit81dd07a72d54cfba2a2beaa1fe7e252a::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit00505270b7a0656284c195f40a0b9930::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit00505270b7a0656284c195f40a0b9930::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
