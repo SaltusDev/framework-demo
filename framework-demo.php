@@ -44,7 +44,7 @@ $framework = new Framework\Core( dirname( __FILE__ ) );
  */
 add_action(
 	'plugins_loaded',
-	function ( $framework ) {
+	function () use ( $framework ) {
 		$plugin = new Core( 'saltus-framework', '0.0.1', __FILE__, $framework );
 		$plugin->init();
 	}
