@@ -1,5 +1,5 @@
 <?php
-namespace Saltus\WP\Plugin\Saltus\PluginFramework\Plugin;
+namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin;
 
 /**
  * Wrapper for meta fields

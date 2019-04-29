@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ab514758d88fd8baea059dd0159bbd9",
+    "content-hash": "5d166e605ed2af9f47a30d30c8a7121f",
     "packages": [
         {
             "name": "composer/installers",
@@ -234,11 +234,11 @@
         },
         {
             "name": "saltus/framework",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "../../../../packages/saltus-framework",
-                "reference": "b62c0c40bb19b19459f0fb8a461d9b57a2707b83"
+            "version": "dev-dev",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:carmoreira/saltus-framework.git",
+                "reference": "ecfcad3db127cf830fd7b774fec1ac7299315dfe"
             },
             "require": {
                 "johnbillion/extended-cpts": "^4.2",
@@ -252,12 +252,12 @@
             "type": "project",
             "autoload": {
                 "psr-4": {
-                    "Saltus\\WP\\Plugin\\Saltus\\Framework\\": "src/"
+                    "Saltus\\WP\\Framework\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Saltus\\WP\\Plugin\\Saltus\\Framework\\Tests\\": "tests/"
+                    "Saltus\\WP\\Framework\\Tests\\": "tests/"
                 }
             },
             "scripts": {
@@ -281,7 +281,8 @@
                 "vagrant",
                 "wordpress",
                 "wp"
-            ]
+            ],
+            "time": "2019-04-28T16:23:32+00:00"
         },
         {
             "name": "soberwp/models",
@@ -379,7 +380,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

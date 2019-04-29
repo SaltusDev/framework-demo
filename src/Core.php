@@ -1,5 +1,5 @@
 <?php
-namespace Saltus\WP\Plugin\Saltus\PluginFramework;
+namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 
 /**
  * The core class, where logic is defined.
@@ -36,7 +36,6 @@ class Core {
 		$this->version   = $version;
 		$this->file_path = $file_path;
 		$this->framework = $framework;
-		$this->framework = 'aaa';
 	}
 
 	/**
@@ -60,16 +59,12 @@ class Core {
 	/**
 	 * Start the logic for this plugins.
 	 *
-	 * Runs on 'plugins_loaded'.
+	 * Runs on 'plugins_loaded' which is pre- 'init' filter
 	 */
 	public function init() {
 
 		$this->set_locale();
-
-		$this->add_assets();
-
-		$this->run_loader();
-
+		$this->set_assets();
 	}
 
 	/**
@@ -83,7 +78,7 @@ class Core {
 	/**
 	 * Load assets
 	 */
-	private function add_assets() {
+	private function set_assets() {
 		$assets = new Plugin\Assets( $this );
 		$assets->load_assets();
 	}

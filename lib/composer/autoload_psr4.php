@@ -10,9 +10,9 @@ return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Sober\\Models\\Model\\' => array($vendorDir . '/soberwp/models/src/Model'),
     'Sober\\Models\\' => array($vendorDir . '/soberwp/models/src'),
-    'Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\Tests\\' => array($baseDir . '/../tests'),
-    'Saltus\\WP\\Plugin\\Saltus\\PluginFramework\\' => array($baseDir . '/../src'),
-    'Saltus\\WP\\Plugin\\Saltus\\Framework\\' => array($vendorDir . '/saltus/framework/src'),
+    'Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Tests\\' => array($baseDir . '/../tests'),
+    'Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\' => array($baseDir . '/../src'),
+    'Saltus\\WP\\Framework\\' => array($vendorDir . '/saltus/framework/src'),
     'Noodlehaus\\' => array($vendorDir . '/hassankhan/config/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );
