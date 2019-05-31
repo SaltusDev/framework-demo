@@ -24,8 +24,8 @@ if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
 
-if ( file_exists( dirname( __FILE__ ) . '/lib/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/lib/autoload.php';
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
 if ( ! class_exists( Framework\Core::class ) ) {
