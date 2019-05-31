@@ -1,15 +1,15 @@
 <?php
 return [
 	'type'     => 'cpt',
-	'name'     => 'book',
+	'name'     => 'movie',
 	'supports' => [
 		'title',
 		'editor',
 		'thumbnail',
 	],
 	'labels'   => [
-		'has_one'     => 'Book',
-		'has_many'    => 'Books',
+		'has_one'     => 'Movie',
+		'has_many'    => 'Movies',
 		'text_domain' => 'saltus',
 	],
 ];

@@ -7,7 +7,7 @@ return [
 	],
 	[
 		'type'  => 'tag',
-		'name'  => 'author',
+		'name'  => 'writer',
 		'links' => 'book',
 	],
 ];
