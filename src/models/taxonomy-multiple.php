@@ -12,4 +12,12 @@ return [
 		'name'         => 'writer',
 		'associations' => 'book',
 	],
+	[
+		'type'         => 'tag',
+		'name'         => 'mood',
+		'associations' => [
+			'book',
+			'post',
+		],
+	],
 ];
