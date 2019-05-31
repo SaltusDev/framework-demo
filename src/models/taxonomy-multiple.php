@@ -9,7 +9,7 @@ return [
 	],
 	[
 		'type'         => 'tag',
-		'name'         => 'author',
+		'name'         => 'writer',
 		'associations' => 'book',
 	],
 ];
