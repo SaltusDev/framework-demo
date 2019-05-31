@@ -37,6 +37,7 @@ if ( ! class_exists( Framework\Core::class ) ) {
  * so it loads the models from a subdirectory.
  */
 $framework = new Framework\Core( dirname( __FILE__ ) );
+$framework->register();
 
 /**
  * Initialize plugin
