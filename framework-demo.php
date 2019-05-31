@@ -24,8 +24,8 @@ if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
 
-if ( file_exists( dirname( __FILE__ ) . '/lib/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/lib/autoload.php';
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
 if ( ! class_exists( Framework\Core::class ) ) {
@@ -37,6 +37,7 @@ if ( ! class_exists( Framework\Core::class ) ) {
  * so it loads the models from a subdirectory.
  */
 $framework = new Framework\Core( dirname( __FILE__ ) );
+$framework->register();
 
 /**
  * Initialize plugin
