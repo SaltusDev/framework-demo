@@ -17,7 +17,15 @@
 	],
 	"support": {
 		"issues": "https://saltus.io/",
-		"source": "https://saltus.io/"
+		"source": "https://saltus.io/",
+		"1": {
+			"type": "vcs",
+			"url": "git@bitbucket.org:carmoreira/saltus-framework.git"
+		},
+		"2": {
+			"type": "path",
+			"url": "../../../../packages/saltus-framework"
+		}
 	},
 	"repositories": {
 		"0": {
@@ -42,9 +50,9 @@
 	"config": {
 		"vendor-dir": "../vendor/"
 	},
-	"require-dev": {},
 	"require": {
 		"saltus/framework": "*"
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "dev",
+	"require-dev": {}
 }

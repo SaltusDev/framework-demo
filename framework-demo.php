@@ -6,7 +6,7 @@
  * Plugin Name:       Saltus Framework Demo
  * Plugin URI:        https://saltus.io/
  * Description:       Saltus Plugin Framework Demo.
- * Version:           0.0.1
+ * Version:           0.0.2
  * Author:            Saltus
  * Author URI:        https://saltus.io/
  * License:           GPL-2.0+
@@ -17,8 +17,6 @@
 
 namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 
-use Saltus\WP\Framework;
-
 // If this file is called directly, quit.
 if ( ! defined( 'WPINC' ) ) {
 	exit;
@@ -28,26 +26,27 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
-if ( ! class_exists( Framework\Core::class ) ) {
-	exit;
+if ( class_exists( \Saltus\WP\Framework\Core::class ) ) {
+
+	/*
+	* The path to the plugin root directory is mandatory,
+	* so it loads the models from a subdirectory.
+	*/
+	$framework = new \Saltus\WP\Framework\Core( dirname( __FILE__ ) );
+	$framework->register();
+	/**
+	 * Initialize plugin
+	 *
+	 */
+	add_action(
+		'plugins_loaded',
+		function () use ( $framework ) {
+			$plugin = new Core( 'saltus-framework', '0.0.2', __FILE__, $framework );
+			$plugin->init();
+		}
+	);
 }
 
-/*
- * The path to the plugin root directory is mandatory,
- * so it loads the models from a subdirectory.
- */
-$framework = new Framework\Core( dirname( __FILE__ ) );
-$framework->register();
 
-/**
- * Initialize plugin
- *
- */
-add_action(
-	'plugins_loaded',
-	function () use ( $framework ) {
-		$plugin = new Core( 'saltus-framework', '0.0.1', __FILE__, $framework );
-		$plugin->init();
-	}
-);
+
 
