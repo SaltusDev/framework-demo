@@ -1,0 +1,388 @@
+# Copyright (C) 2019
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://saltus.dev/\n"
+"POT-Creation-Date: 2019-10-11 23:53:40+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Saltus <hello@saltus.dev>\n"
+"Language-Team: Saltus <hello@saltus.dev>\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: src/models/post-type-basic.php:29
+msgid "Information"
+msgstr ""
+
+#: src/models/post-type-basic.php:32
+msgid "Main Details"
+msgstr ""
+
+#: src/models/post-type-basic.php:33
+msgid "Detailed information fields"
+msgstr ""
+
+#: src/models/post-type-basic.php:38 src/models/post-type-basic.php:317
+msgid "Social Networks"
+msgstr ""
+
+#: src/models/post-type-basic.php:39
+msgid "Links to Social Networks"
+msgstr ""
+
+#: src/models/post-type-basic.php:52
+msgid "Subtitle"
+msgstr ""
+
+#: src/models/post-type-basic.php:53
+msgid "test!"
+msgstr ""
+
+#: src/models/post-type-basic.php:58
+msgid "Lead"
+msgstr ""
+
+#: src/models/post-type-basic.php:59
+msgid "A longer paragraph."
+msgstr ""
+
+#: src/models/post-type-basic.php:69
+msgid "Plugin Settings"
+msgstr ""
+
+#: src/models/post-type-basic.php:71
+msgid "Settings"
+msgstr ""
+
+#: src/models/post-type-basic.php:74
+msgid "General"
+msgstr ""
+
+#: src/models/post-type-basic.php:75
+msgid "Basic settings that affect the plugin behaviour"
+msgstr ""
+
+#: src/models/post-type-basic.php:80
+msgid "Archive Page Redirect"
+msgstr ""
+
+#: src/models/post-type-basic.php:81
+msgid ""
+"Sometimes breadcrumbs will link to the default theme archive page, which "
+"does not have the layout you want. You can setup here the URL you want the "
+"archive page to redirect to."
+msgstr ""
+
+#: src/models/post-type-basic.php:86
+msgid "mailto: Links"
+msgstr ""
+
+#: src/models/post-type-basic.php:87
+msgid "Enable mailto: links on email fields"
+msgstr ""
+
+#: src/models/post-type-basic.php:91
+msgid "tel: Links"
+msgstr ""
+
+#: src/models/post-type-basic.php:92
+msgid "Enable tel: links in telephone fields."
+msgstr ""
+
+#: src/models/post-type-basic.php:96
+msgid "nofollow for Social Links"
+msgstr ""
+
+#: src/models/post-type-basic.php:97
+msgid "When active, social links will have the rel=\"nofollow\" parameter."
+msgstr ""
+
+#: src/models/post-type-basic.php:101
+msgid "Redirect to User Page"
+msgstr ""
+
+#: src/models/post-type-basic.php:102
+msgid "Will redirect the user/author pages to the associated team member entry page"
+msgstr ""
+
+#: src/models/post-type-basic.php:109
+msgid "Image"
+msgstr ""
+
+#: src/models/post-type-basic.php:110
+msgid "Options to control default image sizes"
+msgstr ""
+
+#: src/models/post-type-basic.php:115 src/models/post-type-basic.php:140
+#: src/models/post-type-basic.php:145
+msgid "Main Image Width"
+msgstr ""
+
+#: src/models/post-type-basic.php:119
+msgid "Main Image Height"
+msgstr ""
+
+#: src/models/post-type-basic.php:124
+msgid "Main Image Crop"
+msgstr ""
+
+#: src/models/post-type-basic.php:125
+msgid "If the image will be cropped to fit defined size"
+msgstr ""
+
+#: src/models/post-type-basic.php:130
+msgid "Thumbnails Image Width"
+msgstr ""
+
+#: src/models/post-type-basic.php:134
+msgid "Thumbnails Pager Image Height"
+msgstr ""
+
+#: src/models/post-type-basic.php:152
+msgid "CSS & JS"
+msgstr ""
+
+#: src/models/post-type-basic.php:153
+msgid "Add custom styles and code snippets to the pages loading the layouts."
+msgstr ""
+
+#: src/models/post-type-basic.php:157
+msgid "Custom CSS"
+msgstr ""
+
+#: src/models/post-type-basic.php:158
+msgid "Custom CSS to load with the layouts"
+msgstr ""
+
+#: src/models/post-type-basic.php:162
+msgid "Custom Javascript"
+msgstr ""
+
+#: src/models/post-type-basic.php:163
+msgid "Custom Javascript to load with the layouts"
+msgstr ""
+
+#: src/models/post-type-basic.php:169
+msgid "Advanced"
+msgstr ""
+
+#: src/models/post-type-basic.php:170
+msgid "Advanced options to control how the plugin works."
+msgstr ""
+
+#: src/models/post-type-basic.php:175
+msgid "Menu name"
+msgstr ""
+
+#: src/models/post-type-basic.php:176
+msgid "Text that will in the administration menus."
+msgstr ""
+
+#: src/models/post-type-basic.php:181
+msgid "Singular Name"
+msgstr ""
+
+#: src/models/post-type-basic.php:187
+msgid "Plural Name"
+msgstr ""
+
+#: src/models/post-type-basic.php:193
+msgid "Slug"
+msgstr ""
+
+#: src/models/post-type-basic.php:194
+msgid ""
+"Text that will be used in permalinks. Must be unique and shouldn't contain "
+"spaces or special characters."
+msgstr ""
+
+#: src/models/post-type-basic.php:199
+msgid "Exclude from general search"
+msgstr ""
+
+#: src/models/post-type-basic.php:200
+msgid "If active it will exclude the entries from the general site search results."
+msgstr ""
+
+#: src/models/post-type-basic.php:205
+msgid "Use block editor"
+msgstr ""
+
+#: src/models/post-type-basic.php:206
+msgid "If active when editing an entry, you'll be able to use the block editor."
+msgstr ""
+
+#: src/models/post-type-basic.php:213
+msgid ""
+"Attention! Changing the settings below might lead to the loss of data. "
+"Avoid deleting existing fields if you have already saved data into them. "
+"Proceed with carefull."
+msgstr ""
+
+#: src/models/post-type-basic.php:216
+msgid "Taxonomies"
+msgstr ""
+
+#: src/models/post-type-basic.php:217
+msgid ""
+"Available taxonomies in the plugin. <br> Hierarchical taxonomies will "
+"behave the same way as categories. Non-hierarchical taxonomies will behave "
+"like tags."
+msgstr ""
+
+#: src/models/post-type-basic.php:219 src/models/post-type-basic.php:262
+#: src/models/post-type-basic.php:320
+msgid "Entry {#}"
+msgstr ""
+
+#: src/models/post-type-basic.php:220
+msgid "Add Another Taxonomy"
+msgstr ""
+
+#: src/models/post-type-basic.php:226 src/models/post-type-basic.php:268
+#: src/models/post-type-basic.php:326
+msgid "Name"
+msgstr ""
+
+#: src/models/post-type-basic.php:228
+msgid "Singular name for this taxonomy"
+msgstr ""
+
+#: src/models/post-type-basic.php:232 src/models/post-type-basic.php:274
+#: src/models/post-type-basic.php:332
+msgid "Enabled"
+msgstr ""
+
+#: src/models/post-type-basic.php:236
+msgid "Plural name"
+msgstr ""
+
+#: src/models/post-type-basic.php:238
+msgid "Plural name for this taxonomy"
+msgstr ""
+
+#: src/models/post-type-basic.php:242
+msgid "Unique Identifier (slug)"
+msgstr ""
+
+#: src/models/post-type-basic.php:244
+msgid ""
+"Unique word to identify this taxonomy. When changed a new taxonomy will be "
+"created. No spaces are allowed.<br>If empty, it will default to the "
+"singular name of this taxonomy."
+msgstr ""
+
+#: src/models/post-type-basic.php:248
+msgid "Hierarchical?"
+msgstr ""
+
+#: src/models/post-type-basic.php:250
+msgid "Can the terms in this taxonomy have parent-child relationship?"
+msgstr ""
+
+#: src/models/post-type-basic.php:258
+msgid "Information Fields"
+msgstr ""
+
+#: src/models/post-type-basic.php:260
+msgid "Fields that will display when adding new entries."
+msgstr ""
+
+#: src/models/post-type-basic.php:263
+msgid "Add Another Field"
+msgstr ""
+
+#: src/models/post-type-basic.php:270
+msgid "Name this field"
+msgstr ""
+
+#: src/models/post-type-basic.php:278 src/models/post-type-basic.php:348
+msgid "Description"
+msgstr ""
+
+#: src/models/post-type-basic.php:280 src/models/post-type-basic.php:350
+msgid "Description for this field"
+msgstr ""
+
+#: src/models/post-type-basic.php:284
+msgid "Field type"
+msgstr ""
+
+#: src/models/post-type-basic.php:286
+msgid "Type of field"
+msgstr ""
+
+#: src/models/post-type-basic.php:289
+msgid "Text"
+msgstr ""
+
+#: src/models/post-type-basic.php:290
+msgid "Textarea"
+msgstr ""
+
+#: src/models/post-type-basic.php:291
+msgid "User select"
+msgstr ""
+
+#: src/models/post-type-basic.php:295 src/models/post-type-basic.php:336
+msgid "Icon"
+msgstr ""
+
+#: src/models/post-type-basic.php:297 src/models/post-type-basic.php:338
+msgid "Icon for this social network"
+msgstr ""
+
+#: src/models/post-type-basic.php:301
+msgid "Template"
+msgstr ""
+
+#: src/models/post-type-basic.php:303
+msgid ""
+"HTML template when the content for this field is displayed. The placeholder "
+"{value} must be present."
+msgstr ""
+
+#: src/models/post-type-basic.php:308
+msgid "Unique ID"
+msgstr ""
+
+#: src/models/post-type-basic.php:310
+msgid ""
+"Unique identifier for this field. Should not be changed once you have added "
+"data.<br>If left blank, it will default to a sanitized version of the name "
+"of this field."
+msgstr ""
+
+#: src/models/post-type-basic.php:318
+msgid "Social Networks fields that will display when adding new entries."
+msgstr ""
+
+#: src/models/post-type-basic.php:321
+msgid "Add Another Social Network"
+msgstr ""
+
+#: src/models/post-type-basic.php:328
+msgid "Name this social network"
+msgstr ""
+
+#: src/models/post-type-basic.php:342
+msgid "Icon Color"
+msgstr ""
+
+#: src/models/post-type-basic.php:344
+msgid "Social network icon colour"
+msgstr ""
