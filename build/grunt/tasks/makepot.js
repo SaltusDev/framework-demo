@@ -4,10 +4,10 @@ module.exports = function(grunt) {
 	grunt.config('makepot', {
 		target: {
 			options: {
-				cwd: '../',
+				cwd: '<%= cfg.paths.root %>',
 				domainPath: 'languages/',
 				potFilename: '<%= cfg.i18n.potFilename %>.pot',
-				mainFile: '<%= cfg.i18n.mainFile %>.css',
+				mainFile: '<%= cfg.i18n.mainFile %>.php',
 				exclude: [
 					'assets/',
 					'bin/',
@@ -37,5 +37,6 @@ module.exports = function(grunt) {
 			},
 		},
 	});
+
 	grunt.loadNpmTasks('grunt-wp-i18n');
 }
