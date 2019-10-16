@@ -12,6 +12,8 @@ vendor
 *.map
 *.log
 reports/
+dist/
+release/
 
 # Editor
 .vscode
@@ -32,6 +34,7 @@ Thumbs.db
 *.orig
 .svn
 .cvs
+*.bkp
 
 
 #cache
