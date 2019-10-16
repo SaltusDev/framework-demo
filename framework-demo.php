@@ -6,7 +6,7 @@
  * Plugin Name:       Saltus Framework Demo
  * Plugin URI:        https://saltus.io/
  * Description:       Saltus Plugin Framework Demo.
- * Version:           1.0.9
+ * Version:           1.0.10
  * Author:            Saltus
  * Author URI:        https://saltus.io/
  * License:           GPL-2.0+
