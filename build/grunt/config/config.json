@@ -2,14 +2,13 @@
 	"i18n": {
 		"author":      "Saltus <hello@saltus.dev>",
 		"support":     "https://saltus.dev/",
-		"pluginSlug":  "saltus-framework",
-		"mainFile":    "saltus-framework",
-		"textDomain":  "saltus-framework",
-		"potFilename": "saltus-framework"
+		"pluginSlug":  "framework-demo",
+		"mainFile":    "framework-demo",
+		"textDomain":  "framework-demo",
+		"potFilename": "framework-demo"
 	},
 	"paths" : {
-		"root": "../",
-		"framework": "../../../../packages/saltus-framework/src/"
+		"root": "../"
 	}
 }
 

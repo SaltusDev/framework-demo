@@ -6,12 +6,12 @@
  * Plugin Name:       Saltus Framework Demo
  * Plugin URI:        https://saltus.io/
  * Description:       Saltus Plugin Framework Demo.
- * Version:           0.0.2
+ * Version:           1.0.9
  * Author:            Saltus
  * Author URI:        https://saltus.io/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       saltus-framework-demo
+ * Text Domain:       framework-demo
  * Domain Path:       /languages
  */
 
@@ -21,7 +21,6 @@ namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
-
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
@@ -45,6 +44,7 @@ if ( class_exists( \Saltus\WP\Framework\Core::class ) ) {
 			$plugin->init();
 		}
 	);
+
 }
 
 

@@ -49,7 +49,7 @@ return [
 			'items_list'            => 'Books list',
 		],
 	],
-	'config'   => [
+	'options'  => [
 		'public'             => true,
 		'publicly_queryable' => true,
 		'show_ui'            => true,

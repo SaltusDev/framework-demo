@@ -1,0 +1,41 @@
+
+# Composer
+vendor/*
+!vendor/.gitkeep
+
+# dev
+bower_components
+node_modules
+npm-debug.log
+yarn-error.log
+vendor
+*.map
+*.log
+reports/
+dist/
+release/
+
+# Editor
+.vscode
+*~
+
+# OS generated files
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+*.bak
+*.swp
+*.orig
+.svn
+.cvs
+*.bkp
+
+
+#cache
+wp-content/cache

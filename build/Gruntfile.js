@@ -18,10 +18,12 @@ module.exports = function(grunt) {
 	grunt.initConfig( grunt_config );
 
 	// load modules & tasks
-	grunt.loadTasks("grunt/tasks");
+	grunt.loadTasks( 'grunt/tasks' );
 
 	// Default task.
 	grunt.registerTask( 'default', ['build', 'bs-init', 'watch'] );
+
+	// Browser Sync
 	grunt.registerTask( 'bs',      [ 'bs-init', 'watch'] );
 
 	// internationalization
@@ -30,6 +32,12 @@ module.exports = function(grunt) {
 	// compiles all files for dev
 	grunt.registerTask( 'build',   ['composer:update', 'notify', 'i18n'] );
 	grunt.registerTask( 'dev',     ['build'] );
+
 	// compiles all files for staging/production
 	grunt.registerTask( 'prod',    ['build'] );
+
+	// Release task
+	grunt.registerTask( 'bump', [ 'increment-version', 'version', 'gittag', 'finish-bump' ]);
+	grunt.registerTask( 'release', [ 'clean', 'new-release', 'cssmin', 'copy', 'archive', 'finish-release' ]);
+
 };
