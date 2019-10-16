@@ -2,12 +2,8 @@ module.exports = function( grunt ) {
 
 	grunt.config( 'clean', {
 
-		dist: {
-			cwd: '<%= cfg.paths.root %>/',
+		release: {
 			expand: true,
-			options: {
-				force: false,
-			},
 			src: ['dist']
 		}
 	} );

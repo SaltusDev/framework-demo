@@ -1,10 +1,10 @@
 module.exports = function( grunt ) {
 
 	grunt.config( 'gittag', {
-		version: {
+		release: {
 			options: {
 				tag: '<%= pkg.version %>',
-				message: 'Tagging version <%= pkg.version %>'
+				message: 'Tagging version <%= pkg.version %>',
 			}
 		}
 	} );

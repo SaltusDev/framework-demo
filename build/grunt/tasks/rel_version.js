@@ -1,7 +1,7 @@
 module.exports = function( grunt ) {
 
 	grunt.config( 'version', {
-		php: {
+		releasePHP: {
 			options: {
 				prefix: ' * Version\\:\\s*'
 			},

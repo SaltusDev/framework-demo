@@ -4,10 +4,11 @@ module.exports = function( grunt ) {
 	grunt.config( 'cssmin', {
 		release: {
 			expand: true,
+			cwd: '../',
 			src: [
-				'assets/**/*'
+				'assets/css/*'
 			],
-			dest: 'dist/assets/',
+			dest: 'dist/<%= pkg.name %>/',
 			ext: '.min.css',
 		},
 	} );

@@ -14,7 +14,7 @@ module.exports = function( grunt ) {
 						'index.php',
 						'LICENSE.txt',
 					],
-					dest: '../dist/' },
+					dest: 'dist/<%= pkg.name %>/' },
 
 			],
 		},
