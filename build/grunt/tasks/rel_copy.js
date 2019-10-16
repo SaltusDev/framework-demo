@@ -13,6 +13,7 @@ module.exports = function( grunt ) {
 						'<%= pkg.name %>.php',
 						'index.php',
 						'LICENSE.txt',
+						'vendor/**/*'
 					],
 					dest: 'dist/<%= pkg.name %>/' },
 
