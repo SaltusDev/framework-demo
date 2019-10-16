@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'prod',    ['build'] );
 
 	// Release task
-	grunt.registerTask( 'bump', [ 'version', 'gittag' ]);
-	grunt.registerTask( 'release', [ 'clean', 'new-release', 'cssmin', 'copy', 'archive' ]);
+	grunt.registerTask( 'bump', [ 'version', 'gittag', 'finish-bump' ]);
+	grunt.registerTask( 'release', [ 'clean', 'new-release', 'cssmin', 'copy', 'archive', 'finish-release' ]);
 
 };
