@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "5d166e605ed2af9f47a30d30c8a7121f",
@@ -126,11 +126,11 @@
         },
         {
             "name": "saltus/framework",
-            "version": "dev-feature/Add-Codestar",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:carmoreira/saltus-framework.git",
-                "reference": "913ecc2f3d3164bdbba24f9c6ccea5eea8a2ad10"
+                "reference": "ce12925d63209d9eb66d261942488a4d523135d7"
             },
             "require": {
                 "hassankhan/config": "^1.0",
@@ -184,7 +184,7 @@
                 "wordpress",
                 "wp"
             ],
-            "time": "2019-10-03T01:03:50+00:00"
+            "time": "2019-10-11T01:03:04+00:00"
         }
     ],
     "packages-dev": [],
