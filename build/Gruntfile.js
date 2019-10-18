@@ -38,6 +38,6 @@ module.exports = function(grunt) {
 
 	// Release task
 	grunt.registerTask( 'bump', [ 'increment-version', 'version', 'gittag', 'finish-bump' ]);
-	grunt.registerTask( 'release', [ 'clean', 'new-release', 'cssmin', 'copy', 'archive', 'finish-release' ]);
+	grunt.registerTask( 'release', [ 'clean', 'new-release', 'shell:release', 'cssmin', 'copy', 'archive', 'finish-release' ]);
 
 };

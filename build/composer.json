@@ -54,5 +54,7 @@
 		"saltus/framework": "*"
 	},
 	"minimum-stability": "dev",
-	"require-dev": {}
+	"require-dev": {
+		"phpunit/phpunit": "^6"
+	}
 }

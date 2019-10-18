@@ -28,36 +28,40 @@ return [
 			'id'       => 'information_metabox',
 			'title'    => __( 'Information', 'framework-demo' ),
 			'sections' => [
-				'information' => [
-					'title'  => __( 'Main Details', 'framework-demo' ),
-					'desc'   => __( 'Detailed information fields', 'framework-demo' ),
-					'icon'   => 'fa fa-user fa-lg',
-					'fields' => [],
-				],
 				'social'      => [
 					'title'  => __( 'Social Networks', 'framework-demo' ),
 					'desc'   => __( 'Links to Social Networks', 'framework-demo' ),
 					'icon'   => 'fa fa-share-square fa-lg',
-					'fields' => [],
-				],
-			],
-		],
-		'section' => [
-			'id'     => 'aaaa',
-			'title'  => 'Title main',
-			'fields' => [
-				// 'id' => array of settings
-				'subtitle' => [
-					'type'        => 'text',
-					'name'        => __( 'Subtitle', 'framework-demo' ),
-					'description' => __( 'test!', 'framework-demo' ),
-					'default'     => '',
-				],
-				'lead'     => [
-					'type'        => 'text',
-					'name'        => __( 'Lead', 'framework-demo' ),
-					'description' => __( 'A longer paragraph.', 'framework-demo' ),
-					'default'     => '',
+					'fields'       => [
+						'name'       => [
+							'title' => __( 'Name', 'framework-demo' ),
+							'type'  => 'text',
+							'desc'  => __( 'Name this social network', 'framework-demo' ),
+						],
+						'enabled'    => [
+							'type'    => 'switcher',
+							'title'   => __( 'Enabled', 'framework-demo' ),
+							'default' => true,
+						],
+						'icon'       => [
+							'title'      => __( 'Icon', 'framework-demo' ),
+							'type'       => 'icon',
+							'desc'       => __( 'Icon for this social network', 'framework-demo' ),
+							'dependency' => array( 'enabled', '==', 'true' ),
+						],
+						'icon_color' => [
+							'title'      => __( 'Icon Color', 'framework-demo' ),
+							'type'       => 'color',
+							'desc'       => __( 'Social network icon colour', 'framework-demo' ),
+							'dependency' => array( 'enabled', '==', 'true' ),
+						],
+						'desc'       => [
+							'title'      => __( 'Description', 'framework-demo' ),
+							'type'       => 'text',
+							'desc'       => __( 'Description for this field', 'framework-demo' ),
+							'dependency' => array( 'enabled', '==', 'true' ),
+						],
+					],
 				],
 			],
 		],
