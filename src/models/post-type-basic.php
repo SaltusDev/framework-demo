@@ -12,6 +12,9 @@ return [
 		'editor',
 		'thumbnail',
 	],
+	'features' => [
+		'dragAndDrop' => true,
+	],
 	'labels'   => [
 		'has_one'     => 'Movie',
 		'has_many'    => 'Movies',
