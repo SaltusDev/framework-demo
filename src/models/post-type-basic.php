@@ -11,9 +11,12 @@ return [
 		'title',
 		'editor',
 		'thumbnail',
+		'page-attributes',
 	],
 	'features' => [
-		'dragAndDrop' => true,
+		'dragAndDrop'   => true,
+		'duplicate'     => true,
+		'single_export' => true,
 	],
 	'labels'   => [
 		'has_one'     => 'Movie',

@@ -1,14 +1,14 @@
-# Copyright (C) 2019
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2020 Saltus
+# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Saltus Framework Demo 1.0.11\n"
 "Report-Msgid-Bugs-To: https://saltus.dev/\n"
-"POT-Creation-Date: 2019-10-11 23:53:40+00:00\n"
+"POT-Creation-Date: 2020-01-19 01:17:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Saltus <hello@saltus.dev>\n"
 "Language-Team: Saltus <hello@saltus.dev>\n"
 "Language: en_US\n"
@@ -24,365 +24,361 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: src/models/post-type-basic.php:29
+#: src/models/post-type-basic.php:34
 msgid "Information"
 msgstr ""
 
-#: src/models/post-type-basic.php:32
-msgid "Main Details"
-msgstr ""
-
-#: src/models/post-type-basic.php:33
-msgid "Detailed information fields"
-msgstr ""
-
-#: src/models/post-type-basic.php:38 src/models/post-type-basic.php:317
+#: src/models/post-type-basic.php:37 src/models/post-type-basic.php:326
 msgid "Social Networks"
 msgstr ""
 
-#: src/models/post-type-basic.php:39
+#: src/models/post-type-basic.php:38
 msgid "Links to Social Networks"
 msgstr ""
 
-#: src/models/post-type-basic.php:52
-msgid "Subtitle"
+#: src/models/post-type-basic.php:42 src/models/post-type-basic.php:235
+#: src/models/post-type-basic.php:277 src/models/post-type-basic.php:335
+msgid "Name"
 msgstr ""
 
-#: src/models/post-type-basic.php:53
-msgid "test!"
+#: src/models/post-type-basic.php:44 src/models/post-type-basic.php:337
+msgid "Name this social network"
 msgstr ""
 
-#: src/models/post-type-basic.php:58
-msgid "Lead"
+#: src/models/post-type-basic.php:48 src/models/post-type-basic.php:241
+#: src/models/post-type-basic.php:283 src/models/post-type-basic.php:341
+msgid "Enabled"
 msgstr ""
 
-#: src/models/post-type-basic.php:59
-msgid "A longer paragraph."
+#: src/models/post-type-basic.php:52 src/models/post-type-basic.php:304
+#: src/models/post-type-basic.php:345
+msgid "Icon"
 msgstr ""
 
-#: src/models/post-type-basic.php:69
+#: src/models/post-type-basic.php:54 src/models/post-type-basic.php:306
+#: src/models/post-type-basic.php:347
+msgid "Icon for this social network"
+msgstr ""
+
+#: src/models/post-type-basic.php:58 src/models/post-type-basic.php:351
+msgid "Icon Color"
+msgstr ""
+
+#: src/models/post-type-basic.php:60 src/models/post-type-basic.php:353
+msgid "Social network icon colour"
+msgstr ""
+
+#: src/models/post-type-basic.php:64 src/models/post-type-basic.php:287
+#: src/models/post-type-basic.php:357
+msgid "Description"
+msgstr ""
+
+#: src/models/post-type-basic.php:66 src/models/post-type-basic.php:289
+#: src/models/post-type-basic.php:359
+msgid "Description for this field"
+msgstr ""
+
+#: src/models/post-type-basic.php:78
 msgid "Plugin Settings"
 msgstr ""
 
-#: src/models/post-type-basic.php:71
+#: src/models/post-type-basic.php:80
 msgid "Settings"
 msgstr ""
 
-#: src/models/post-type-basic.php:74
+#: src/models/post-type-basic.php:83
 msgid "General"
 msgstr ""
 
-#: src/models/post-type-basic.php:75
+#: src/models/post-type-basic.php:84
 msgid "Basic settings that affect the plugin behaviour"
 msgstr ""
 
-#: src/models/post-type-basic.php:80
+#: src/models/post-type-basic.php:89
 msgid "Archive Page Redirect"
 msgstr ""
 
-#: src/models/post-type-basic.php:81
+#: src/models/post-type-basic.php:90
 msgid ""
 "Sometimes breadcrumbs will link to the default theme archive page, which "
 "does not have the layout you want. You can setup here the URL you want the "
 "archive page to redirect to."
 msgstr ""
 
-#: src/models/post-type-basic.php:86
+#: src/models/post-type-basic.php:95
 msgid "mailto: Links"
 msgstr ""
 
-#: src/models/post-type-basic.php:87
+#: src/models/post-type-basic.php:96
 msgid "Enable mailto: links on email fields"
 msgstr ""
 
-#: src/models/post-type-basic.php:91
+#: src/models/post-type-basic.php:100
 msgid "tel: Links"
 msgstr ""
 
-#: src/models/post-type-basic.php:92
+#: src/models/post-type-basic.php:101
 msgid "Enable tel: links in telephone fields."
 msgstr ""
 
-#: src/models/post-type-basic.php:96
+#: src/models/post-type-basic.php:105
 msgid "nofollow for Social Links"
 msgstr ""
 
-#: src/models/post-type-basic.php:97
+#: src/models/post-type-basic.php:106
 msgid "When active, social links will have the rel=\"nofollow\" parameter."
 msgstr ""
 
-#: src/models/post-type-basic.php:101
+#: src/models/post-type-basic.php:110
 msgid "Redirect to User Page"
 msgstr ""
 
-#: src/models/post-type-basic.php:102
+#: src/models/post-type-basic.php:111
 msgid "Will redirect the user/author pages to the associated team member entry page"
 msgstr ""
 
-#: src/models/post-type-basic.php:109
+#: src/models/post-type-basic.php:118
 msgid "Image"
 msgstr ""
 
-#: src/models/post-type-basic.php:110
+#: src/models/post-type-basic.php:119
 msgid "Options to control default image sizes"
 msgstr ""
 
-#: src/models/post-type-basic.php:115 src/models/post-type-basic.php:140
-#: src/models/post-type-basic.php:145
+#: src/models/post-type-basic.php:124 src/models/post-type-basic.php:149
+#: src/models/post-type-basic.php:154
 msgid "Main Image Width"
 msgstr ""
 
-#: src/models/post-type-basic.php:119
+#: src/models/post-type-basic.php:128
 msgid "Main Image Height"
 msgstr ""
 
-#: src/models/post-type-basic.php:124
+#: src/models/post-type-basic.php:133
 msgid "Main Image Crop"
 msgstr ""
 
-#: src/models/post-type-basic.php:125
+#: src/models/post-type-basic.php:134
 msgid "If the image will be cropped to fit defined size"
 msgstr ""
 
-#: src/models/post-type-basic.php:130
+#: src/models/post-type-basic.php:139
 msgid "Thumbnails Image Width"
 msgstr ""
 
-#: src/models/post-type-basic.php:134
+#: src/models/post-type-basic.php:143
 msgid "Thumbnails Pager Image Height"
 msgstr ""
 
-#: src/models/post-type-basic.php:152
+#: src/models/post-type-basic.php:161
 msgid "CSS & JS"
 msgstr ""
 
-#: src/models/post-type-basic.php:153
+#: src/models/post-type-basic.php:162
 msgid "Add custom styles and code snippets to the pages loading the layouts."
 msgstr ""
 
-#: src/models/post-type-basic.php:157
+#: src/models/post-type-basic.php:166
 msgid "Custom CSS"
 msgstr ""
 
-#: src/models/post-type-basic.php:158
+#: src/models/post-type-basic.php:167
 msgid "Custom CSS to load with the layouts"
 msgstr ""
 
-#: src/models/post-type-basic.php:162
+#: src/models/post-type-basic.php:171
 msgid "Custom Javascript"
 msgstr ""
 
-#: src/models/post-type-basic.php:163
+#: src/models/post-type-basic.php:172
 msgid "Custom Javascript to load with the layouts"
 msgstr ""
 
-#: src/models/post-type-basic.php:169
+#: src/models/post-type-basic.php:178
 msgid "Advanced"
 msgstr ""
 
-#: src/models/post-type-basic.php:170
+#: src/models/post-type-basic.php:179
 msgid "Advanced options to control how the plugin works."
 msgstr ""
 
-#: src/models/post-type-basic.php:175
+#: src/models/post-type-basic.php:184
 msgid "Menu name"
 msgstr ""
 
-#: src/models/post-type-basic.php:176
+#: src/models/post-type-basic.php:185
 msgid "Text that will in the administration menus."
 msgstr ""
 
-#: src/models/post-type-basic.php:181
+#: src/models/post-type-basic.php:190
 msgid "Singular Name"
 msgstr ""
 
-#: src/models/post-type-basic.php:187
+#: src/models/post-type-basic.php:196
 msgid "Plural Name"
 msgstr ""
 
-#: src/models/post-type-basic.php:193
+#: src/models/post-type-basic.php:202
 msgid "Slug"
 msgstr ""
 
-#: src/models/post-type-basic.php:194
+#: src/models/post-type-basic.php:203
 msgid ""
 "Text that will be used in permalinks. Must be unique and shouldn't contain "
 "spaces or special characters."
 msgstr ""
 
-#: src/models/post-type-basic.php:199
+#: src/models/post-type-basic.php:208
 msgid "Exclude from general search"
 msgstr ""
 
-#: src/models/post-type-basic.php:200
+#: src/models/post-type-basic.php:209
 msgid "If active it will exclude the entries from the general site search results."
 msgstr ""
 
-#: src/models/post-type-basic.php:205
+#: src/models/post-type-basic.php:214
 msgid "Use block editor"
 msgstr ""
 
-#: src/models/post-type-basic.php:206
+#: src/models/post-type-basic.php:215
 msgid "If active when editing an entry, you'll be able to use the block editor."
 msgstr ""
 
-#: src/models/post-type-basic.php:213
+#: src/models/post-type-basic.php:222
 msgid ""
 "Attention! Changing the settings below might lead to the loss of data. "
 "Avoid deleting existing fields if you have already saved data into them. "
 "Proceed with carefull."
 msgstr ""
 
-#: src/models/post-type-basic.php:216
+#: src/models/post-type-basic.php:225
 msgid "Taxonomies"
 msgstr ""
 
-#: src/models/post-type-basic.php:217
+#: src/models/post-type-basic.php:226
 msgid ""
 "Available taxonomies in the plugin. <br> Hierarchical taxonomies will "
 "behave the same way as categories. Non-hierarchical taxonomies will behave "
 "like tags."
 msgstr ""
 
-#: src/models/post-type-basic.php:219 src/models/post-type-basic.php:262
-#: src/models/post-type-basic.php:320
+#: src/models/post-type-basic.php:228 src/models/post-type-basic.php:271
+#: src/models/post-type-basic.php:329
 msgid "Entry {#}"
 msgstr ""
 
-#: src/models/post-type-basic.php:220
+#: src/models/post-type-basic.php:229
 msgid "Add Another Taxonomy"
 msgstr ""
 
-#: src/models/post-type-basic.php:226 src/models/post-type-basic.php:268
-#: src/models/post-type-basic.php:326
-msgid "Name"
-msgstr ""
-
-#: src/models/post-type-basic.php:228
+#: src/models/post-type-basic.php:237
 msgid "Singular name for this taxonomy"
 msgstr ""
 
-#: src/models/post-type-basic.php:232 src/models/post-type-basic.php:274
-#: src/models/post-type-basic.php:332
-msgid "Enabled"
-msgstr ""
-
-#: src/models/post-type-basic.php:236
+#: src/models/post-type-basic.php:245
 msgid "Plural name"
 msgstr ""
 
-#: src/models/post-type-basic.php:238
+#: src/models/post-type-basic.php:247
 msgid "Plural name for this taxonomy"
 msgstr ""
 
-#: src/models/post-type-basic.php:242
+#: src/models/post-type-basic.php:251
 msgid "Unique Identifier (slug)"
 msgstr ""
 
-#: src/models/post-type-basic.php:244
+#: src/models/post-type-basic.php:253
 msgid ""
 "Unique word to identify this taxonomy. When changed a new taxonomy will be "
 "created. No spaces are allowed.<br>If empty, it will default to the "
 "singular name of this taxonomy."
 msgstr ""
 
-#: src/models/post-type-basic.php:248
+#: src/models/post-type-basic.php:257
 msgid "Hierarchical?"
 msgstr ""
 
-#: src/models/post-type-basic.php:250
+#: src/models/post-type-basic.php:259
 msgid "Can the terms in this taxonomy have parent-child relationship?"
 msgstr ""
 
-#: src/models/post-type-basic.php:258
+#: src/models/post-type-basic.php:267
 msgid "Information Fields"
 msgstr ""
 
-#: src/models/post-type-basic.php:260
+#: src/models/post-type-basic.php:269
 msgid "Fields that will display when adding new entries."
 msgstr ""
 
-#: src/models/post-type-basic.php:263
+#: src/models/post-type-basic.php:272
 msgid "Add Another Field"
 msgstr ""
 
-#: src/models/post-type-basic.php:270
+#: src/models/post-type-basic.php:279
 msgid "Name this field"
 msgstr ""
 
-#: src/models/post-type-basic.php:278 src/models/post-type-basic.php:348
-msgid "Description"
-msgstr ""
-
-#: src/models/post-type-basic.php:280 src/models/post-type-basic.php:350
-msgid "Description for this field"
-msgstr ""
-
-#: src/models/post-type-basic.php:284
+#: src/models/post-type-basic.php:293
 msgid "Field type"
 msgstr ""
 
-#: src/models/post-type-basic.php:286
+#: src/models/post-type-basic.php:295
 msgid "Type of field"
 msgstr ""
 
-#: src/models/post-type-basic.php:289
+#: src/models/post-type-basic.php:298
 msgid "Text"
 msgstr ""
 
-#: src/models/post-type-basic.php:290
+#: src/models/post-type-basic.php:299
 msgid "Textarea"
 msgstr ""
 
-#: src/models/post-type-basic.php:291
+#: src/models/post-type-basic.php:300
 msgid "User select"
 msgstr ""
 
-#: src/models/post-type-basic.php:295 src/models/post-type-basic.php:336
-msgid "Icon"
-msgstr ""
-
-#: src/models/post-type-basic.php:297 src/models/post-type-basic.php:338
-msgid "Icon for this social network"
-msgstr ""
-
-#: src/models/post-type-basic.php:301
+#: src/models/post-type-basic.php:310
 msgid "Template"
 msgstr ""
 
-#: src/models/post-type-basic.php:303
+#: src/models/post-type-basic.php:312
 msgid ""
 "HTML template when the content for this field is displayed. The placeholder "
 "{value} must be present."
 msgstr ""
 
-#: src/models/post-type-basic.php:308
+#: src/models/post-type-basic.php:317
 msgid "Unique ID"
 msgstr ""
 
-#: src/models/post-type-basic.php:310
+#: src/models/post-type-basic.php:319
 msgid ""
 "Unique identifier for this field. Should not be changed once you have added "
 "data.<br>If left blank, it will default to a sanitized version of the name "
 "of this field."
 msgstr ""
 
-#: src/models/post-type-basic.php:318
+#: src/models/post-type-basic.php:327
 msgid "Social Networks fields that will display when adding new entries."
 msgstr ""
 
-#: src/models/post-type-basic.php:321
+#: src/models/post-type-basic.php:330
 msgid "Add Another Social Network"
 msgstr ""
 
-#: src/models/post-type-basic.php:328
-msgid "Name this social network"
+#. Plugin Name of the plugin/theme
+msgid "Saltus Framework Demo"
 msgstr ""
 
-#: src/models/post-type-basic.php:342
-msgid "Icon Color"
+#. Author URI of the plugin/theme
+msgid "https://saltus.io/"
 msgstr ""
 
-#: src/models/post-type-basic.php:344
-msgid "Social network icon colour"
+#. Description of the plugin/theme
+msgid "Saltus Plugin Framework Demo."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Saltus"
 msgstr ""

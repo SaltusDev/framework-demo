@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'i18n',    ['checktextdomain', 'makepot'] );
 
 	// compiles all files for dev
-	grunt.registerTask( 'build',   ['composer:update', 'notify', 'i18n'] );
+	grunt.registerTask( 'build',   ['shell:release', 'notify', 'i18n'] );
 	grunt.registerTask( 'dev',     ['build'] );
 
 	// compiles all files for staging/production

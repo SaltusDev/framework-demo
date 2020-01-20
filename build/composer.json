@@ -55,6 +55,6 @@
 	},
 	"minimum-stability": "dev",
 	"require-dev": {
-		"phpunit/phpunit": "^6"
+		"phpunit/phpunit": "^8"
 	}
 }
