@@ -15,8 +15,9 @@ return [
 		'single_export' => true,
 	],
 	'labels'   => [
-		'has_one'     => 'Movie',
-		'has_many'    => 'Movies',
-		'text_domain' => 'framework-demo',
+		'has_one'        => 'Movie',
+		'has_many'       => 'Movies',
+		'text_domain'    => 'framework-demo',
+		'featured_image' => 'Movie Poster'
 	],
 ];
