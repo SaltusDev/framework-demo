@@ -18,6 +18,6 @@ return [
 		'has_one'        => 'Movie',
 		'has_many'       => 'Movies',
 		'text_domain'    => 'framework-demo',
-		'featured_image' => 'Movie Poster'
+		'featured_image' => 'Movie Poster',
 	],
 ];
