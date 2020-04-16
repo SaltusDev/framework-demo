@@ -105,7 +105,6 @@ return [
 		// overrides some of the available button labels and placeholders
 		'ui_overrides'   => [
 			'enter_title_here' => 'Enter book name here',
-			'publish'          => 'Save Book',
 		],
 	],
 	// todo in saltus
