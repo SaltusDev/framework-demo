@@ -8,7 +8,7 @@ return [
 		],
 	],
 	[
-		'type'         => 'tag',
+		'type'         => 'category',
 		'name'         => 'writer',
 		'associations' => 'book',
 	],
