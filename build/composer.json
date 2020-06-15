@@ -20,7 +20,7 @@
 		"source": "https://saltus.io/",
 		"1": {
 			"type": "vcs",
-			"url": "git@bitbucket.org:carmoreira/saltus-framework.git"
+			"url": "git@github.com:SaltusDev/saltus-framework.git"
 		},
 		"2": {
 			"type": "path",
@@ -34,7 +34,7 @@
 		},
 		"1": {
 			"type": "vcs",
-			"url": "git@bitbucket.org:carmoreira/saltus-framework.git"
+			"url": "git@github.com:SaltusDev/saltus-framework.git"
 		}
 	},
 	"autoload": {
