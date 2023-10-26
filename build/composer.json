@@ -51,7 +51,7 @@
 		"vendor-dir": "../vendor/"
 	},
 	"require": {
-		"saltus/framework": "*"
+		"saltus/framework": "dev-main"
 	},
 	"minimum-stability": "dev",
 	"require-dev": {
