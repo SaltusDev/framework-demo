@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 			options: {
 				stdout: true
 			},
-			command: 'composer install --no-dev --optimize-autoloader'
+			command: 'composer install --no-dev --optimize-autoloader --ignore-platform-req=php'
 		},
 	});
 
