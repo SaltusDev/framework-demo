@@ -21,8 +21,8 @@ namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
 }
 
 if ( class_exists( \Saltus\WP\Framework\Core::class ) ) {
@@ -31,7 +31,7 @@ if ( class_exists( \Saltus\WP\Framework\Core::class ) ) {
 	* The path to the plugin root directory is mandatory,
 	* so it loads the models from a subdirectory.
 	*/
-	$framework = new \Saltus\WP\Framework\Core( dirname( __FILE__ ) );
+	$framework = new \Saltus\WP\Framework\Core( __DIR__ );
 	$framework->register();
 
 	/**
@@ -45,9 +45,4 @@ if ( class_exists( \Saltus\WP\Framework\Core::class ) ) {
 			$plugin->init();
 		}
 	);
-
 }
-
-
-
-

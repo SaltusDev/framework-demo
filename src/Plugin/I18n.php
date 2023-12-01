@@ -35,5 +35,4 @@ class I18n {
 			$plugin_dirname . '/languages/'
 		);
 	}
-
 }

@@ -16,16 +16,16 @@ return [
 		'type'         => 'tag',
 		'name'         => 'country',
 		'labels'       => [
-			'has_one'  => 'Country',
-			'has_many' => 'Countries',
+			'has_one'   => 'Country',
+			'has_many'  => 'Countries',
 			'overrides' => [
 				'labels' => [
 					'menu_name' => 'Places',
-				]
+				],
 			],
 		],
 		// args - third parameter for register_taxonomy
-		'options' => [
+		'options'      => [
 			'description'  => 'Description for this taxonomy',
 			'public'       => true,
 			'show_in_menu' => true,
