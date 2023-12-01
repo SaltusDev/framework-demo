@@ -35,7 +35,6 @@ class Loader {
 	 */
 	public function __construct( Core $core ) {
 		$this->core = $core;
-
 	}
 
 	/**
@@ -45,4 +44,3 @@ class Loader {
 	public function run() {
 	}
 }
-
