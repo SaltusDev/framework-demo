@@ -82,5 +82,4 @@ class Core {
 		$assets = new Plugin\Assets( $this );
 		$assets->load_assets();
 	}
-
 }

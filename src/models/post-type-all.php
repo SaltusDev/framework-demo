@@ -30,7 +30,7 @@ return [
 			),
 			'shortcode'      => array(
 				'title'    => __( 'Shortcode', 'framework-demo' ),
-				'function' => function() {
+				'function' => function () {
 					global $post;
 					echo esc_html( '[display-book id="' . $post->ID . '"]' );
 				},
@@ -82,10 +82,6 @@ return [
 				'attributes'            => __( 'Book Attributes', 'framework-demo' ),
 				'insert_into_item'      => __( 'Insert into book', 'framework-demo' ),
 				'uploaded_to_this_item' => __( 'Uploaded to this book', 'framework-demo' ),
-				'featured_image'        => __( 'Featured Image', 'framework-demo' ),
-				'set_featured_image'    => __( 'Set featured image', 'framework-demo' ),
-				'remove_featured_image' => __( 'Remove featured image', 'framework-demo' ),
-				'use_featured_image'    => __( 'Use featured image', 'framework-demo' ),
 				'filter_items_list'     => __( 'Filter books list', 'framework-demo' ),
 				'items_list_navigation' => __( 'Books list navigation', 'framework-demo' ),
 				'items_list'            => __( 'Books list', 'framework-demo' ),
@@ -109,14 +105,19 @@ return [
 			],
 			'bulk_messages' => [
 				'updated_singular'   => __( 'Book updated. Yay!', 'framework-demo' ),
+				/* translators: %s: Number of Books. */
 				'updated_plural'     => __( '%s Books updated. Yay!', 'framework-demo' ),
 				'locked_singular'    => __( 'Book not updated, somebody is editing it', 'framework-demo' ),
+				/* translators: %s: Number of Books. */
 				'locked_plural'      => __( '%s Books not updated, somebody is editing them', 'framework-demo' ),
 				'deleted_singular'   => __( 'Book permanetly deleted. Fahrenheit 451 team was here?', 'framework-demo' ),
+				/* translators: %s: Number of Books. */
 				'deleted_plural'     => __( '%s Books permanently deleted. Why? :(', 'framework-demo' ),
 				'trashed_singular'   => __( 'Book moved to the trash. I\'m sad :(', 'framework-demo' ),
+				/* translators: %s: Number of Books. */
 				'trashed_plural'     => __( '%s Books moved to the trash. Why? :(', 'framework-demo' ),
 				'untrashed_singular' => __( 'Book recovered from trash. Well done!', 'framework-demo' ),
+				/* translators: %s: Number of Books. */
 				'untrashed_plural'   => __( '%s Books saved from the enemies!', 'framework-demo' ),
 			],
 			// overrides some of the available button labels and placeholders
@@ -253,7 +254,6 @@ return [
 						],
 					],
 				],
-
 
 				'custom'  => [
 					'title'  => __( 'CSS', 'framework-demo' ),
