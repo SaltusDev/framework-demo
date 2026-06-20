@@ -82,7 +82,42 @@ class PluginRenamerTest extends TestCase {
 		$this->remove_dir( $source );
 	}
 
-	private function make_source_fixture(): string {
+	public function test_build_zip_replaces_package_name(): void {
+		$source = $this->make_source_fixture( true );
+		$output = tempnam( sys_get_temp_dir(), 'renamer-' );
+		$identity = PluginIdentity::from_request(
+			array_merge(
+				PluginIdentity::defaults(),
+				array(
+					'plugin_name'       => 'Acme Library',
+					'plugin_slug'       => 'acme-library',
+					'main_file'         => 'acme-library.php',
+					'namespace_segment' => 'AcmeLibrary',
+					'text_domain'       => 'acme-library',
+					'author'            => 'Acme Inc',
+					'prefix'            => 'acme_library',
+				)
+			)
+		);
+
+		$renamer = new PluginRenamer( $source );
+		$renamer->build_zip( $identity, $output );
+
+		$zip = new ZipArchive();
+		self::assertTrue( true === $zip->open( $output ) );
+
+		self::assertNotFalse( $zip->locateName( 'acme-library/composer.json' ) );
+		$contents = $zip->getFromName( 'acme-library/composer.json' );
+		self::assertIsString( $contents );
+		self::assertStringContainsString( '"name": "acme-inc/acme-library"', $contents );
+		self::assertStringNotContainsString( 'saltus/framework-demo', $contents );
+
+		$zip->close();
+		@unlink( $output );
+		$this->remove_dir( $source );
+	}
+
+	private function make_source_fixture( bool $with_composer = false ): string {
 		$source = sys_get_temp_dir() . '/framework-demo-fixture-' . uniqid();
 		mkdir( $source . '/src', 0777, true );
 		mkdir( $source . '/vendor', 0777, true );
@@ -95,6 +130,13 @@ class PluginRenamerTest extends TestCase {
 		file_put_contents( $source . '/src/Example.php', "<?php\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\n" );
 		file_put_contents( $source . '/vendor/autoload.php', '<?php' );
 		file_put_contents( $source . '/build/Gruntfile.js', 'module.exports = {};' );
+
+		if ( $with_composer ) {
+			file_put_contents(
+				$source . '/composer.json',
+				"{\n\t\"name\": \"saltus/framework-demo\",\n\t\"type\": \"wordpress-plugin\"\n}\n"
+			);
+		}
 
 		return $source;
 	}
