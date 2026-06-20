@@ -32,13 +32,11 @@ class Core {
 	 * @param string $name      Plugin name.
 	 * @param string $version   Plugin version. Use semver.
 	 * @param string $file_path Plugin file path
-	 * @param \Saltus\WP\Framework\Core $framework Saltus Framework.
 	 */
-	public function __construct( string $name, string $version, string $file_path, \Saltus\WP\Framework\Core $framework ) {
+	public function __construct( string $name, string $version, string $file_path ) {
 		$this->name      = $name;
 		$this->version   = $version;
 		$this->file_path = $file_path;
-		unset( $framework );
 	}
 
 	/**

@@ -88,8 +88,8 @@ $framework->register();
 
 add_action(
 	'plugins_loaded',
-	static function () use ( $framework ): void {
-		$plugin = new Core( PLUGIN_SLUG, PLUGIN_VERSION, PLUGIN_FILE, $framework );
+	static function (): void {
+		$plugin = new Core( PLUGIN_SLUG, PLUGIN_VERSION, PLUGIN_FILE );
 		$plugin->init();
 	}
 );
