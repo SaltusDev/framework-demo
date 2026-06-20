@@ -8,6 +8,11 @@
   <exclude-pattern>*/node_modules/*</exclude-pattern>
   <exclude-pattern>*/vendor/*</exclude-pattern>
 
+  <file>framework-demo.php</file>
+  <file>bin</file>
+  <file>src</file>
+  <file>tests</file>
+
   <!-- Yoda conditions, we must ignore -->
   <rule ref="WordPress.PHP.YodaConditions.NotYoda">
     <severity>0</severity>

@@ -1,19 +1,23 @@
 
-# Composer
-vendor/*
-!vendor/.gitkeep
+# Dependencies
+/vendor/
+/node_modules/
+/build/node_modules/
 
-# dev
-bower_components
-node_modules
-npm-debug.log
-yarn-error.log
-vendor
+# Generated artifacts
+/dist/
+/release/
+/build/dist/
+/build/release/
+/*.zip
 *.map
 *.log
 reports/
-dist/
-release/
+npm-debug.log
+yarn-error.log
+.phpunit.cache/
+.phpunit.result.cache
+.phpcs-cache
 
 # Editor
 .vscode

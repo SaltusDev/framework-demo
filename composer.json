@@ -1,0 +1,64 @@
+{
+	"name": "saltus/framework-demo",
+	"description": "Modern demo plugin for the Saltus Framework for WordPress.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://saltus.io/",
+	"authors": [
+		{
+			"name": "Saltus",
+			"email": "web@saltus.dev",
+			"homepage": "https://saltus.dev"
+		}
+	],
+	"keywords": [
+		"wordpress",
+		"plugin",
+		"saltus",
+		"framework"
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/SaltusDev/saltus-framework.git"
+		}
+	],
+	"require": {
+		"php": ">=8.3",
+		"saltus/framework": "dev-main"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^11.0",
+		"wp-coding-standards/wpcs": "^3.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"validate-project": "composer validate --strict",
+		"lint": "phpcs",
+		"test": "phpunit",
+		"make-pot": "wp i18n make-pot . languages/framework-demo.pot --exclude=vendor,node_modules,dist,release,build",
+		"package": "php bin/package.php"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}
