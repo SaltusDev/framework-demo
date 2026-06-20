@@ -26,6 +26,10 @@ class PluginRenamer {
 	}
 
 	public function stream_zip( PluginIdentity $identity ): void {
+		while ( ob_get_level() ) {
+			ob_end_clean();
+		}
+
 		$tmp_file = wp_tempnam( $identity->plugin_slug . '.zip' );
 		if ( false === $tmp_file ) {
 			throw new \RuntimeException( 'Could not create a temporary ZIP file.' );
@@ -140,6 +144,7 @@ class PluginRenamer {
 			'Author URI:        ' . self::ORIGINAL_AUTHOR_URI => 'Author URI:        ' . $identity->author_uri,
 			'Author:            ' . self::ORIGINAL_AUTHOR => 'Author:            ' . $identity->author,
 			self::ORIGINAL_SLUG                           => $identity->plugin_slug,
+			"PLUGIN_VERSION', '" . self::ORIGINAL_VERSION . "'" => "PLUGIN_VERSION', '" . $identity->version . "'",
 			self::ORIGINAL_VERSION                        => $identity->version,
 		);
 
