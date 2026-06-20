@@ -152,7 +152,7 @@ class PluginRenamer {
 	}
 
 	private function package_name( PluginIdentity $identity ): string {
-		return strtolower( preg_replace( '/[^a-z0-9-]+/', '-', $identity->author ) ) . '/' . $identity->plugin_slug;
+		return strtolower( preg_replace( '/[^a-zA-Z0-9-]+/', '-', $identity->author ) ) . '/' . $identity->plugin_slug;
 	}
 
 	private function delete_file( string $path ): void {
