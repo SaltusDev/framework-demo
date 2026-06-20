@@ -13,7 +13,7 @@ class Assets {
 	 *
 	 * @var Core
 	 */
-	public $core;
+	private Core $core;
 
 	/**
 	 * Define Assets
@@ -28,8 +28,7 @@ class Assets {
 	 * Load assets.
 	 *
 	 */
-	public function load_assets() {
-
+	public function load_assets(): void {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_styles' ) );
 	}
 
@@ -37,14 +36,16 @@ class Assets {
 	 * Load assets
 	 *
 	 */
-	public function load_admin_styles() {
+	public function load_admin_styles( string $hook_suffix = '' ): void {
+		unset( $hook_suffix );
+
 		wp_register_style(
-			$this->core->name . '_admin',
-			plugins_url( 'assets/css/admin-style.css', $this->core->file_path ),
+			$this->core->get_name() . '_admin',
+			plugins_url( 'assets/css/admin-style.css', $this->core->get_file_path() ),
 			false,
-			$this->core->version
+			$this->core->get_version()
 		);
 
-		wp_enqueue_style( $this->core->name . '_admin' );
+		wp_enqueue_style( $this->core->get_name() . '_admin' );
 	}
 }
