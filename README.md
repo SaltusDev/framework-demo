@@ -1,42 +1,72 @@
-This is the development repository of a demo plugin for WordPress built using the Saltus Framework for WordPress.
+# Saltus Framework Demo
 
-The following are needed to work with this project:
- 1.   [Composer](https://getcomposer.org/) to manage PHP dependencies
- 2.   [Node.js](https://nodejs.org/en/) to handle release tasks using [grunt](https://gruntjs.com/)
+This is a modern demo plugin for building WordPress plugins with the Saltus Framework.
 
-## How to use this Demo Plugin to create your own:
+It shows how to register custom post types, taxonomies, admin columns, filters, meta boxes, settings pages, assets, and translations using Saltus model configuration files.
 
-1. Download, fork or clone this repository
-2. Make the necessary name changes to the folder and main file ( framework-demo.php )
-3. Edit the header of the main file, so that the plugin has the proper information
-4. Replace the text domain used by the plugin ( You can do a find/replace for `‘framework-demo’` )
-5. Replace Namespace used (optional) ( You can do a find/replace for `PluginFrameworkDemo` for example)
-6. Optionally create a git repository for your project
+## Requirements
 
-## To start development:
+- PHP 8.3 or newer
+- WordPress with Composer-installed plugin dependencies
+- Composer 2
 
-1.  Open the build folder in the terminal and run: `composer install` and `npm install`
-2.  And now the fun part: edit the files in src/models to create your own model. Check [Saltus Framework Documentation](https://github.com/SaltusDev/saltus-framework) to understand how to use models.
+## Setup
 
-We are working on providing a more simple way to start using this demo for less experienced developers.
+From the plugin directory:
 
+```bash
+composer install
+```
 
-## Available Grunt Tasks
+Then activate **Saltus Framework Demo** in WordPress.
 
-All grunt tasks run inside the build folder.
+The demo models live in `src/models`:
 
-**Main Release Tasks:**
+- `post-type-basic.php` registers a small `movie` post type.
+- `post-type-all.php` registers the larger `book` demo, including meta fields and settings.
+- `taxonomy-multiple.php` registers demo taxonomies for books and posts.
 
+## Rename UI
 
-`grunt bump` - Will do a minor increase in the plugin version
+The plugin includes a generator UI for creating a renamed copy of the demo plugin.
 
+In wp-admin, open the plugin settings screen and choose **Rename Plugin**. Fill in the new plugin identity:
 
-`grunt release` - Runs multiple tasks to prepare your plugin for release, creating in the end a release folder and zip file inside the build/release folder. These files should be ready for distribution.
+- plugin name
+- slug and main file
+- namespace segment
+- text domain
+- description
+- author details
+- version
+- code prefix
 
+Submitting the form downloads a ZIP file for the renamed plugin. The installed demo plugin is not modified.
 
-**Other Development tasks:**
-`grunt bs` - browser sync
-`grunt i18n` - internationalization
-`grunt build` - compiles files
-`grunt dev` - compiles files
-`grunt prod` - compiles files
+## Development Commands
+
+```bash
+composer validate --strict
+vendor/bin/phpcs
+vendor/bin/phpunit
+composer package
+```
+
+`composer package` creates `dist/framework-demo.zip`.
+
+`composer make-pot` uses WP-CLI to rebuild `languages/framework-demo.pot` when WP-CLI is available.
+
+## Releasing
+
+Build the release ZIP with:
+
+```bash
+composer install --no-dev --optimize-autoloader
+composer package
+```
+
+The package script excludes development-only directories such as `.git`, `node_modules`, `build`, `dist`, `release`, and reports.
+
+## Notes
+
+This repository is intentionally a demo and starter. Keep the Saltus model files that help explain framework capabilities, and delete or rename demo models when generating a production plugin.
