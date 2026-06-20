@@ -47,6 +47,41 @@ class PluginRenamerTest extends TestCase {
 		$this->remove_dir( $source );
 	}
 
+	public function test_build_zip_replaces_plugin_version_constant(): void {
+		$source = $this->make_source_fixture();
+		$output = tempnam( sys_get_temp_dir(), 'renamer-' );
+		$identity = PluginIdentity::from_request(
+			array_merge(
+				PluginIdentity::defaults(),
+				array(
+					'plugin_name'       => 'Acme Library',
+					'plugin_slug'       => 'acme-library',
+					'main_file'         => 'acme-library.php',
+					'namespace_segment' => 'AcmeLibrary',
+					'text_domain'       => 'acme-library',
+					'author'            => 'Acme Inc',
+					'prefix'            => 'acme_library',
+					'version'           => '1.5.0',
+				)
+			)
+		);
+
+		$renamer = new PluginRenamer( $source );
+		$renamer->build_zip( $identity, $output );
+
+		$zip = new ZipArchive();
+		self::assertTrue( true === $zip->open( $output ) );
+
+		$contents = $zip->getFromName( 'acme-library/acme-library.php' );
+		self::assertIsString( $contents );
+		self::assertStringContainsString( "PLUGIN_VERSION', '1.5.0'", $contents );
+		self::assertStringNotContainsString( "PLUGIN_VERSION', '2.0.0'", $contents );
+
+		$zip->close();
+		@unlink( $output );
+		$this->remove_dir( $source );
+	}
+
 	private function make_source_fixture(): string {
 		$source = sys_get_temp_dir() . '/framework-demo-fixture-' . uniqid();
 		mkdir( $source . '/src', 0777, true );
@@ -55,7 +90,7 @@ class PluginRenamerTest extends TestCase {
 
 		file_put_contents(
 			$source . '/framework-demo.php',
-			"<?php\n/**\n * Plugin Name:       Saltus Framework Demo\n * Description:       Saltus Plugin Framework Demo.\n * Version:           2.0.0\n * Author:            Saltus\n * Text Domain:       framework-demo\n */\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\ndefine( 'FRAMEWORK_DEMO_EXAMPLE', 'framework-demo' );\n"
+			"<?php\n/**\n * Plugin Name:       Saltus Framework Demo\n * Description:       Saltus Plugin Framework Demo.\n * Version:           2.0.0\n * Author:            Saltus\n * Text Domain:       framework-demo\n */\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\ndefine( 'PLUGIN_VERSION', '2.0.0' );\n"
 		);
 		file_put_contents( $source . '/src/Example.php', "<?php\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\n" );
 		file_put_contents( $source . '/vendor/autoload.php', '<?php' );
