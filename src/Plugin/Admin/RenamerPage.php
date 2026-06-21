@@ -38,20 +38,22 @@ class RenamerPage {
 	}
 
 	public function render(): void {
-		if (
-			empty( $_GET['framework_demo_nonce'] ) ||
-			! wp_verify_nonce( $_GET['framework_demo_nonce'], 'framework_demo_error_redirect' )
-		) {
-			return;
-		}
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission to access this page.', 'framework-demo' ) );
 		}
 
 		$defaults      = PluginIdentity::defaults();
 		$error_key     = sanitize_text_field( $_GET['framework_demo_error'] ?? '' );
-		$error_message = get_transient( 'framework_demo_error_' . $error_key );
-		delete_transient( 'framework_demo_error_' . $error_key );
+		$error_message = '';
+
+		if (
+			$error_key !== ''
+			&& isset( $_GET['framework_demo_nonce'] )
+			&& wp_verify_nonce( $_GET['framework_demo_nonce'], 'framework_demo_error_redirect' )
+		) {
+			$error_message = get_transient( 'framework_demo_error_' . $error_key );
+			delete_transient( 'framework_demo_error_' . $error_key );
+		}
 		?>
 		<div class="wrap framework-demo-renamer">
 			<h1><?php esc_html_e( 'Rename Plugin', 'framework-demo' ); ?></h1>
