@@ -9,7 +9,17 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 
 if ( ! function_exists( 'esc_url_raw' ) ) {
 	function esc_url_raw( $value ) {
-		return trim( (string) $value );
+		$value = trim( (string) $value );
+		if ( false === filter_var( $value, FILTER_VALIDATE_URL ) ) {
+			return '';
+		}
+		return $value;
+	}
+}
+
+if ( ! function_exists( '__' ) ) {
+	function __( $text, $domain = '' ) {
+		return $text;
 	}
 }
 
@@ -24,3 +34,4 @@ if ( ! function_exists( 'sanitize_file_name' ) ) {
 		return preg_replace( '/[^A-Za-z0-9_.-]/', '-', (string) $filename );
 	}
 }
+
