@@ -37,7 +37,9 @@ class Assets {
 	 *
 	 */
 	public function load_admin_styles( string $hook_suffix = '' ): void {
-		unset( $hook_suffix );
+		if ( ! $hook_suffix || strpos( $hook_suffix, 'framework-demo' ) === false ) {
+			return;
+		}
 
 		wp_register_style(
 			$this->core->get_name() . '_admin',
