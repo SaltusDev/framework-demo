@@ -70,7 +70,9 @@ class PluginRenamer {
 		}
 
 		$this->add_files( $zip, $identity );
-		$zip->close();
+		if ( ! $zip->close() ) {
+			throw new \RuntimeException( 'Failed to write the ZIP file to disk.' );
+		}
 	}
 
 	private function add_files( \ZipArchive $zip, PluginIdentity $identity ): void {
@@ -101,7 +103,9 @@ class PluginRenamer {
 				$contents = $this->rewrite_contents( $contents, $identity );
 			}
 
-			$zip->addFromString( $identity->plugin_slug . '/' . $target_path, $contents );
+			if ( ! $zip->addFromString( $identity->plugin_slug . '/' . $target_path, $contents ) ) {
+				throw new \RuntimeException( 'Failed to add ' . $relative_path . ' to the ZIP archive.' );
+			}
 		}
 	}
 
