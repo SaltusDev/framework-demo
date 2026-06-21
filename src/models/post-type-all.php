@@ -32,6 +32,9 @@ return array(
 				'title'    => __( 'Shortcode', 'framework-demo' ),
 				'function' => function () {
 					global $post;
+					if ( ! $post instanceof \WP_Post ) {
+						return;
+					}
 					echo esc_html( '[display-book id="' . $post->ID . '"]' );
 				},
 			),
