@@ -33,6 +33,15 @@ class PluginIdentityTest extends TestCase {
 		PluginIdentity::from_request( $data );
 	}
 
+	public function test_array_input_does_not_cause_php_warning(): void {
+		$data              = PluginIdentity::defaults();
+		$data['plugin_name'] = [ 'malicious', 'array' ];
+
+		$this->expectException( ValidationException::class );
+
+		PluginIdentity::from_request( $data );
+	}
+
 	public function test_invalid_url_fails_validation(): void {
 		$data               = PluginIdentity::defaults();
 		$data['plugin_uri'] = 'not a url';

@@ -61,7 +61,7 @@ class PluginIdentity {
 		$data = array();
 
 		foreach ( array_keys( self::defaults() ) as $key ) {
-			$value        = isset( $request[ $key ] ) ? (string) $request[ $key ] : '';
+			$value        = isset( $request[ $key ] ) && ! is_array( $request[ $key ] ) ? (string) $request[ $key ] : '';
 			$data[ $key ] = sanitize_text_field( $value );
 		}
 
