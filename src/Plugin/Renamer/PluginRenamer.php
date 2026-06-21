@@ -26,6 +26,10 @@ class PluginRenamer {
 	}
 
 	public function stream_zip( PluginIdentity $identity ): void {
+		if ( headers_sent() ) {
+			throw new \RuntimeException( 'Headers were already sent before the ZIP download could start.' );
+		}
+
 		while ( ob_get_level() ) {
 			ob_end_clean();
 		}
@@ -42,11 +46,6 @@ class PluginRenamer {
 		} );
 
 		$this->build_zip( $identity, $tmp_file );
-
-		if ( headers_sent() ) {
-			$this->delete_file( $tmp_file );
-			throw new \RuntimeException( 'Headers were already sent before the ZIP download could start.' );
-		}
 
 		header( 'Content-Type: application/zip' );
 		header( 'Content-Disposition: attachment; filename="' . $identity->plugin_slug . '.zip"' );
@@ -162,7 +161,7 @@ class PluginRenamer {
 	}
 
 	private function package_name( PluginIdentity $identity ): string {
-		return strtolower( preg_replace( '/[^a-zA-Z0-9-]+/', '-', $identity->author ) ) . '/' . $identity->plugin_slug;
+		return trim( strtolower( preg_replace( '/[^a-zA-Z0-9-]+/', '-', $identity->author ) ), '-' ) . '/' . $identity->plugin_slug;
 	}
 
 	private function delete_file( string $path ): void {
