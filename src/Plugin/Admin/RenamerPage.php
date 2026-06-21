@@ -43,7 +43,7 @@ class RenamerPage {
 		}
 
 		$defaults = PluginIdentity::defaults();
-		$error    = isset( $_GET['framework_demo_error'] ) ? sanitize_text_field( wp_unslash( $_GET['framework_demo_error'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$error    = isset( $_GET['framework_demo_error'] ) && is_string( $_GET['framework_demo_error'] ) ? sanitize_text_field( wp_unslash( $_GET['framework_demo_error'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		?>
 		<div class="wrap framework-demo-renamer">
 			<h1><?php esc_html_e( 'Rename Plugin', 'framework-demo' ); ?></h1>
