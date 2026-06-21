@@ -35,15 +35,6 @@ class RenamerPage {
 			self::PAGE_SLUG,
 			array( $this, 'render' )
 		);
-
-		add_submenu_page(
-			null,
-			__( 'Rename Plugin', 'framework-demo' ),
-			__( 'Rename Plugin', 'framework-demo' ),
-			'manage_options',
-			self::PAGE_SLUG,
-			array( $this, 'render' )
-		);
 	}
 
 	public function render(): void {
@@ -96,7 +87,7 @@ class RenamerPage {
 		check_admin_referer( self::NONCE_ACTION, self::NONCE_NAME );
 
 		try {
-			$post_data = array_map( 'wp_unslash', $_POST );
+			$post_data = wp_unslash( $_POST );
 			$identity  = PluginIdentity::from_request( $post_data );
 			$renamer   = new PluginRenamer( $this->core->get_dir_path() );
 			$renamer->stream_zip( $identity );

@@ -31,9 +31,15 @@ class PluginRenamer {
 		}
 
 		$tmp_file = wp_tempnam( $identity->plugin_slug . '.zip' );
-		if ( false === $tmp_file ) {
+		if ( '' === $tmp_file ) {
 			throw new \RuntimeException( 'Could not create a temporary ZIP file.' );
 		}
+
+		register_shutdown_function( function () use ( $tmp_file ): void {
+			if ( is_file( $tmp_file ) ) {
+				unlink( $tmp_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			}
+		} );
 
 		$this->build_zip( $identity, $tmp_file );
 
