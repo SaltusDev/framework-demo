@@ -125,7 +125,10 @@ class RenamerPage {
 					type="<?php echo esc_attr( $type ); ?>"
 					class="regular-text"
 					value="<?php echo esc_attr( $value ); ?>"
-					<?php if ( $required ) : ?>required<?php endif; ?>
+					<?php
+					if ( $required ) :
+						?>
+						required<?php endif; ?>
 				>
 			</td>
 		</tr>
