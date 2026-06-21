@@ -86,6 +86,6 @@
 	<arg name="parallel" value="12"/>
 	<config name="minimum_wp_version" value="6.0"/>
 
-	<config name="testVersion" value="7.4-"/>
+	<config name="testVersion" value="8.3-"/>
 
 </ruleset>
