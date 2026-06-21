@@ -38,20 +38,28 @@ class RenamerPage {
 	}
 
 	public function render(): void {
+		if (
+			empty( $_GET['framework_demo_nonce'] ) ||
+			! wp_verify_nonce( $_GET['framework_demo_nonce'], 'framework_demo_error_redirect' )
+		) {
+			return;
+		}
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission to access this page.', 'framework-demo' ) );
 		}
 
-		$defaults = PluginIdentity::defaults();
-		$error    = isset( $_GET['framework_demo_error'] ) && is_string( $_GET['framework_demo_error'] ) ? sanitize_text_field( wp_unslash( $_GET['framework_demo_error'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$defaults      = PluginIdentity::defaults();
+		$error_key     = sanitize_text_field( $_GET['framework_demo_error'] ?? '' );
+		$error_message = get_transient( 'framework_demo_error_' . $error_key );
+		delete_transient( 'framework_demo_error_' . $error_key );
 		?>
 		<div class="wrap framework-demo-renamer">
 			<h1><?php esc_html_e( 'Rename Plugin', 'framework-demo' ); ?></h1>
 			<p><?php esc_html_e( 'Generate a renamed copy of this demo plugin as a ZIP file. The installed demo plugin is not changed.', 'framework-demo' ); ?></p>
 
-			<?php if ( '' !== $error ) : ?>
+			<?php if ( $error_message !== '' ) : ?>
 				<div class="notice notice-error">
-					<p><?php echo esc_html( $error ); ?></p>
+					<p><?php echo esc_html( $error_message ); ?></p>
 				</div>
 			<?php endif; ?>
 
@@ -117,7 +125,7 @@ class RenamerPage {
 					type="<?php echo esc_attr( $type ); ?>"
 					class="regular-text"
 					value="<?php echo esc_attr( $value ); ?>"
-					<?php required( $required ); ?>
+					<?php if ( $required ) : ?>required<?php endif; ?>
 				>
 			</td>
 		</tr>
@@ -125,11 +133,15 @@ class RenamerPage {
 	}
 
 	private function redirect_with_error( string $message ): void {
+		$token = wp_generate_uuid4();
+		set_transient( 'framework_demo_error_' . $token, $message, 30 );
+
 		wp_safe_redirect(
 			add_query_arg(
 				array(
 					'page'                 => self::PAGE_SLUG,
-					'framework_demo_error' => rawurlencode( $message ),
+					'framework_demo_error' => $token,
+					'framework_demo_nonce' => wp_create_nonce( 'framework_demo_error_redirect' ),
 				),
 				admin_url( 'admin.php' )
 			)
