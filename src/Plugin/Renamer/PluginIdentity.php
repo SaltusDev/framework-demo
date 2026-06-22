@@ -26,7 +26,7 @@ class PluginIdentity {
 		$this->plugin_slug       = $data['plugin_slug'];
 		$this->main_file         = $data['main_file'];
 		$this->namespace_segment = $data['namespace_segment'];
-		$this->text_domain       = $data['text_domain'];
+		$this->text_domain       = $this->plugin_slug;
 		$this->description       = $data['description'];
 		$this->author            = $data['author'];
 		$this->author_uri        = $data['author_uri'];
@@ -44,7 +44,7 @@ class PluginIdentity {
 			'plugin_slug'       => 'my-saltus-plugin',
 			'main_file'         => 'my-saltus-plugin.php',
 			'namespace_segment' => 'MySaltusPlugin',
-			'text_domain'       => 'my-saltus-plugin',
+
 			'description'       => 'A WordPress plugin built with the Saltus Framework.',
 			'author'            => 'Your Name',
 			'author_uri'        => 'https://example.com/',
@@ -80,7 +80,7 @@ class PluginIdentity {
 	 * @param array<string,string> $data Renamer field values.
 	 */
 	private static function validate( array $data ): void {
-		$required = array( 'plugin_name', 'plugin_slug', 'main_file', 'namespace_segment', 'text_domain', 'description', 'author', 'version', 'prefix' );
+		$required = array( 'plugin_name', 'plugin_slug', 'main_file', 'namespace_segment', 'description', 'author', 'version', 'prefix' );
 
 		foreach ( $required as $field ) {
 			if ( '' === trim( $data[ $field ] ) ) {
@@ -98,10 +98,6 @@ class PluginIdentity {
 
 		if ( ! preg_match( '/^[A-Z][A-Za-z0-9]*$/', $data['namespace_segment'] ) ) {
 			throw new ValidationException( __( 'Namespace segment must be a valid PHP namespace segment, such as MyPlugin.', 'framework-demo' ) );
-		}
-
-		if ( ! preg_match( '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $data['text_domain'] ) ) {
-			throw new ValidationException( __( 'Text domain must contain only lowercase letters, numbers, and single dashes.', 'framework-demo' ) );
 		}
 
 		if ( ! preg_match( '/^[a-z][a-z0-9_]*$/', $data['prefix'] ) ) {

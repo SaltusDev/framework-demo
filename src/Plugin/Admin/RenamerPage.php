@@ -74,7 +74,6 @@ class RenamerPage {
 					<?php $this->render_text_field( 'plugin_slug', __( 'Plugin Slug', 'framework-demo' ), $defaults['plugin_slug'], true ); ?>
 					<?php $this->render_text_field( 'main_file', __( 'Main Plugin File', 'framework-demo' ), $defaults['main_file'], true ); ?>
 					<?php $this->render_text_field( 'namespace_segment', __( 'Namespace Segment', 'framework-demo' ), $defaults['namespace_segment'], true ); ?>
-					<?php $this->render_text_field( 'text_domain', __( 'Text Domain', 'framework-demo' ), $defaults['text_domain'], true ); ?>
 					<?php $this->render_text_field( 'description', __( 'Description', 'framework-demo' ), $defaults['description'], true ); ?>
 					<?php $this->render_text_field( 'author', __( 'Author', 'framework-demo' ), $defaults['author'], true ); ?>
 					<?php $this->render_text_field( 'author_uri', __( 'Author URI', 'framework-demo' ), $defaults['author_uri'], false, 'url' ); ?>

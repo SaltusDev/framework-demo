@@ -116,7 +116,7 @@ class PluginRenamer {
 
 	private function target_path( string $relative_path, PluginIdentity $identity ): string {
 		$path = str_replace( self::ORIGINAL_MAIN_FILE, $identity->main_file, $relative_path );
-		$path = str_replace( self::ORIGINAL_SLUG . '.pot', $identity->text_domain . '.pot', $path );
+		$path = str_replace( self::ORIGINAL_SLUG . '.pot', $identity->plugin_slug . '.pot', $path );
 
 		return str_replace( '\\', '/', $path );
 	}

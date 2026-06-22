@@ -19,7 +19,6 @@ class PluginRenamerTest extends TestCase {
 					'plugin_slug'       => 'acme-library',
 					'main_file'         => 'acme-library.php',
 					'namespace_segment' => 'AcmeLibrary',
-					'text_domain'       => 'acme-library',
 					'author'            => 'Acme Inc',
 					'prefix'            => 'acme_library',
 				)
@@ -58,7 +57,6 @@ class PluginRenamerTest extends TestCase {
 					'plugin_slug'       => 'acme-library',
 					'main_file'         => 'acme-library.php',
 					'namespace_segment' => 'AcmeLibrary',
-					'text_domain'       => 'acme-library',
 					'author'            => 'Acme Inc',
 					'prefix'            => 'acme_library',
 					'version'           => '1.5.0',
@@ -93,7 +91,6 @@ class PluginRenamerTest extends TestCase {
 					'plugin_slug'       => 'acme-library',
 					'main_file'         => 'acme-library.php',
 					'namespace_segment' => 'AcmeLibrary',
-					'text_domain'       => 'acme-library',
 					'author'            => 'Acme Inc',
 					'prefix'            => 'acme_library',
 				)
@@ -128,7 +125,6 @@ class PluginRenamerTest extends TestCase {
 					'plugin_slug'       => 'acme-library',
 					'main_file'         => 'acme-library.php',
 					'namespace_segment' => 'AcmeLibrary',
-					'text_domain'       => 'acme-library',
 					'author'            => 'Acme Inc -',
 					'prefix'            => 'acme_library',
 				)
@@ -162,7 +158,6 @@ class PluginRenamerTest extends TestCase {
 					'plugin_slug'       => 'acme-library',
 					'main_file'         => 'acme-library.php',
 					'namespace_segment' => 'AcmeLibrary',
-					'text_domain'       => 'acme-library',
 					'author'            => 'Иван Петров',
 					'prefix'            => 'acme_library',
 				)
