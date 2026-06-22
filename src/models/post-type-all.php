@@ -117,7 +117,7 @@ return array(
 				'locked_singular'    => __( 'Book not updated, somebody is editing it', 'framework-demo' ),
 				/* translators: %s: number of books not updated because they are locked. */
 				'locked_plural'      => __( '%s Books not updated, somebody is editing them', 'framework-demo' ),
-				'deleted_singular'   => __( 'Book permanetly deleted. Fahrenheit 451 team was here?', 'framework-demo' ),
+				'deleted_singular'   => __( 'Book permanently deleted. Fahrenheit 451 team was here?', 'framework-demo' ),
 				/* translators: %s: number of books permanently deleted. */
 				'deleted_plural'     => __( '%s Books permanently deleted. Why? :(', 'framework-demo' ),
 				'trashed_singular'   => __( 'Book moved to the trash. I\'m sad :(', 'framework-demo' ),
