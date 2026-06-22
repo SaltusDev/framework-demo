@@ -10,9 +10,7 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 if ( ! function_exists( 'esc_url_raw' ) ) {
 	function esc_url_raw( $value ) {
 		$value = trim( (string) $value );
-		if ( false === filter_var( $value, FILTER_VALIDATE_URL ) ) {
-			return '';
-		}
+		$value = preg_replace( '/[\x00-\x20<>"\']/', '', $value );
 		return $value;
 	}
 }

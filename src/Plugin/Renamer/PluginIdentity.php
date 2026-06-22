@@ -68,8 +68,6 @@ class PluginIdentity {
 		$data['author_uri'] = trim( $data['author_uri'] );
 		$data['plugin_uri'] = trim( $data['plugin_uri'] );
 
-		self::validate( $data );
-
 		$data['author_uri'] = esc_url_raw( $data['author_uri'] );
 		$data['plugin_uri'] = esc_url_raw( $data['plugin_uri'] );
 
