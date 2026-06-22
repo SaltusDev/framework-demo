@@ -151,6 +151,39 @@ class PluginRenamerTest extends TestCase {
 		$this->remove_dir( $source );
 	}
 
+	public function test_package_name_falls_back_to_local_when_author_has_no_ascii(): void {
+		$source = $this->make_source_fixture( true );
+		$output = tempnam( sys_get_temp_dir(), 'renamer-' );
+		$identity = PluginIdentity::from_request(
+			array_merge(
+				PluginIdentity::defaults(),
+				array(
+					'plugin_name'       => 'Acme Library',
+					'plugin_slug'       => 'acme-library',
+					'main_file'         => 'acme-library.php',
+					'namespace_segment' => 'AcmeLibrary',
+					'text_domain'       => 'acme-library',
+					'author'            => 'Иван Петров',
+					'prefix'            => 'acme_library',
+				)
+			)
+		);
+
+		$renamer = new PluginRenamer( $source );
+		$renamer->build_zip( $identity, $output );
+
+		$zip = new ZipArchive();
+		self::assertTrue( true === $zip->open( $output ) );
+
+		$contents = $zip->getFromName( 'acme-library/composer.json' );
+		self::assertIsString( $contents );
+		self::assertStringContainsString( '"name": "local/acme-library"', $contents );
+
+		$zip->close();
+		@unlink( $output );
+		$this->remove_dir( $source );
+	}
+
 	private function make_source_fixture( bool $with_composer = false ): string {
 		$source = sys_get_temp_dir() . '/framework-demo-fixture-' . uniqid();
 		mkdir( $source . '/src', 0777, true );

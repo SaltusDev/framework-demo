@@ -161,7 +161,13 @@ class PluginRenamer {
 	}
 
 	private function package_name( PluginIdentity $identity ): string {
-		return trim( strtolower( preg_replace( '/[^a-zA-Z0-9-]+/', '-', $identity->author ) ), '-' ) . '/' . $identity->plugin_slug;
+		$vendor = trim( strtolower( preg_replace( '/[^a-zA-Z0-9-]+/', '-', $identity->author ) ), '-' );
+
+		if ( '' === $vendor ) {
+			$vendor = 'local';
+		}
+
+		return $vendor . '/' . $identity->plugin_slug;
 	}
 
 	private function delete_file( string $path ): void {
