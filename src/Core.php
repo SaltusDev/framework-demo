@@ -85,7 +85,7 @@ class Core {
 	 */
 	private function set_locale(): void {
 		$i18n = new I18n( $this->name );
-		$i18n->load_plugin_textdomain( dirname( $this->file_path ) );
+		$i18n->load_plugin_textdomain( dirname( plugin_basename( $this->file_path ) ) );
 	}
 
 	/**
