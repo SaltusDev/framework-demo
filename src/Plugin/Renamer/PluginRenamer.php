@@ -31,7 +31,9 @@ class PluginRenamer {
 		}
 
 		while ( ob_get_level() ) {
-			ob_end_clean();
+			if ( false === ob_end_clean() ) {
+				break;
+			}
 		}
 
 		$tmp_file = wp_tempnam( $identity->plugin_slug . '.zip' );
