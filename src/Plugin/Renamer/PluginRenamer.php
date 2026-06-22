@@ -109,7 +109,7 @@ class PluginRenamer {
 	}
 
 	private function relative_path( string $path ): string {
-		return ltrim( str_replace( $this->source_dir, '', $path ), DIRECTORY_SEPARATOR );
+		return substr( $path, strlen( $this->source_dir ) + 1 );
 	}
 
 	private function target_path( string $relative_path, PluginIdentity $identity ): string {

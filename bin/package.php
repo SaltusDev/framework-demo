@@ -36,7 +36,7 @@ foreach ( $iterator as $file ) {
 		continue;
 	}
 
-	$relative = ltrim( str_replace( $root, '', $file->getPathname() ), DIRECTORY_SEPARATOR );
+	$relative = substr( $file->getPathname(), strlen( $root ) + 1 );
 	$parts    = explode( DIRECTORY_SEPARATOR, $relative );
 
 	if ( array_intersect( $parts, $excluded_dirs ) ) {
