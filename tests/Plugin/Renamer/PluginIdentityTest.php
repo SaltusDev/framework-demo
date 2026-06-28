@@ -50,4 +50,35 @@ class PluginIdentityTest extends TestCase {
 
 		PluginIdentity::from_request( $data );
 	}
+
+	public function test_invalid_version_fails_validation(): void {
+		$data             = PluginIdentity::defaults();
+		$data['version']  = 'abc';
+
+		$this->expectException( ValidationException::class );
+
+		PluginIdentity::from_request( $data );
+	}
+
+	public function test_version_without_patch_fails_validation(): void {
+		$data             = PluginIdentity::defaults();
+		$data['version']  = '1.0';
+
+		$this->expectException( ValidationException::class );
+
+		PluginIdentity::from_request( $data );
+	}
+
+	public function test_comment_breakout_is_sanitized(): void {
+		$data                    = PluginIdentity::defaults();
+		$data['plugin_name']     = 'Foo */ bar';
+		$data['description']     = 'Desc */ breakout';
+		$data['author']          = 'Auth */ test';
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertSame( 'Foo  bar', $identity->plugin_name );
+		self::assertSame( 'Desc  breakout', $identity->description );
+		self::assertSame( 'Auth  test', $identity->author );
+	}
 }

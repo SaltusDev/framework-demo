@@ -22,7 +22,7 @@ class PluginRenamer {
 	private string $source_dir;
 
 	public function __construct( string $source_dir ) {
-		$this->source_dir = rtrim( $source_dir, DIRECTORY_SEPARATOR );
+		$this->source_dir = rtrim( $source_dir, '/\\' );
 	}
 
 	public function stream_zip( PluginIdentity $identity ): void {

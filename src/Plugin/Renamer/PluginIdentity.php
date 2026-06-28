@@ -68,6 +68,10 @@ class PluginIdentity {
 		$data['author_uri'] = trim( $data['author_uri'] );
 		$data['plugin_uri'] = trim( $data['plugin_uri'] );
 
+		foreach ( array( 'plugin_name', 'description', 'author' ) as $comment_field ) {
+			$data[ $comment_field ] = str_replace( '*/', '', $data[ $comment_field ] );
+		}
+
 		$data['author_uri'] = esc_url_raw( $data['author_uri'] );
 		$data['plugin_uri'] = esc_url_raw( $data['plugin_uri'] );
 
@@ -99,6 +103,10 @@ class PluginIdentity {
 
 		if ( ! preg_match( '/^[A-Z][A-Za-z0-9]*$/', $data['namespace_segment'] ) ) {
 			throw new ValidationException( __( 'Namespace segment must be a valid PHP namespace segment, such as MyPlugin.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+		}
+
+		if ( ! preg_match( '/^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.]+)?(?:\+[a-zA-Z0-9.]+)?$/', $data['version'] ) ) {
+			throw new ValidationException( __( 'Version must be a valid semver string like 1.0.0 or 2.0.0-beta.1.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		if ( ! preg_match( '/^[a-z][a-z0-9_]*$/', $data['prefix'] ) ) {
