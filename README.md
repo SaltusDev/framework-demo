@@ -26,22 +26,27 @@ The demo models live in `src/models`:
 - `post-type-all.php` registers the larger `book` demo, including meta fields and settings.
 - `taxonomy-multiple.php` registers demo taxonomies for books and posts.
 
-## Rename UI
+## Rebrand This Demo
 
-The plugin includes a generator UI for creating a renamed copy of the demo plugin.
+The plugin includes a generator UI for creating your own branded copy of the demo plugin. In wp-admin, open **Tools > Rebrand This Demo** or use the **Rebrand This Demo** quick action on the plugin row.
 
-In wp-admin, open the plugin settings screen and choose **Rename Plugin**. Fill in the new plugin identity:
+Fill in the form with the identity your new plugin should use:
 
-- plugin name
-- slug and main file
-- namespace segment
-- text domain
-- description
-- author details
-- version
-- code prefix
+- **Plugin Name**: the public name shown in WordPress.
+- **Plugin Slug**: a lowercase folder-safe slug, such as `my-saltus-plugin`.
+- **Main Plugin File**: the main PHP file, usually matching the slug, such as `my-saltus-plugin.php`.
+- **Namespace Segment**: a PHP namespace segment like `MySaltusPlugin`.
+- **Description**: the plugin summary shown in wp-admin.
+- **Author details**: the author name and optional author/plugin URLs.
+- **Version**: a semver value such as `1.0.0`.
+- **Code Prefix**: a lowercase PHP-safe prefix like `my_saltus_plugin`.
 
-Submitting the form downloads a ZIP file for the renamed plugin. The installed demo plugin is not modified.
+After filling in the form, choose one of two install paths:
+
+- **Download Rebranded Plugin ZIP**: download the ZIP, then upload it from **Plugins > Add New > Upload Plugin** and activate it.
+- **Copy & Activate Plugin**: copy the generated plugin directly into this WordPress site's plugins directory and activate it automatically.
+
+The generated plugin is a separate copy. The installed demo plugin is not modified.
 
 ## Development Commands
 
@@ -52,7 +57,7 @@ vendor/bin/phpunit
 composer package
 ```
 
-`composer package` creates `dist/framework-demo.zip`.
+`composer package` creates `dist/framework-demo-<version>.zip`.
 
 `composer make-pot` uses WP-CLI to rebuild `languages/framework-demo.pot` when WP-CLI is available.
 
