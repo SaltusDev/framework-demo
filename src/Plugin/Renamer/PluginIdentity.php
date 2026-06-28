@@ -67,7 +67,7 @@ class PluginIdentity {
 		$data['author_uri'] = trim( $data['author_uri'] );
 		$data['plugin_uri'] = trim( $data['plugin_uri'] );
 
-		foreach ( array( 'plugin_name', 'description', 'author' ) as $comment_field ) {
+		foreach ( array( 'plugin_name', 'description', 'author', 'author_uri', 'plugin_uri' ) as $comment_field ) {
 			$data[ $comment_field ] = str_replace( '*/', '', $data[ $comment_field ] );
 		}
 

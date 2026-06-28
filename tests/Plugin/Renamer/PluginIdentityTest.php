@@ -81,4 +81,17 @@ class PluginIdentityTest extends TestCase {
 		self::assertSame( 'Desc  breakout', $identity->description );
 		self::assertSame( 'Auth  test', $identity->author );
 	}
+
+	public function test_uri_comment_breakout_is_sanitized(): void {
+		$data                   = PluginIdentity::defaults();
+		$data['author_uri']     = 'https://example.com?a=1*/system(current($_GET));/*';
+		$data['plugin_uri']     = 'https://example.com?b=2*/phpinfo();/*';
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertStringNotContainsString( '*/', $identity->author_uri );
+		self::assertStringNotContainsString( '*/', $identity->plugin_uri );
+		self::assertSame( 'https://example.com?a=1system(current($_GET));/*', $identity->author_uri );
+		self::assertSame( 'https://example.com?b=2phpinfo();/*', $identity->plugin_uri );
+	}
 }
