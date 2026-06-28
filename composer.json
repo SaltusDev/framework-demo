@@ -3,7 +3,7 @@
 	"description": "Modern demo plugin for the Saltus Framework for WordPress.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
-	"homepage": "https://saltus.io/",
+	"homepage": "https://saltus.dev/",
 	"authors": [
 		{
 			"name": "Saltus",
@@ -28,6 +28,7 @@
 		"saltus/framework": "^1.3"
 	},
 	"require-dev": {
+		"brianhenryie/strauss": "^0.22",
 		"phpunit/phpunit": "^11.0",
 		"wp-coding-standards/wpcs": "^3.3",
 		"phpcompatibility/phpcompatibility-wp": "*",
@@ -45,15 +46,34 @@
 	},
 	"config": {
 		"allow-plugins": {
+			"brianhenryie/strauss": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		},
 		"sort-packages": true
+	},
+	"extra": {
+		"strauss": {
+			"namespace_prefix": "Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\",
+			"classmap_prefix": "Saltus_WP_Plugin_Saltus_PluginFrameworkDemo_",
+			"target_directory": "vendor-prefixed",
+			"packages": [
+				"saltus/framework"
+			],
+			"override_autoloader": true,
+			"delete_vendor_packages": true,
+			"class_alias": false
+		}
 	},
 	"scripts": {
 		"validate-project": "composer validate --strict",
 		"lint": "phpcs",
 		"test": "phpunit",
 		"make-pot": "wp i18n make-pot . languages/framework-demo.pot --exclude=vendor,node_modules,dist,release,build",
+		"prefix-namespaces": [
+			"strauss",
+			"@php composer dump-autoload --optimize"
+		],
+		"build": "php bin/package.php",
 		"package": "php bin/package.php"
 	},
 	"minimum-stability": "dev",
