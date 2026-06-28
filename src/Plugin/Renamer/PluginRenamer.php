@@ -12,11 +12,6 @@ class PluginRenamer {
 	private const ORIGINAL_PACKAGE           = 'saltus/framework-demo';
 	private const ORIGINAL_PREFIX            = 'framework_demo';
 	private const ORIGINAL_PREFIX_UPPER      = 'FRAMEWORK_DEMO';
-	private const ORIGINAL_NAME              = 'Saltus Framework Demo';
-	private const ORIGINAL_DESCRIPTION       = 'Saltus Plugin Framework Demo.';
-	private const ORIGINAL_AUTHOR            = 'Saltus';
-	private const ORIGINAL_AUTHOR_URI        = 'https://saltus.io/';
-	private const ORIGINAL_PLUGIN_URI        = 'https://saltus.io/';
 	private const ORIGINAL_VERSION           = '2.0.0';
 
 	private string $source_dir;
@@ -69,10 +64,29 @@ class PluginRenamer {
 		if ( $zip->open( $destination, \ZipArchive::CREATE | \ZipArchive::OVERWRITE ) !== true ) {
 			throw new \RuntimeException( 'Could not open the temporary ZIP file.' );
 		}
-
+		$this->add_main_file( $zip, $identity );
 		$this->add_files( $zip, $identity );
 		if ( ! $zip->close() ) {
 			throw new \RuntimeException( 'Failed to write the ZIP file to disk.' );
+		}
+	}
+
+	private function add_main_file( \ZipArchive $zip, PluginIdentity $identity ): void {
+		$main_file_path = $this->source_dir . '/' . self::ORIGINAL_MAIN_FILE;
+		if ( ! is_file( $main_file_path ) ) {
+			throw new \RuntimeException( 'Main plugin file not found: ' . self::ORIGINAL_MAIN_FILE ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+		}
+
+		$contents = file_get_contents( $main_file_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+		if ( $contents === false ) {
+			throw new \RuntimeException( 'Could not read the main plugin file.' );
+		}
+
+		$contents = $this->rewrite_main_file_contents( $contents, $identity );
+
+		$target_path = $identity->plugin_slug . '/' . $identity->main_file;
+		if ( ! $zip->addFromString( $target_path, $contents ) ) {
+			throw new \RuntimeException( 'Failed to add the main plugin file to the ZIP archive.' );
 		}
 	}
 
@@ -94,8 +108,11 @@ class PluginRenamer {
 				continue;
 			}
 
-			$target_path = $identity->plugin_slug . '/' . $this->target_path( $relative_path, $identity );
+			if ( $relative_path === self::ORIGINAL_MAIN_FILE ) {
+				continue;
+			}
 
+			$target_path = $identity->plugin_slug . '/' . $this->target_path( $relative_path, $identity );
 			if ( $this->is_text_file( $relative_path ) ) {
 				$contents = file_get_contents( $file->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 				if ( $contents === false ) {
@@ -128,7 +145,7 @@ class PluginRenamer {
 		$normalized = str_replace( '\\', '/', $relative_path );
 		$parts      = explode( '/', $normalized );
 
-		$excluded_dirs = array( '.git', '.codex', '.agents', 'vendor', 'node_modules', 'build', 'dist', 'release', 'reports' );
+		$excluded_dirs = array( '.git', '.codex', '.agents', 'node_modules', 'build', 'dist', 'release', 'reports', 'vendor' );
 		if ( array_intersect( $parts, $excluded_dirs ) ) {
 			return true;
 		}
@@ -147,22 +164,67 @@ class PluginRenamer {
 
 	private function rewrite_contents( string $contents, PluginIdentity $identity ): string {
 		$replacements = array(
-			self::ORIGINAL_NAMESPACE_SEGMENT               => $identity->namespace_segment,
-			self::ORIGINAL_PACKAGE                         => $this->package_name( $identity ),
-			self::ORIGINAL_MAIN_FILE                       => $identity->main_file,
-			self::ORIGINAL_PREFIX_UPPER                    => strtoupper( $identity->prefix ),
-			self::ORIGINAL_PREFIX                          => $identity->prefix,
-			'Plugin Name:       ' . self::ORIGINAL_NAME    => 'Plugin Name:       ' . $identity->plugin_name,
-			'Description:       ' . self::ORIGINAL_DESCRIPTION => 'Description:       ' . $identity->description,
-			'Plugin URI:        ' . self::ORIGINAL_PLUGIN_URI => 'Plugin URI:        ' . $identity->plugin_uri,
-			'Author URI:        ' . self::ORIGINAL_AUTHOR_URI => 'Author URI:        ' . $identity->author_uri,
-			'Author:            ' . self::ORIGINAL_AUTHOR  => 'Author:            ' . $identity->author,
-			self::ORIGINAL_SLUG                            => $identity->plugin_slug,
-			"PLUGIN_VERSION', '" . self::ORIGINAL_VERSION . "'" => "PLUGIN_VERSION', '" . $identity->version . "'",
-			'Version:           ' . self::ORIGINAL_VERSION => 'Version:           ' . $identity->version,
+			self::ORIGINAL_NAMESPACE_SEGMENT => $identity->namespace_segment,
+			self::ORIGINAL_PACKAGE           => $this->package_name( $identity ),
+			self::ORIGINAL_MAIN_FILE         => $identity->main_file,
+			self::ORIGINAL_PREFIX_UPPER      => strtoupper( $identity->prefix ),
+			self::ORIGINAL_PREFIX            => $identity->prefix,
+			self::ORIGINAL_SLUG              => $identity->plugin_slug,
 		);
 
-		return strtr( $contents, $replacements );
+		$contents = strtr( $contents, $replacements );
+
+		return $this->rewrite_composer_autoloader_classes( $contents, $identity );
+	}
+
+	private function rewrite_composer_autoloader_classes( string $contents, PluginIdentity $identity ): string {
+		$suffix = substr( md5( $identity->plugin_slug . '|' . $identity->namespace_segment . '|' . $identity->prefix ), 0, 32 );
+
+		$contents = preg_replace( '/ComposerAutoloaderInit[a-f0-9]{32}/', 'ComposerAutoloaderInit' . $suffix, $contents ) ?? $contents;
+		$contents = preg_replace( '/ComposerStaticInit[a-f0-9]{32}/', 'ComposerStaticInit' . $suffix, $contents ) ?? $contents;
+
+		return $contents;
+	}
+
+	private function rewrite_main_file_contents( string $contents, PluginIdentity $identity ): string {
+		$contents = $this->replace_plugin_header( $contents, $identity );
+		$contents = str_replace(
+			"PLUGIN_VERSION', '" . self::ORIGINAL_VERSION . "'",
+			"PLUGIN_VERSION', '" . $identity->version . "'",
+			$contents
+		);
+
+		return $this->rewrite_contents( $contents, $identity );
+	}
+
+	private function replace_plugin_header( string $contents, PluginIdentity $identity ): string {
+		$header = $this->plugin_header( $identity );
+		$result = preg_replace( '/\/\*\*[\s\S]*?@wordpress-plugin[\s\S]*?\*\/\s*/', $header, $contents, 1 );
+
+		if ( $result !== null && $result !== $contents ) {
+			return $result;
+		}
+
+		return preg_replace( '/^<\?php\s*/', "<?php\n" . $header, $contents, 1 ) ?? $contents;
+	}
+
+	private function plugin_header( PluginIdentity $identity ): string {
+		return "/**\n"
+			. " * {$identity->plugin_name}\n"
+			. " *\n"
+			. " * @wordpress-plugin\n"
+			. " * Plugin Name:       {$identity->plugin_name}\n"
+			. " * Plugin URI:        {$identity->plugin_uri}\n"
+			. " * Description:       {$identity->description}\n"
+			. " * Version:           {$identity->version}\n"
+			. " * Author:            {$identity->author}\n"
+			. " * Author URI:        {$identity->author_uri}\n"
+			. " * License:           GPL-2.0-or-later\n"
+			. " * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt\n"
+			. " * Text Domain:       {$identity->text_domain}\n"
+			. " * Domain Path:       /languages\n"
+			. " * Requires PHP:      8.3\n"
+			. " */\n\n";
 	}
 
 	private function package_name( PluginIdentity $identity ): string {

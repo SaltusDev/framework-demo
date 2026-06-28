@@ -44,11 +44,10 @@ class PluginIdentity {
 			'plugin_slug'       => 'my-saltus-plugin',
 			'main_file'         => 'my-saltus-plugin.php',
 			'namespace_segment' => 'MySaltusPlugin',
-
 			'description'       => 'A WordPress plugin built with the Saltus Framework.',
 			'author'            => 'Your Name',
-			'author_uri'        => 'https://example.com/',
-			'plugin_uri'        => 'https://example.com/my-saltus-plugin/',
+			'author_uri'        => 'https://saltus.dev/',
+			'plugin_uri'        => 'https://saltus.dev/my-saltus-plugin/',
 			'version'           => '1.0.0',
 			'prefix'            => 'my_saltus_plugin',
 		);
@@ -76,7 +75,6 @@ class PluginIdentity {
 		$data['plugin_uri'] = esc_url_raw( $data['plugin_uri'] );
 
 		self::validate( $data );
-
 		return new self( $data );
 	}
 
