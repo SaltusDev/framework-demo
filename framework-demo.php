@@ -39,14 +39,6 @@ if ( ! defined( __NAMESPACE__ . '\PLUGIN_MINIMUM_PHP' ) ) {
 	define( __NAMESPACE__ . '\PLUGIN_MINIMUM_PHP', '8.3' );
 }
 
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-	require_once __DIR__ . '/vendor/autoload.php';
-}
-
-if ( ! class_exists( Core::class ) && file_exists( __DIR__ . '/src/Core.php' ) ) {
-	require_once __DIR__ . '/src/Core.php';
-}
-
 if ( version_compare( PHP_VERSION, PLUGIN_MINIMUM_PHP, '<' ) ) {
 	add_action(
 		'admin_notices',
@@ -65,6 +57,14 @@ if ( version_compare( PHP_VERSION, PLUGIN_MINIMUM_PHP, '<' ) ) {
 		}
 	);
 	return;
+}
+
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
+if ( ! class_exists( Core::class ) && file_exists( __DIR__ . '/src/Core.php' ) ) {
+	require_once __DIR__ . '/src/Core.php';
 }
 
 if ( ! class_exists( \Saltus\WP\Framework\Core::class ) || ! class_exists( Core::class ) ) {
