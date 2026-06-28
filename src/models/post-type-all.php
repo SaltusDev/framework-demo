@@ -106,7 +106,7 @@ return array(
 				/* translators: {preview_url}: replaced by the book preview URL. */
 				'post_submitted'       => __( 'Book submitted. <a href="{preview_url}" target="_blank">Preview</a>', 'framework-demo' ),
 				/* translators: 1: {date}: scheduled publication date, 2: {preview_url}: replaced by the book preview URL. */
-				'post_scheduled'      => __( 'Book scheduled for {date}. <a href="{preview_url}" target="_blank">Preview</a>', 'framework-demo' ),
+				'post_scheduled'       => __( 'Book scheduled for {date}. <a href="{preview_url}" target="_blank">Preview</a>', 'framework-demo' ),
 				/* translators: {preview_url}: replaced by the book preview URL. */
 				'post_draft_updated'   => __( 'Book draft updated. <a href="{preview_url}" target="_blank">Preview</a>', 'framework-demo' ),
 			),

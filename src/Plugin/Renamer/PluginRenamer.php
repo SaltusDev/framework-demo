@@ -31,13 +31,13 @@ class PluginRenamer {
 		}
 
 		while ( ob_get_level() ) {
-			if ( false === ob_end_clean() ) {
+			if ( ob_end_clean() === false ) {
 				break;
 			}
 		}
 
 		$tmp_file = wp_tempnam( $identity->plugin_slug . '.zip' );
-		if ( '' === $tmp_file ) {
+		if ( $tmp_file === '' ) {
 			throw new \RuntimeException( 'Could not create a temporary ZIP file.' );
 		}
 
@@ -66,7 +66,7 @@ class PluginRenamer {
 		}
 
 		$zip = new \ZipArchive();
-		if ( true !== $zip->open( $destination, \ZipArchive::CREATE | \ZipArchive::OVERWRITE ) ) {
+		if ( $zip->open( $destination, \ZipArchive::CREATE | \ZipArchive::OVERWRITE ) !== true ) {
 			throw new \RuntimeException( 'Could not open the temporary ZIP file.' );
 		}
 
@@ -94,18 +94,21 @@ class PluginRenamer {
 				continue;
 			}
 
-			$target_path = $this->target_path( $relative_path, $identity );
-			$contents    = file_get_contents( $file->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-			if ( false === $contents ) {
-				throw new \RuntimeException( 'Could not read ' . $relative_path ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
-			}
+			$target_path = $identity->plugin_slug . '/' . $this->target_path( $relative_path, $identity );
 
 			if ( $this->is_text_file( $relative_path ) ) {
+				$contents = file_get_contents( $file->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+				if ( $contents === false ) {
+					throw new \RuntimeException( 'Could not read ' . $relative_path ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				}
 				$contents = $this->rewrite_contents( $contents, $identity );
+				$added    = $zip->addFromString( $target_path, $contents );
+			} else {
+				$added = $zip->addFile( $file->getPathname(), $target_path );
 			}
 
-			if ( ! $zip->addFromString( $identity->plugin_slug . '/' . $target_path, $contents ) ) {
-				throw new \RuntimeException( 'Failed to add ' . $relative_path . ' to the ZIP archive.' );
+			if ( ! $added ) {
+				throw new \RuntimeException( 'Failed to add ' . $relative_path . ' to the ZIP archive.' ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 		}
 	}
@@ -144,19 +147,19 @@ class PluginRenamer {
 
 	private function rewrite_contents( string $contents, PluginIdentity $identity ): string {
 		$replacements = array(
-			self::ORIGINAL_NAMESPACE_SEGMENT              => $identity->namespace_segment,
-			self::ORIGINAL_PACKAGE                        => $this->package_name( $identity ),
-			self::ORIGINAL_MAIN_FILE                      => $identity->main_file,
-			self::ORIGINAL_PREFIX_UPPER                   => strtoupper( $identity->prefix ),
-			self::ORIGINAL_PREFIX                         => $identity->prefix,
-			'Plugin Name:       ' . self::ORIGINAL_NAME   => 'Plugin Name:       ' . $identity->plugin_name,
+			self::ORIGINAL_NAMESPACE_SEGMENT               => $identity->namespace_segment,
+			self::ORIGINAL_PACKAGE                         => $this->package_name( $identity ),
+			self::ORIGINAL_MAIN_FILE                       => $identity->main_file,
+			self::ORIGINAL_PREFIX_UPPER                    => strtoupper( $identity->prefix ),
+			self::ORIGINAL_PREFIX                          => $identity->prefix,
+			'Plugin Name:       ' . self::ORIGINAL_NAME    => 'Plugin Name:       ' . $identity->plugin_name,
 			'Description:       ' . self::ORIGINAL_DESCRIPTION => 'Description:       ' . $identity->description,
 			'Plugin URI:        ' . self::ORIGINAL_PLUGIN_URI => 'Plugin URI:        ' . $identity->plugin_uri,
 			'Author URI:        ' . self::ORIGINAL_AUTHOR_URI => 'Author URI:        ' . $identity->author_uri,
-			'Author:            ' . self::ORIGINAL_AUTHOR => 'Author:            ' . $identity->author,
-			self::ORIGINAL_SLUG                           => $identity->plugin_slug,
+			'Author:            ' . self::ORIGINAL_AUTHOR  => 'Author:            ' . $identity->author,
+			self::ORIGINAL_SLUG                            => $identity->plugin_slug,
 			"PLUGIN_VERSION', '" . self::ORIGINAL_VERSION . "'" => "PLUGIN_VERSION', '" . $identity->version . "'",
-			self::ORIGINAL_VERSION                        => $identity->version,
+			'Version:           ' . self::ORIGINAL_VERSION => 'Version:           ' . $identity->version,
 		);
 
 		return strtr( $contents, $replacements );
@@ -165,7 +168,7 @@ class PluginRenamer {
 	private function package_name( PluginIdentity $identity ): string {
 		$vendor = trim( strtolower( preg_replace( '/[^a-zA-Z0-9-]+/', '-', $identity->author ) ), '-' );
 
-		if ( '' === $vendor ) {
+		if ( $vendor === '' ) {
 			$vendor = 'local';
 		}
 

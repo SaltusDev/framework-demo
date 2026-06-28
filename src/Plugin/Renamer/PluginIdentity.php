@@ -83,29 +83,31 @@ class PluginIdentity {
 		$required = array( 'plugin_name', 'plugin_slug', 'main_file', 'namespace_segment', 'description', 'author', 'version', 'prefix' );
 
 		foreach ( $required as $field ) {
-			if ( '' === trim( $data[ $field ] ) ) {
+			if ( trim( $data[ $field ] ) === '' ) {
+				/* translators: %s: field label */
 				throw new ValidationException( sprintf( __( '%s is required.', 'framework-demo' ), self::label( $field ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 		}
 
 		if ( ! preg_match( '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $data['plugin_slug'] ) ) {
-			throw new ValidationException( __( 'Plugin slug must contain only lowercase letters, numbers, and single dashes.', 'framework-demo' ) );
+			throw new ValidationException( __( 'Plugin slug must contain only lowercase letters, numbers, and single dashes.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		if ( ! preg_match( '/^[a-z0-9]+(?:-[a-z0-9]+)*\.php$/', $data['main_file'] ) ) {
-			throw new ValidationException( __( 'Main plugin file must be a lowercase dash-safe PHP filename.', 'framework-demo' ) );
+			throw new ValidationException( __( 'Main plugin file must be a lowercase dash-safe PHP filename.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		if ( ! preg_match( '/^[A-Z][A-Za-z0-9]*$/', $data['namespace_segment'] ) ) {
-			throw new ValidationException( __( 'Namespace segment must be a valid PHP namespace segment, such as MyPlugin.', 'framework-demo' ) );
+			throw new ValidationException( __( 'Namespace segment must be a valid PHP namespace segment, such as MyPlugin.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		if ( ! preg_match( '/^[a-z][a-z0-9_]*$/', $data['prefix'] ) ) {
-			throw new ValidationException( __( 'Code prefix must contain only lowercase letters, numbers, and underscores, and start with a letter.', 'framework-demo' ) );
+			throw new ValidationException( __( 'Code prefix must contain only lowercase letters, numbers, and underscores, and start with a letter.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
 		foreach ( array( 'author_uri', 'plugin_uri' ) as $url_field ) {
-			if ( '' !== $data[ $url_field ] && false === filter_var( $data[ $url_field ], FILTER_VALIDATE_URL ) ) {
+			if ( $data[ $url_field ] !== '' && filter_var( $data[ $url_field ], FILTER_VALIDATE_URL ) === false ) {
+				/* translators: %s: field label */
 				throw new ValidationException( sprintf( __( '%s must be a valid URL or empty.', 'framework-demo' ), self::label( $url_field ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 		}
