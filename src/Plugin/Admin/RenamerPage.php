@@ -242,6 +242,10 @@ class RenamerPage {
 			throw new \RuntimeException( __( 'The WordPress plugin directory could not be found.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
+		if ( ! wp_is_writable( WP_PLUGIN_DIR ) ) {
+			throw new \RuntimeException( __( 'The WordPress plugin directory is not writable.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+		}
+
 		$plugin_dir = trailingslashit( WP_PLUGIN_DIR ) . $identity->plugin_slug;
 		if ( file_exists( $plugin_dir ) ) {
 			throw new ValidationException( __( 'A plugin folder with that slug already exists. Choose a different slug or remove the existing plugin first.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
