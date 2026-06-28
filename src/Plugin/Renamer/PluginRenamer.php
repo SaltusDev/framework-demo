@@ -182,6 +182,7 @@ class PluginRenamer {
 
 		$contents = preg_replace( '/ComposerAutoloaderInit[a-f0-9]{32}/', 'ComposerAutoloaderInit' . $suffix, $contents ) ?? $contents;
 		$contents = preg_replace( '/ComposerStaticInit[a-f0-9]{32}/', 'ComposerStaticInit' . $suffix, $contents ) ?? $contents;
+		$contents = preg_replace( '/composerRequire[a-f0-9]{32}/', 'composerRequire' . $suffix, $contents ) ?? $contents;
 
 		return $contents;
 	}

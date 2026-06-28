@@ -57,8 +57,10 @@ class PluginRenamerTest extends TestCase {
 		self::assertIsString( $autoload_real );
 		self::assertMatchesRegularExpression( '/ComposerAutoloaderInit[a-f0-9]{32}/', $autoload_real );
 		self::assertMatchesRegularExpression( '/ComposerStaticInit[a-f0-9]{32}/', $autoload_real );
+		self::assertMatchesRegularExpression( '/composerRequire[a-f0-9]{32}/', $autoload_real );
 		self::assertStringNotContainsString( 'ComposerAutoloaderInit0515b56810b0a42fc7dbe10cb02ee1c8', $autoload_real );
 		self::assertStringNotContainsString( 'ComposerStaticInit0515b56810b0a42fc7dbe10cb02ee1c8', $autoload_real );
+		self::assertStringNotContainsString( 'composerRequire0515b56810b0a42fc7dbe10cb02ee1c8', $autoload_real );
 
 		$zip->close();
 		@unlink( $output );
@@ -218,7 +220,7 @@ class PluginRenamerTest extends TestCase {
 		);
 		file_put_contents(
 			$source . '/vendor-prefixed/composer/autoload_real.php',
-			"<?php\nclass ComposerAutoloaderInit0515b56810b0a42fc7dbe10cb02ee1c8 {}\n\\Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Composer\\Autoload\\ComposerStaticInit0515b56810b0a42fc7dbe10cb02ee1c8::getInitializer();\n"
+			"<?php\nclass ComposerAutoloaderInit0515b56810b0a42fc7dbe10cb02ee1c8 {}\nfunction composerRequire0515b56810b0a42fc7dbe10cb02ee1c8(\$fileIdentifier, \$file) {}\n\\Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Composer\\Autoload\\ComposerStaticInit0515b56810b0a42fc7dbe10cb02ee1c8::getInitializer();\n"
 		);
 		file_put_contents(
 			$source . '/vendor-prefixed/composer/autoload_static.php',
