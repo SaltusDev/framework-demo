@@ -4,11 +4,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Saltus Framework Demo
- * Plugin URI:        https://saltus.io/
+ * Plugin URI:        https://saltus.dev/
  * Description:       Saltus Plugin Framework Demo.
  * Version:           2.0.0
  * Author:            Saltus
- * Author URI:        https://saltus.io/
+ * Author URI:        https://saltus.dev/
  * License:           GPL-2.0-or-later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       framework-demo
@@ -39,6 +39,15 @@ if ( ! defined( __NAMESPACE__ . '\PLUGIN_MINIMUM_PHP' ) ) {
 	define( __NAMESPACE__ . '\PLUGIN_MINIMUM_PHP', '8.3' );
 }
 
+register_activation_hook(
+	PLUGIN_FILE,
+	static function (): void {
+		if ( ! get_option( 'framework_demo_rebrand_notice_dismissed', false ) ) {
+			update_option( 'framework_demo_rebrand_notice_pending', '1', false );
+		}
+	}
+);
+
 if ( version_compare( PHP_VERSION, PLUGIN_MINIMUM_PHP, '<' ) ) {
 	add_action(
 		'admin_notices',
@@ -59,6 +68,10 @@ if ( version_compare( PHP_VERSION, PLUGIN_MINIMUM_PHP, '<' ) ) {
 	return;
 }
 
+if ( file_exists( __DIR__ . '/vendor-prefixed/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor-prefixed/autoload.php';
+}
+
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
@@ -67,7 +80,12 @@ if ( ! class_exists( Core::class ) && file_exists( __DIR__ . '/src/Core.php' ) )
 	require_once __DIR__ . '/src/Core.php';
 }
 
-if ( ! class_exists( \Saltus\WP\Framework\Core::class ) || ! class_exists( Core::class ) ) {
+$framework_core_class = __NAMESPACE__ . '\\Saltus\\WP\\Framework\\Core';
+if ( ! class_exists( $framework_core_class ) ) {
+	$framework_core_class = '\\Saltus\\WP\\Framework\\Core';
+}
+
+if ( ! class_exists( $framework_core_class ) || ! class_exists( Core::class ) ) {
 	add_action(
 		'admin_notices',
 		static function (): void {
@@ -83,8 +101,8 @@ if ( ! class_exists( \Saltus\WP\Framework\Core::class ) || ! class_exists( Core:
 /*
  * The framework needs the plugin root path so it can load the model files.
  */
-$framework = new \Saltus\WP\Framework\Core( __DIR__ );
-$framework->register();
+$saltus_framework = new $framework_core_class( __DIR__ );
+$saltus_framework->register();
 
 add_action(
 	'plugins_loaded',
