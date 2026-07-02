@@ -164,6 +164,40 @@ function copy_release_files( string $source, string $target ): void {
 }
 
 /**
+ * Minify CSS files in the release stage using PostCSS + cssnano.
+ *
+ * @param string $working_dir Staging directory.
+ */
+function minify_stage_css( string $working_dir ): void {
+	$css_dir = $working_dir . '/assets/css';
+
+	if ( ! is_dir( $css_dir ) ) {
+		return;
+	}
+
+	$css_files = glob( $css_dir . '/*.css' );
+
+	if ( empty( $css_files ) ) {
+		return;
+	}
+
+	$npx     = PHP_OS_FAMILY === 'WINNT' ? 'npx.cmd' : 'npx';
+	$files   = implode( ' ', array_map( 'escapeshellarg', $css_files ) );
+	$command = sprintf(
+		'%s postcss %s --dir %s --no-map 2>&1',
+		escapeshellcmd( $npx ),
+		$files,
+		escapeshellarg( $css_dir )
+	);
+
+	passthru( $command, $exit_code );
+
+	if ( 0 !== $exit_code ) {
+		throw new RuntimeException( 'CSS minification failed.' );
+	}
+}
+
+/**
  * Run Composer in the release stage and prefix production dependencies.
  *
  * @param string $working_dir Composer working directory.
@@ -228,6 +262,7 @@ try {
 	}
 
 	copy_release_files( $root, $stage );
+	minify_stage_css( $stage );
 	install_release_dependencies( $stage );
 	remove_path( $stage . '/composer.json' );
 	remove_path( $stage . '/composer.lock' );
