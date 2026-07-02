@@ -126,6 +126,18 @@ class PluginIdentity {
 	}
 
 	private static function label( string $field ): string {
-		return ucwords( str_replace( '_', ' ', $field ) );
+		$labels = array(
+			'plugin_name'       => __( 'Plugin Name', 'framework-demo' ),
+			'plugin_slug'       => __( 'Plugin Slug', 'framework-demo' ),
+			'main_file'         => __( 'Main Plugin File', 'framework-demo' ),
+			'namespace_segment' => __( 'Namespace Segment', 'framework-demo' ),
+			'description'       => __( 'Description', 'framework-demo' ),
+			'author'            => __( 'Author', 'framework-demo' ),
+			'author_uri'        => __( 'Author URI', 'framework-demo' ),
+			'plugin_uri'        => __( 'Plugin URI', 'framework-demo' ),
+			'version'           => __( 'Version', 'framework-demo' ),
+			'prefix'            => __( 'Code Prefix', 'framework-demo' ),
+		);
+		return $labels[ $field ] ?? ucwords( str_replace( '_', ' ', $field ) );
 	}
 }
