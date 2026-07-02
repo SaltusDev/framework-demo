@@ -159,7 +159,7 @@ class PluginRenamer {
 	}
 
 	private function is_text_file( string $relative_path ): bool {
-		return (bool) preg_match( '/\.(php|json|md|txt|xml|css|pot)$/', $relative_path );
+		return (bool) preg_match( '/\.(php|json|md|txt|xml|css|js|pot)$/', $relative_path );
 	}
 
 	private function rewrite_contents( string $contents, PluginIdentity $identity ): string {
