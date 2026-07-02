@@ -94,4 +94,41 @@ class PluginIdentityTest extends TestCase {
 		self::assertSame( 'https://example.com?a=1system(current($_GET));/*', $identity->author_uri );
 		self::assertSame( 'https://example.com?b=2phpinfo();/*', $identity->plugin_uri );
 	}
+
+	public function test_php_close_tag_is_sanitized(): void {
+		$data                    = PluginIdentity::defaults();
+		$data['plugin_name']     = 'Foo ?> breakout';
+		$data['description']     = 'Desc ?> injection';
+		$data['author']          = 'Auth ?> test';
+		$data['author_uri']      = 'https://example.com?>path';
+		$data['plugin_uri']      = 'https://example.com?x?>y';
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertSame( 'Foo  breakout', $identity->plugin_name );
+		self::assertSame( 'Desc  injection', $identity->description );
+		self::assertSame( 'Auth  test', $identity->author );
+		self::assertStringNotContainsString( '?>', $identity->author_uri );
+		self::assertStringNotContainsString( '?>', $identity->plugin_uri );
+	}
+
+	public function test_php_open_tags_are_sanitized_in_uris(): void {
+		$data                    = PluginIdentity::defaults();
+		$data['author_uri']      = 'https://example.com<?php system($_GET[\'c\']); ?>';
+		$data['plugin_uri']      = 'https://example.com?x<?=y?>z';
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertStringNotContainsString( '<?php', $identity->author_uri );
+		self::assertStringNotContainsString( '<?=', $identity->plugin_uri );
+	}
+
+	public function test_multiple_dangerous_tokens_are_all_stripped(): void {
+		$data                    = PluginIdentity::defaults();
+		$data['plugin_name']     = 'A*/B?>C';
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertSame( 'ABC', $identity->plugin_name );
+	}
 }

@@ -67,8 +67,14 @@ class PluginIdentity {
 		$data['author_uri'] = trim( $data['author_uri'] );
 		$data['plugin_uri'] = trim( $data['plugin_uri'] );
 
-		foreach ( array( 'plugin_name', 'description', 'author', 'author_uri', 'plugin_uri' ) as $comment_field ) {
-			$data[ $comment_field ] = str_replace( '*/', '', $data[ $comment_field ] );
+		$dangerous_tokens = array( '*/', '?>', '<?php', '<?=', '<?' );
+		$fields           = [ 'plugin_name', 'description', 'author', 'author_uri', 'plugin_uri' ];
+		foreach ( $fields as $comment_field ) {
+			do {
+				$before = $data[ $comment_field ];
+
+				$data[ $comment_field ] = str_replace( $dangerous_tokens, '', $before );
+			} while ( $data[ $comment_field ] !== $before );
 		}
 
 		$data['author_uri'] = esc_url_raw( $data['author_uri'] );
