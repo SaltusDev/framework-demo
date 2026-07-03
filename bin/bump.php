@@ -15,6 +15,10 @@ $slug = 'framework-demo';
 function read_version( string $file ): string {
 	$contents = file_get_contents( $file );
 
+	if ( false === $contents ) {
+		throw new RuntimeException( "Could not read file: {$file}" );
+	}
+
 	if ( 1 === preg_match( "/PLUGIN_VERSION', '([^']+)'/", $contents, $matches ) ) {
 		return $matches[1];
 	}
@@ -69,6 +73,10 @@ function bump_version( string $version, string $type ): string {
  */
 function update_version( string $file, string $old_version, string $new_version ): void {
 	$contents = file_get_contents( $file );
+
+	if ( false === $contents ) {
+		throw new RuntimeException( "Could not read file: {$file}" );
+	}
 
 	$contents = str_replace(
 		"PLUGIN_VERSION', '{$old_version}'",
