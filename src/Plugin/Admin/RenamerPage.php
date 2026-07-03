@@ -11,12 +11,12 @@ use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\Renamer\ValidationExcepti
  */
 class RenamerPage {
 
-	private const PAGE_SLUG         = 'framework-demo-renamer';
-	private const TOOLS_PAGE_SLUG   = 'framework-demo-renamer-tools';
-	private const NONCE_ACTION  = 'framework_demo_generate_plugin';
-	private const NONCE_NAME    = 'framework_demo_renamer_nonce';
-	private const NOTICE_ACTION = 'framework_demo_dismiss_rebrand_notice';
-	private const NOTICE_NONCE  = 'framework_demo_rebrand_notice_nonce';
+	private const PAGE_SLUG       = 'framework-demo-renamer';
+	private const TOOLS_PAGE_SLUG = 'framework-demo-renamer-tools';
+	private const NONCE_ACTION    = 'framework_demo_generate_plugin';
+	private const NONCE_NAME      = 'framework_demo_renamer_nonce';
+	private const NOTICE_ACTION   = 'framework_demo_dismiss_rebrand_notice';
+	private const NOTICE_NONCE    = 'framework_demo_rebrand_notice_nonce';
 
 	private Core $core;
 
@@ -359,19 +359,6 @@ class RenamerPage {
 			array( 'page' => self::TOOLS_PAGE_SLUG ),
 			admin_url( 'tools.php' )
 		);
-	}
-
-	private function redirect_with_success( string $message ): void {
-		$token = wp_generate_uuid4();
-		set_transient( 'framework_demo_success_' . $token, $message, 30 );
-
-		wp_safe_redirect(
-			add_query_arg(
-				array( 'framework_demo_success' => $token ),
-				$this->tool_url()
-			)
-		);
-		exit;
 	}
 
 	/**
