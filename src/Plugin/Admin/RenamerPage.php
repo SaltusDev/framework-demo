@@ -427,15 +427,15 @@ class RenamerPage {
 
 			foreach ( $iterator as $item ) {
 				if ( $item->isDir() && ! $item->isLink() ) {
-					@rmdir( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+					@rmdir( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions,WordPress.PHP.NoSilencedErrors.Discouraged
 					continue;
 				}
 
-				@unlink( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+				@unlink( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions,WordPress.PHP.NoSilencedErrors.Discouraged
 			}
 
-			@rmdir( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-		} catch ( \Throwable $e ) {
+			@rmdir( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions,WordPress.PHP.NoSilencedErrors.Discouraged
+		} catch ( \Throwable $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 			// Fail silently to avoid masking the primary exception during cleanup.
 		}
 	}

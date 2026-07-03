@@ -83,7 +83,7 @@ foreach ( $iterator as $item ) {
 	}
 
 	$source  = file_get_contents( $item->getPathname() );
-	if ( false === $source ) {
+	if ( $source === false ) {
 		continue;
 	}
 	$tokens  = @token_get_all( $source );
