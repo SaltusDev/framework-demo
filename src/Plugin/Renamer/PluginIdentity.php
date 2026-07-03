@@ -73,7 +73,7 @@ class PluginIdentity {
 			do {
 				$before = $data[ $comment_field ];
 
-				$data[ $comment_field ] = str_replace( $dangerous_tokens, '', $before );
+				$data[ $comment_field ] = str_ireplace( $dangerous_tokens, '', $before );
 			} while ( $data[ $comment_field ] !== $before );
 		}
 
