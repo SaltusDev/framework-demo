@@ -77,6 +77,10 @@
 		"check-i18n": "php bin/check-textdomains.php",
 		"version-bump": "php bin/bump.php",
 		"build": "php bin/package.php",
+		"all": [
+			"@lint",
+			"@test"
+		],
 		"package": "php bin/package.php"
 	},
 	"minimum-stability": "dev",
