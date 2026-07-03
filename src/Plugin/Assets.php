@@ -44,7 +44,7 @@ class Assets {
 		wp_register_style(
 			$this->core->get_name() . '_admin',
 			plugins_url( 'assets/css/admin-style.css', $this->core->get_file_path() ),
-			false,
+			array(),
 			$this->core->get_version()
 		);
 
