@@ -83,6 +83,9 @@ foreach ( $iterator as $item ) {
 	}
 
 	$source  = file_get_contents( $item->getPathname() );
+	if ( false === $source ) {
+		continue;
+	}
 	$tokens  = @token_get_all( $source );
 	$t_count = count( $tokens );
 
@@ -100,8 +103,14 @@ foreach ( $iterator as $item ) {
 		// Skip method calls and static calls: $obj->method() or Class::method()
 		if ( $i > 0 ) {
 			$prev = $tokens[ $i - 1 ];
-			if ( ( is_array( $prev ) && ( $prev[0] === T_OBJECT_OPERATOR || $prev[0] === T_DOUBLE_COLON ) )
-				|| $prev === '->' || $prev === '::'
+			if ( ( is_array( $prev ) && (
+					$prev[0] === T_OBJECT_OPERATOR
+					|| $prev[0] === T_DOUBLE_COLON
+					|| ( defined( 'T_NULLSAFE_OBJECT_OPERATOR' ) && $prev[0] === T_NULLSAFE_OBJECT_OPERATOR )
+				) )
+				|| $prev === '->'
+				|| $prev === '::'
+				|| $prev === '?->'
 			) {
 				continue;
 			}
