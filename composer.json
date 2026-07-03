@@ -66,8 +66,12 @@
 	},
 	"scripts": {
 		"validate-project": "composer validate --strict",
-		"lint": "phpcs",
-		"test": "phpunit",
+		"test:lint": "phpcs",
+		"test:unit": "phpunit",
+		"tests": [
+			"@lint",
+			"@test"
+		],
 		"make-pot": "wp i18n make-pot . languages/framework-demo.pot --exclude=vendor,node_modules,dist,release,build",
 		"prefix-namespaces": [
 			"strauss",
@@ -77,10 +81,6 @@
 		"check-i18n": "php bin/check-textdomains.php",
 		"version-bump": "php bin/bump.php",
 		"build": "php bin/package.php",
-		"all": [
-			"@lint",
-			"@test"
-		],
 		"package": "php bin/package.php"
 	},
 	"minimum-stability": "dev",
