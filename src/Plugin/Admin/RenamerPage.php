@@ -253,7 +253,7 @@ class RenamerPage {
 		}
 
 		$tmp_file = wp_tempnam( $identity->plugin_slug . '.zip' );
-		if ( $tmp_file === '' ) {
+		if ( ! $tmp_file ) {
 			throw new \RuntimeException( __( 'Could not create a temporary ZIP file.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
