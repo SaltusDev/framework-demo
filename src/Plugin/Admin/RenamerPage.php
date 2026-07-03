@@ -419,20 +419,24 @@ class RenamerPage {
 			return;
 		}
 
-		$iterator = new \RecursiveIteratorIterator(
-			new \RecursiveDirectoryIterator( $path, \FilesystemIterator::SKIP_DOTS ),
-			\RecursiveIteratorIterator::CHILD_FIRST
-		);
+		try {
+			$iterator = new \RecursiveIteratorIterator(
+				new \RecursiveDirectoryIterator( $path, \FilesystemIterator::SKIP_DOTS ),
+				\RecursiveIteratorIterator::CHILD_FIRST
+			);
 
-		foreach ( $iterator as $item ) {
-			if ( $item->isDir() && ! $item->isLink() ) {
-				rmdir( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-				continue;
+			foreach ( $iterator as $item ) {
+				if ( $item->isDir() && ! $item->isLink() ) {
+					@rmdir( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+					continue;
+				}
+
+				@unlink( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 			}
 
-			unlink( $item->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			@rmdir( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+		} catch ( \Throwable $e ) {
+			// Fail silently to avoid masking the primary exception during cleanup.
 		}
-
-		rmdir( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 	}
 }
