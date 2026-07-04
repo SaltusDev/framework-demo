@@ -69,8 +69,8 @@
 		"test:lint": "phpcs",
 		"test:unit": "phpunit",
 		"tests": [
-			"@lint",
-			"@test"
+			"@test:lint",
+			"@test:unit"
 		],
 		"make-pot": "wp i18n make-pot . languages/framework-demo.pot --exclude=vendor,node_modules,dist,release,build",
 		"prefix-namespaces": [

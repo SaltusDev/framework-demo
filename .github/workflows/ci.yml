@@ -43,10 +43,10 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: composer lint
+        run: composer test:lint
 
       - name: Test
-        run: composer test
+        run: composer test:unit
 
       - name: Check i18n text domains
         run: composer check-i18n
