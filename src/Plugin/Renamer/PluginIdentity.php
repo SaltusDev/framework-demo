@@ -120,12 +120,14 @@ class PluginIdentity {
 			throw new ValidationException( __( 'Code prefix must contain only lowercase letters, numbers, and underscores, and start with a letter.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
+		self::validate_urls( $data );
+	}
+
+	private static function validate_urls( array $data ): void {
 		foreach ( [ 'author_uri', 'plugin_uri' ] as $url_field ) {
-			if ( $data[ $url_field ] !== '' ) {
-				if ( filter_var( $data[ $url_field ], FILTER_VALIDATE_URL ) === false || ! preg_match( '/^https?:\/\//i', $data[ $url_field ] ) ) {
-					/* translators: %s: field label */
-					throw new ValidationException( sprintf( __( '%s must be a valid HTTP/HTTPS URL or empty.', 'framework-demo' ), self::label( $url_field ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
-				}
+			if ( $data[ $url_field ] !== '' && ( filter_var( $data[ $url_field ], FILTER_VALIDATE_URL ) === false || ! preg_match( '/^https?:\/\//i', $data[ $url_field ] ) ) ) {
+				/* translators: %s: field label */
+				throw new ValidationException( sprintf( __( '%s must be a valid HTTP/HTTPS URL or empty.', 'framework-demo' ), self::label( $url_field ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 		}
 	}
