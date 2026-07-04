@@ -37,7 +37,7 @@ class Assets {
 	 *
 	 */
 	public function load_admin_styles( string $hook_suffix = '' ): void {
-		if ( ! $hook_suffix || ! str_contains( $hook_suffix, 'framework-demo' ) ) {
+		if ( ! $hook_suffix || ! str_contains( $hook_suffix, $this->core->get_name() ) ) {
 			return;
 		}
 
