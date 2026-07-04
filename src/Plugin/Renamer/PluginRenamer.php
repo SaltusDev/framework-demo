@@ -168,6 +168,10 @@ class PluginRenamer {
 	}
 
 	private function rewrite_contents( string $contents, PluginIdentity $identity ): string {
+
+		$author = preg_replace( '/[\x00-\x1F\x7F]/u', '', $identity->author ); // strip control chars incl. raw newlines
+		$author = substr( $author, 0, 255 ); // sane length cap
+
 		$replacements = array(
 			self::ORIGINAL_NAMESPACE_SEGMENT    => $identity->namespace_segment,
 			self::ORIGINAL_PACKAGE              => $this->package_name( $identity ),
@@ -175,7 +179,7 @@ class PluginRenamer {
 			self::ORIGINAL_PREFIX_UPPER         => strtoupper( $identity->prefix ),
 			self::ORIGINAL_PREFIX               => $identity->prefix,
 			self::ORIGINAL_SLUG                 => $identity->plugin_slug,
-			'"name": "Saltus"'                  => '"name": "' . addcslashes( $identity->author, '"' ) . '"',
+			'"name": "Saltus"'                  => '"name": ' . json_encode( $author, JSON_UNESCAPED_UNICODE ),
 			'"homepage": "https://saltus.dev/"' => '"homepage": "' . esc_url_raw( $identity->author_uri ) . '"',
 			'"homepage": "https://saltus.dev"'  => '"homepage": "' . esc_url_raw( $identity->author_uri ) . '"',
 		);
