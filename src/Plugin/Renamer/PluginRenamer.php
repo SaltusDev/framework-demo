@@ -150,13 +150,13 @@ class PluginRenamer {
 		$normalized = str_replace( '\\', '/', $relative_path );
 		$parts      = explode( '/', $normalized );
 
-		$excluded_dirs = array( '.git', '.codex', '.agents', 'node_modules', 'build', 'dist', 'release', 'reports', 'vendor' );
+		$excluded_dirs = array( '.git', '.github', '.codex', '.agents', '.phpunit.cache', 'bin', 'build', 'dist', 'node_modules', 'release', 'reports', 'tests', 'vendor' );
 		if ( array_intersect( $parts, $excluded_dirs ) ) {
 			return true;
 		}
 
 		$basename = basename( $normalized );
-		if ( in_array( $basename, array( '.DS_Store', 'composer.lock', 'package-lock.json' ), true ) ) {
+		if ( in_array( $basename, array( '.DS_Store', '.gitignore', '.phpunit.result.cache', 'composer.lock', 'package.json', 'package-lock.json', 'phpcs.xml', 'phpunit.xml.dist', 'postcss.config.js', 'README.md' ), true ) ) {
 			return true;
 		}
 
@@ -247,9 +247,19 @@ class PluginRenamer {
 	}
 
 	private function add_saltus_contributor( string $contents ): string {
-		$entry = ",\n\t\t{\n\t\t\t\"name\": \"Saltus\",\n\t\t\t\"email\": \"web@saltus.dev\",\n\t\t\t\"homepage\": \"https://saltus.dev\"\n\t\t}";
-
-		return str_replace( "\n\t]", $entry . "\n\t]", $contents );
+		$data = json_decode( $contents, true );
+		if ( is_array( $data ) && isset( $data['authors'] ) && is_array( $data['authors'] ) ) {
+			$data['authors'][] = array(
+				'name'     => 'Saltus',
+				'email'    => 'web@saltus.dev',
+				'homepage' => 'https://saltus.dev',
+			);
+			$json = json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+			if ( $json !== false ) {
+				return $json;
+			}
+		}
+		return $contents;
 	}
 
 	private function delete_file( string $path ): void {
