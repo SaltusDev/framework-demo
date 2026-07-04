@@ -254,6 +254,8 @@ class PluginRenamer {
 				'email'    => 'web@saltus.dev',
 				'homepage' => 'https://saltus.dev',
 			);
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 			$json = json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
 			if ( $json !== false ) {
 				return $json;
