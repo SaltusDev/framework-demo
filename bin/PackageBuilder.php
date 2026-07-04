@@ -135,8 +135,6 @@ class PackageBuilder {
 		$excluded_files = array(
 			'.gitignore',
 			'.phpunit.result.cache',
-			'composer.json',
-			'composer.lock',
 			'package.json',
 			'package-lock.json',
 			'phpcs.xml',
