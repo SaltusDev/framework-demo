@@ -119,7 +119,12 @@ class PluginRenamer {
 					throw new \RuntimeException( 'Could not read ' . $relative_path ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 				$contents = $this->rewrite_contents( $contents, $identity );
-				$added    = $zip->addFromString( $target_path, $contents );
+
+				if ( $identity->saltus_contributor && basename( $relative_path ) === 'composer.json' ) {
+					$contents = $this->add_saltus_contributor( $contents );
+				}
+
+				$added = $zip->addFromString( $target_path, $contents );
 			} else {
 				$added = $zip->addFile( $file->getPathname(), $target_path );
 			}
@@ -164,12 +169,15 @@ class PluginRenamer {
 
 	private function rewrite_contents( string $contents, PluginIdentity $identity ): string {
 		$replacements = array(
-			self::ORIGINAL_NAMESPACE_SEGMENT => $identity->namespace_segment,
-			self::ORIGINAL_PACKAGE           => $this->package_name( $identity ),
-			self::ORIGINAL_MAIN_FILE         => $identity->main_file,
-			self::ORIGINAL_PREFIX_UPPER      => strtoupper( $identity->prefix ),
-			self::ORIGINAL_PREFIX            => $identity->prefix,
-			self::ORIGINAL_SLUG              => $identity->plugin_slug,
+			self::ORIGINAL_NAMESPACE_SEGMENT    => $identity->namespace_segment,
+			self::ORIGINAL_PACKAGE              => $this->package_name( $identity ),
+			self::ORIGINAL_MAIN_FILE            => $identity->main_file,
+			self::ORIGINAL_PREFIX_UPPER         => strtoupper( $identity->prefix ),
+			self::ORIGINAL_PREFIX               => $identity->prefix,
+			self::ORIGINAL_SLUG                 => $identity->plugin_slug,
+			'"name": "Saltus"'                  => '"name": "' . addcslashes( $identity->author, '"' ) . '"',
+			'"homepage": "https://saltus.dev/"' => '"homepage": "' . esc_url_raw( $identity->author_uri ) . '"',
+			'"homepage": "https://saltus.dev"'  => '"homepage": "' . esc_url_raw( $identity->author_uri ) . '"',
 		);
 
 		$contents = strtr( $contents, $replacements );
@@ -238,9 +246,15 @@ class PluginRenamer {
 		return $vendor . '/' . $identity->plugin_slug;
 	}
 
+	private function add_saltus_contributor( string $contents ): string {
+		$entry = ",\n\t\t{\n\t\t\t\"name\": \"Saltus\",\n\t\t\t\"email\": \"web@saltus.dev\",\n\t\t\t\"homepage\": \"https://saltus.dev\"\n\t\t}";
+
+		return str_replace( "\n\t]", $entry . "\n\t]", $contents );
+	}
+
 	private function delete_file( string $path ): void {
 		if ( is_file( $path ) ) {
-			unlink( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			@unlink( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions,WordPress.PHP.NoSilencedErrors.Discouraged
 		}
 	}
 }

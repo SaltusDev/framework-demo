@@ -17,22 +17,24 @@ class PluginIdentity {
 	public string $plugin_uri;
 	public string $version;
 	public string $prefix;
+	public bool $saltus_contributor = false;
 
 	/**
 	 * @param array<string,string> $data Renamer field values.
 	 */
 	public function __construct( array $data ) {
-		$this->plugin_name       = $data['plugin_name'];
-		$this->plugin_slug       = $data['plugin_slug'];
-		$this->main_file         = $data['main_file'];
-		$this->namespace_segment = $data['namespace_segment'];
-		$this->text_domain       = $this->plugin_slug;
-		$this->description       = $data['description'];
-		$this->author            = $data['author'];
-		$this->author_uri        = $data['author_uri'];
-		$this->plugin_uri        = $data['plugin_uri'];
-		$this->version           = $data['version'];
-		$this->prefix            = $data['prefix'];
+		$this->plugin_name        = $data['plugin_name'];
+		$this->plugin_slug        = $data['plugin_slug'];
+		$this->main_file          = $data['main_file'];
+		$this->namespace_segment  = $data['namespace_segment'];
+		$this->text_domain        = $this->plugin_slug;
+		$this->description        = $data['description'];
+		$this->author             = $data['author'];
+		$this->author_uri         = $data['author_uri'];
+		$this->plugin_uri         = $data['plugin_uri'];
+		$this->version            = $data['version'];
+		$this->prefix             = $data['prefix'];
+		$this->saltus_contributor = ! empty( $data['saltus_contributor'] );
 	}
 
 	/**
@@ -64,8 +66,9 @@ class PluginIdentity {
 			$data[ $key ] = sanitize_text_field( $value );
 		}
 
-		$data['author_uri'] = trim( $data['author_uri'] );
-		$data['plugin_uri'] = trim( $data['plugin_uri'] );
+		$data['saltus_contributor'] = ! empty( $request['saltus_contributor'] ) && (string) $request['saltus_contributor'] === '1';
+		$data['author_uri']         = trim( $data['author_uri'] );
+		$data['plugin_uri']         = trim( $data['plugin_uri'] );
 
 		$dangerous_tokens = array( '*/', '?>', '<?php', '<?=', '<?' );
 		$fields           = [ 'plugin_name', 'description', 'author', 'author_uri', 'plugin_uri' ];

@@ -181,6 +181,7 @@ class RenamerPage {
 						<?php $this->render_text_field( 'plugin_uri', __( 'Plugin URI', 'framework-demo' ), $values['plugin_uri'], false, 'url' ); ?>
 						<?php $this->render_text_field( 'version', __( 'Version', 'framework-demo' ), $values['version'], true ); ?>
 						<?php $this->render_text_field( 'prefix', __( 'Code Prefix', 'framework-demo' ), $values['prefix'], true ); ?>
+						<?php $this->render_checkbox_field( 'saltus_contributor', __( 'Credit Saltus as contributor', 'framework-demo' ), __( 'Include Saltus as a co-author in the generated plugin\'s composer.json', 'framework-demo' ) ); ?>
 					</table>
 
 					<p class="submit">
@@ -329,6 +330,29 @@ class RenamerPage {
 		<?php
 	}
 
+	private function render_checkbox_field( string $id, string $label, string $description ): void {
+		?>
+		<tr>
+			<th scope="row">
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?></label>
+			</th>
+			<td>
+				<fieldset>
+					<label for="<?php echo esc_attr( $id ); ?>">
+						<input
+							name="<?php echo esc_attr( $id ); ?>"
+							id="<?php echo esc_attr( $id ); ?>"
+							type="checkbox"
+							value="1"
+						>
+						<?php echo esc_html( $description ); ?>
+					</label>
+				</fieldset>
+			</td>
+		</tr>
+		<?php
+	}
+
 	private function render_guide(): void {
 		?>
 		<aside class="framework-demo-renamer__guide">
@@ -405,7 +429,7 @@ class RenamerPage {
 
 	private function delete_file( string $path ): void {
 		if ( is_file( $path ) ) {
-			unlink( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			@unlink( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions,WordPress.PHP.NoSilencedErrors.Discouraged
 		}
 	}
 
