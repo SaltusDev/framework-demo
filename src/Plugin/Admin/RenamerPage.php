@@ -293,6 +293,8 @@ class RenamerPage {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
+		wp_clean_plugins_cache();
+
 		$result = activate_plugin( $identity->plugin_slug . '/' . $identity->main_file );
 		if ( is_wp_error( $result ) ) {
 			throw new \RuntimeException( $result->get_error_message() ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped

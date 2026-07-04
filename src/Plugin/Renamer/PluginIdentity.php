@@ -66,7 +66,7 @@ class PluginIdentity {
 			$data[ $key ] = sanitize_text_field( $value );
 		}
 
-		$data['saltus_contributor'] = ! empty( $request['saltus_contributor'] ) && (string) $request['saltus_contributor'] === '1';
+		$data['saltus_contributor'] = ! empty( $request['saltus_contributor'] ) && ! is_array( $request['saltus_contributor'] ) && (string) $request['saltus_contributor'] === '1';
 		$data['author_uri']         = trim( $data['author_uri'] );
 		$data['plugin_uri']         = trim( $data['plugin_uri'] );
 
@@ -80,10 +80,10 @@ class PluginIdentity {
 			} while ( $data[ $comment_field ] !== $before );
 		}
 
+		self::validate( $data );
+
 		$data['author_uri'] = esc_url_raw( $data['author_uri'] );
 		$data['plugin_uri'] = esc_url_raw( $data['plugin_uri'] );
-
-		self::validate( $data );
 		return new self( $data );
 	}
 

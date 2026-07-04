@@ -131,4 +131,13 @@ class PluginIdentityTest extends TestCase {
 
 		self::assertSame( 'ABC', $identity->plugin_name );
 	}
+
+	public function test_saltus_contributor_as_array_does_not_cause_warning(): void {
+		$data                           = PluginIdentity::defaults();
+		$data['saltus_contributor']     = [ '1' ];
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertFalse( $identity->saltus_contributor );
+	}
 }
