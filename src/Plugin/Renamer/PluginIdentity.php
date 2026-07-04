@@ -41,7 +41,7 @@ class PluginIdentity {
 	 * @return array<string,string>
 	 */
 	public static function defaults(): array {
-		return array(
+		return [
 			'plugin_name'       => 'My Saltus Plugin',
 			'plugin_slug'       => 'my-saltus-plugin',
 			'main_file'         => 'my-saltus-plugin.php',
@@ -52,14 +52,14 @@ class PluginIdentity {
 			'plugin_uri'        => 'https://saltus.dev/my-saltus-plugin/',
 			'version'           => '1.0.0',
 			'prefix'            => 'my_saltus_plugin',
-		);
+		];
 	}
 
 	/**
 	 * @param array<string,mixed> $request Raw request values.
 	 */
 	public static function from_request( array $request ): self {
-		$data = array();
+		$data = [];
 
 		foreach ( array_keys( self::defaults() ) as $key ) {
 			$value        = isset( $request[ $key ] ) && ! is_array( $request[ $key ] ) ? (string) $request[ $key ] : '';
@@ -70,7 +70,7 @@ class PluginIdentity {
 		$data['author_uri']         = trim( $data['author_uri'] );
 		$data['plugin_uri']         = trim( $data['plugin_uri'] );
 
-		$dangerous_tokens = array( '*/', '?>', '<?php', '<?=', '<?' );
+		$dangerous_tokens = [ '*/', '?>', '<?php', '<?=', '<?' ];
 		$fields           = [ 'plugin_name', 'description', 'author', 'author_uri', 'plugin_uri' ];
 		foreach ( $fields as $comment_field ) {
 			do {
@@ -91,7 +91,7 @@ class PluginIdentity {
 	 * @param array<string,string> $data Renamer field values.
 	 */
 	private static function validate( array $data ): void {
-		$required = array( 'plugin_name', 'plugin_slug', 'main_file', 'namespace_segment', 'description', 'author', 'version', 'prefix' );
+		$required = [ 'plugin_name', 'plugin_slug', 'main_file', 'namespace_segment', 'description', 'author', 'version', 'prefix' ];
 
 		foreach ( $required as $field ) {
 			if ( trim( $data[ $field ] ) === '' ) {
@@ -120,16 +120,18 @@ class PluginIdentity {
 			throw new ValidationException( __( 'Code prefix must contain only lowercase letters, numbers, and underscores, and start with a letter.', 'framework-demo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 
-		foreach ( array( 'author_uri', 'plugin_uri' ) as $url_field ) {
-			if ( $data[ $url_field ] !== '' && filter_var( $data[ $url_field ], FILTER_VALIDATE_URL ) === false ) {
-				/* translators: %s: field label */
-				throw new ValidationException( sprintf( __( '%s must be a valid URL or empty.', 'framework-demo' ), self::label( $url_field ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+		foreach ( [ 'author_uri', 'plugin_uri' ] as $url_field ) {
+			if ( $data[ $url_field ] !== '' ) {
+				if ( filter_var( $data[ $url_field ], FILTER_VALIDATE_URL ) === false || ! preg_match( '/^https?:\/\//i', $data[ $url_field ] ) ) {
+					/* translators: %s: field label */
+					throw new ValidationException( sprintf( __( '%s must be a valid HTTP/HTTPS URL or empty.', 'framework-demo' ), self::label( $url_field ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				}
 			}
 		}
 	}
 
 	private static function label( string $field ): string {
-		$labels = array(
+		$labels = [
 			'plugin_name'       => __( 'Plugin Name', 'framework-demo' ),
 			'plugin_slug'       => __( 'Plugin Slug', 'framework-demo' ),
 			'main_file'         => __( 'Main Plugin File', 'framework-demo' ),
@@ -140,7 +142,7 @@ class PluginIdentity {
 			'plugin_uri'        => __( 'Plugin URI', 'framework-demo' ),
 			'version'           => __( 'Version', 'framework-demo' ),
 			'prefix'            => __( 'Code Prefix', 'framework-demo' ),
-		);
+		];
 		return $labels[ $field ] ?? ucwords( str_replace( '_', ' ', $field ) );
 	}
 }

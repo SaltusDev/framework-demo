@@ -132,6 +132,26 @@ class PluginIdentityTest extends TestCase {
 		self::assertSame( 'ABC', $identity->plugin_name );
 	}
 
+	public function test_javascript_url_fails_validation(): void {
+		$data               = PluginIdentity::defaults();
+		$data['plugin_uri'] = 'javascript:alert(1)';
+
+		$this->expectException( ValidationException::class );
+
+		PluginIdentity::from_request( $data );
+	}
+
+	public function test_empty_url_passes_validation(): void {
+		$data               = PluginIdentity::defaults();
+		$data['plugin_uri'] = '';
+		$data['author_uri'] = '';
+
+		$identity = PluginIdentity::from_request( $data );
+
+		self::assertSame( '', $identity->plugin_uri );
+		self::assertSame( '', $identity->author_uri );
+	}
+
 	public function test_saltus_contributor_as_array_does_not_cause_warning(): void {
 		$data                           = PluginIdentity::defaults();
 		$data['saltus_contributor']     = [ '1' ];
