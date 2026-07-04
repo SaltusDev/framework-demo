@@ -64,7 +64,7 @@ class PackageBuilder {
 			throw new RuntimeException( "Could not read {$plugin_file}." );
 		}
 
-		if ( 1 === preg_match( "/PLUGIN_VERSION', '([^']+)'/", $contents, $matches ) ) {
+		if ( 1 === preg_match( "/PLUGIN_VERSION'\\s*,\\s*'([^']+)'/", $contents, $matches ) ) {
 			return $matches[1];
 		}
 

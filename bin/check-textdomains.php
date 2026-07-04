@@ -145,8 +145,7 @@ foreach ( $iterator as $item ) {
 
 				// Skip heredoc/nowdoc body entirely.
 				if ( $type === T_START_HEREDOC ) {
-					while ( $k < $t_count ) {
-						$k++;
+					while ( ++$k < $t_count ) {
 						if ( is_array( $tokens[ $k ] ) && $tokens[ $k ][0] === T_END_HEREDOC ) {
 							break;
 						}

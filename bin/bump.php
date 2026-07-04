@@ -19,7 +19,7 @@ function read_version( string $file ): string {
 		throw new RuntimeException( "Could not read file: {$file}" );
 	}
 
-	if ( 1 === preg_match( "/PLUGIN_VERSION', '([^']+)'/", $contents, $matches ) ) {
+	if ( 1 === preg_match( "/PLUGIN_VERSION'\\s*,\\s*'([^']+)'/", $contents, $matches ) ) {
 		return $matches[1];
 	}
 
