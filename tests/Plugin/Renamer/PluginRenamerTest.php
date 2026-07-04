@@ -168,6 +168,109 @@ class PluginRenamerTest extends TestCase {
 		$this->remove_dir( $source );
 	}
 
+	public function test_build_zip_replaces_composer_author_and_homepage(): void {
+		$source   = $this->make_source_fixture( true );
+		$output   = tempnam( sys_get_temp_dir(), 'renamer-' );
+		$identity = PluginIdentity::from_request(
+			array_merge(
+				PluginIdentity::defaults(),
+				array(
+					'plugin_name'       => 'Acme Library',
+					'plugin_slug'       => 'acme-library',
+					'main_file'         => 'acme-library.php',
+					'namespace_segment' => 'AcmeLibrary',
+					'author'            => 'Acme Inc',
+					'author_uri'        => 'https://acme.dev/',
+					'prefix'            => 'acme_library',
+				)
+			)
+		);
+
+		$renamer = new PluginRenamer( $source );
+		$renamer->build_zip( $identity, $output );
+
+		$zip = new ZipArchive();
+		self::assertTrue( true === $zip->open( $output ) );
+
+		$contents = $zip->getFromName( 'acme-library/composer.json' );
+		self::assertIsString( $contents );
+		self::assertStringContainsString( '"name": "Acme Inc"', $contents );
+		self::assertStringContainsString( '"homepage": "https://acme.dev/', $contents );
+		self::assertStringNotContainsString( '"name": "Saltus"', $contents );
+		self::assertStringNotContainsString( '"homepage": "https://saltus.dev', $contents );
+
+		$zip->close();
+		@unlink( $output );
+		$this->remove_dir( $source );
+	}
+
+	public function test_build_zip_adds_saltus_contributor_when_flag_set(): void {
+		$source   = $this->make_source_fixture( true );
+		$output   = tempnam( sys_get_temp_dir(), 'renamer-' );
+		$identity = PluginIdentity::from_request(
+			array_merge(
+				PluginIdentity::defaults(),
+				array(
+					'plugin_name'        => 'Acme Library',
+					'plugin_slug'        => 'acme-library',
+					'main_file'          => 'acme-library.php',
+					'namespace_segment'  => 'AcmeLibrary',
+					'author'             => 'Acme Inc',
+					'prefix'             => 'acme_library',
+					'saltus_contributor' => '1',
+				)
+			)
+		);
+
+		$renamer = new PluginRenamer( $source );
+		$renamer->build_zip( $identity, $output );
+
+		$zip = new ZipArchive();
+		self::assertTrue( true === $zip->open( $output ) );
+
+		$contents = $zip->getFromName( 'acme-library/composer.json' );
+		self::assertIsString( $contents );
+		self::assertStringContainsString( '"name": "Saltus"', $contents );
+		self::assertStringContainsString( '"name": "Acme Inc"', $contents );
+		self::assertStringContainsString( '"email": "web@saltus.dev"', $contents );
+
+		$zip->close();
+		@unlink( $output );
+		$this->remove_dir( $source );
+	}
+
+	public function test_build_zip_omits_saltus_contributor_when_flag_unset(): void {
+		$source   = $this->make_source_fixture( true );
+		$output   = tempnam( sys_get_temp_dir(), 'renamer-' );
+		$identity = PluginIdentity::from_request(
+			array_merge(
+				PluginIdentity::defaults(),
+				array(
+					'plugin_name'       => 'Acme Library',
+					'plugin_slug'       => 'acme-library',
+					'main_file'         => 'acme-library.php',
+					'namespace_segment' => 'AcmeLibrary',
+					'author'            => 'Acme Inc',
+					'prefix'            => 'acme_library',
+				)
+			)
+		);
+
+		$renamer = new PluginRenamer( $source );
+		$renamer->build_zip( $identity, $output );
+
+		$zip = new ZipArchive();
+		self::assertTrue( true === $zip->open( $output ) );
+
+		$contents = $zip->getFromName( 'acme-library/composer.json' );
+		self::assertIsString( $contents );
+		self::assertStringNotContainsString( '"name": "Saltus"', $contents );
+
+		$zip->close();
+		@unlink( $output );
+		$this->remove_dir( $source );
+	}
+
 	public function test_package_name_falls_back_to_local_when_author_has_no_ascii(): void {
 		$source = $this->make_source_fixture( true );
 		$output = tempnam( sys_get_temp_dir(), 'renamer-' );
@@ -231,7 +334,7 @@ class PluginRenamerTest extends TestCase {
 		if ( $with_composer ) {
 			file_put_contents(
 				$source . '/composer.json',
-				"{\n\t\"name\": \"saltus/framework-demo\",\n\t\"type\": \"wordpress-plugin\"\n}\n"
+				"{\n\t\"name\": \"saltus/framework-demo\",\n\t\"type\": \"wordpress-plugin\",\n\t\"homepage\": \"https://saltus.dev/\",\n\t\"authors\": [\n\t\t{\n\t\t\t\"name\": \"Saltus\",\n\t\t\t\"email\": \"web@saltus.dev\",\n\t\t\t\"homepage\": \"https://saltus.dev\"\n\t\t}\n\t]\n}\n"
 			);
 		}
 
