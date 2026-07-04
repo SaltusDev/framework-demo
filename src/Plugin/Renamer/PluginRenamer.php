@@ -179,7 +179,7 @@ class PluginRenamer {
 			self::ORIGINAL_PREFIX_UPPER         => strtoupper( $identity->prefix ),
 			self::ORIGINAL_PREFIX               => $identity->prefix,
 			self::ORIGINAL_SLUG                 => $identity->plugin_slug,
-			'"name": "Saltus"'                  => '"name": ' . wp_json_encode( $author, JSON_UNESCAPED_UNICODE ),
+			'"name": "Saltus"'                  => '"name": ' . \wp_json_encode( $author, JSON_UNESCAPED_UNICODE ),
 			'"homepage": "https://saltus.dev/"' => '"homepage": "' . esc_url_raw( $identity->author_uri ) . '"',
 			'"homepage": "https://saltus.dev"'  => '"homepage": "' . esc_url_raw( $identity->author_uri ) . '"',
 		);
@@ -259,8 +259,7 @@ class PluginRenamer {
 				'homepage' => 'https://saltus.dev',
 			);
 
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
-			$json = json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+			$json = wp_json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
 			if ( $json !== false ) {
 				return $json;
 			}
