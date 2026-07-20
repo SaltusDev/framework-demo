@@ -21,7 +21,7 @@ class Field {
 	 * @return mixed          Will be an array if $single is false. Will be value of meta data
 	 *                        field if $single is true.
 	 */
-	public static function get( int $post_id, string $key = '', bool $single = false ) {
+	public static function get( int $post_id, string $key = '', bool $single = false ): mixed {
 
 		return get_post_meta( $post_id, $key, $single );
 	}
@@ -36,7 +36,7 @@ class Field {
 	 * @param  int   $post_id Post ID.
 	 * @return array          All the post meta values, in a multidimensional array.
 	 */
-	public static function get_all( int $post_id ) {
+	public static function get_all( int $post_id ): array {
 
 		return get_post_meta( $post_id );
 	}
@@ -48,7 +48,7 @@ class Field {
 	 * @param  string  $meta_key  The key for the meta field
 	 * @return string             The value for the supplied key, else empty if nothing found.
 	 */
-	public static function get_meta_text( array $postmeta, string $meta_key ) {
+	public static function get_meta_text( array $postmeta, string $meta_key ): string {
 		$value = '';
 		if ( ! empty( $postmeta[ $meta_key ][0] ) ) {
 			$value = $postmeta[ $meta_key ][0];
@@ -64,7 +64,7 @@ class Field {
 	 * @param  string  $size      Optional. An existing image size. Defaults to 'full'.
 	 * @return string             A string with the img tag
 	 */
-	public static function get_meta_img( array $postmeta, string $meta_key, string $size = 'full' ) {
+	public static function get_meta_img( array $postmeta, string $meta_key, string $size = 'full' ): string {
 
 		$image_src = self::get_meta_img_src( $postmeta, $meta_key, $size );
 		if ( empty( $image_src ) ) {
@@ -91,7 +91,7 @@ class Field {
 	 * @param  string  $meta_key  The key for the meta field
 	 * @return string             The image id
 	 */
-	protected static function get_meta_img_id( array $postmeta, string $meta_key ) {
+	protected static function get_meta_img_id( array $postmeta, string $meta_key ): string {
 
 		$meta_key_id = $meta_key . '_id';
 		if ( empty( $postmeta[ $meta_key_id ][0] ) ) {
@@ -110,7 +110,7 @@ class Field {
 	 * @param  string  $size      Optional. An existing image size. Defaults to 'full'.
 	 * @return string             A URL for the image src
 	 */
-	public static function get_meta_img_src( array $postmeta, string $meta_key, string $size = 'full' ) {
+	public static function get_meta_img_src( array $postmeta, string $meta_key, string $size = 'full' ): string {
 
 		$image_src = '';
 
@@ -151,7 +151,7 @@ class Field {
 	 * @param  bool    $single    Optional. Expect just a single group
 	 * @return string             The meta value, or empty if nothing found.
 	 */
-	public static function get_meta_group( array $postmeta, string $meta_key, bool $single = true ) {
+	public static function get_meta_group( array $postmeta, string $meta_key, bool $single = true ): mixed {
 
 		if ( empty( $postmeta[ $meta_key ][0] ) ) {
 			return '';

@@ -11,7 +11,7 @@ class I18n {
 	 *
 	 * @var string
 	 */
-	private $domain;
+	private string $domain;
 
 	/**
 	 * Define the domain.
@@ -27,7 +27,7 @@ class I18n {
 	 *
 	 * @param string $plugin_dirname Plugin directory name, relative to WP_PLUGIN_DIR.
 	 */
-	public function load_plugin_textdomain( string $plugin_dirname ) {
+	public function load_plugin_textdomain( string $plugin_dirname ): void {
 
 		load_plugin_textdomain(
 			$this->domain,
@@ -35,5 +35,4 @@ class I18n {
 			$plugin_dirname . '/languages/'
 		);
 	}
-
 }

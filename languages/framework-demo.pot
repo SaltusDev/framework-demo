@@ -1,384 +1,580 @@
-# Copyright (C) 2020 Saltus
-# This file is distributed under the GPL-2.0+.
+# Copyright (C) 2026 Saltus
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Saltus Framework Demo 1.0.11\n"
-"Report-Msgid-Bugs-To: https://saltus.dev/\n"
-"POT-Creation-Date: 2020-01-19 01:17:20+00:00\n"
+"Project-Id-Version: Saltus Framework Demo 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/framework-demo\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Saltus <hello@saltus.dev>\n"
-"Language-Team: Saltus <hello@saltus.dev>\n"
-"Language: en_US\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Country: United States\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: "
-"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
-"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-Bookmarks: \n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
-
-#: src/models/post-type-basic.php:34
-msgid "Information"
-msgstr ""
-
-#: src/models/post-type-basic.php:37 src/models/post-type-basic.php:326
-msgid "Social Networks"
-msgstr ""
-
-#: src/models/post-type-basic.php:38
-msgid "Links to Social Networks"
-msgstr ""
-
-#: src/models/post-type-basic.php:42 src/models/post-type-basic.php:235
-#: src/models/post-type-basic.php:277 src/models/post-type-basic.php:335
-msgid "Name"
-msgstr ""
-
-#: src/models/post-type-basic.php:44 src/models/post-type-basic.php:337
-msgid "Name this social network"
-msgstr ""
-
-#: src/models/post-type-basic.php:48 src/models/post-type-basic.php:241
-#: src/models/post-type-basic.php:283 src/models/post-type-basic.php:341
-msgid "Enabled"
-msgstr ""
-
-#: src/models/post-type-basic.php:52 src/models/post-type-basic.php:304
-#: src/models/post-type-basic.php:345
-msgid "Icon"
-msgstr ""
-
-#: src/models/post-type-basic.php:54 src/models/post-type-basic.php:306
-#: src/models/post-type-basic.php:347
-msgid "Icon for this social network"
-msgstr ""
-
-#: src/models/post-type-basic.php:58 src/models/post-type-basic.php:351
-msgid "Icon Color"
-msgstr ""
-
-#: src/models/post-type-basic.php:60 src/models/post-type-basic.php:353
-msgid "Social network icon colour"
-msgstr ""
-
-#: src/models/post-type-basic.php:64 src/models/post-type-basic.php:287
-#: src/models/post-type-basic.php:357
-msgid "Description"
-msgstr ""
-
-#: src/models/post-type-basic.php:66 src/models/post-type-basic.php:289
-#: src/models/post-type-basic.php:359
-msgid "Description for this field"
-msgstr ""
-
-#: src/models/post-type-basic.php:78
-msgid "Plugin Settings"
-msgstr ""
-
-#: src/models/post-type-basic.php:80
-msgid "Settings"
-msgstr ""
-
-#: src/models/post-type-basic.php:83
-msgid "General"
-msgstr ""
-
-#: src/models/post-type-basic.php:84
-msgid "Basic settings that affect the plugin behaviour"
-msgstr ""
-
-#: src/models/post-type-basic.php:89
-msgid "Archive Page Redirect"
-msgstr ""
-
-#: src/models/post-type-basic.php:90
-msgid ""
-"Sometimes breadcrumbs will link to the default theme archive page, which "
-"does not have the layout you want. You can setup here the URL you want the "
-"archive page to redirect to."
-msgstr ""
-
-#: src/models/post-type-basic.php:95
-msgid "mailto: Links"
-msgstr ""
-
-#: src/models/post-type-basic.php:96
-msgid "Enable mailto: links on email fields"
-msgstr ""
-
-#: src/models/post-type-basic.php:100
-msgid "tel: Links"
-msgstr ""
-
-#: src/models/post-type-basic.php:101
-msgid "Enable tel: links in telephone fields."
-msgstr ""
-
-#: src/models/post-type-basic.php:105
-msgid "nofollow for Social Links"
-msgstr ""
-
-#: src/models/post-type-basic.php:106
-msgid "When active, social links will have the rel=\"nofollow\" parameter."
-msgstr ""
-
-#: src/models/post-type-basic.php:110
-msgid "Redirect to User Page"
-msgstr ""
-
-#: src/models/post-type-basic.php:111
-msgid "Will redirect the user/author pages to the associated team member entry page"
-msgstr ""
-
-#: src/models/post-type-basic.php:118
-msgid "Image"
-msgstr ""
-
-#: src/models/post-type-basic.php:119
-msgid "Options to control default image sizes"
-msgstr ""
-
-#: src/models/post-type-basic.php:124 src/models/post-type-basic.php:149
-#: src/models/post-type-basic.php:154
-msgid "Main Image Width"
-msgstr ""
-
-#: src/models/post-type-basic.php:128
-msgid "Main Image Height"
-msgstr ""
-
-#: src/models/post-type-basic.php:133
-msgid "Main Image Crop"
-msgstr ""
-
-#: src/models/post-type-basic.php:134
-msgid "If the image will be cropped to fit defined size"
-msgstr ""
-
-#: src/models/post-type-basic.php:139
-msgid "Thumbnails Image Width"
-msgstr ""
-
-#: src/models/post-type-basic.php:143
-msgid "Thumbnails Pager Image Height"
-msgstr ""
-
-#: src/models/post-type-basic.php:161
-msgid "CSS & JS"
-msgstr ""
-
-#: src/models/post-type-basic.php:162
-msgid "Add custom styles and code snippets to the pages loading the layouts."
-msgstr ""
-
-#: src/models/post-type-basic.php:166
-msgid "Custom CSS"
-msgstr ""
-
-#: src/models/post-type-basic.php:167
-msgid "Custom CSS to load with the layouts"
-msgstr ""
-
-#: src/models/post-type-basic.php:171
-msgid "Custom Javascript"
-msgstr ""
-
-#: src/models/post-type-basic.php:172
-msgid "Custom Javascript to load with the layouts"
-msgstr ""
-
-#: src/models/post-type-basic.php:178
-msgid "Advanced"
-msgstr ""
-
-#: src/models/post-type-basic.php:179
-msgid "Advanced options to control how the plugin works."
-msgstr ""
-
-#: src/models/post-type-basic.php:184
-msgid "Menu name"
-msgstr ""
-
-#: src/models/post-type-basic.php:185
-msgid "Text that will in the administration menus."
-msgstr ""
-
-#: src/models/post-type-basic.php:190
-msgid "Singular Name"
-msgstr ""
-
-#: src/models/post-type-basic.php:196
-msgid "Plural Name"
-msgstr ""
-
-#: src/models/post-type-basic.php:202
-msgid "Slug"
-msgstr ""
-
-#: src/models/post-type-basic.php:203
-msgid ""
-"Text that will be used in permalinks. Must be unique and shouldn't contain "
-"spaces or special characters."
-msgstr ""
-
-#: src/models/post-type-basic.php:208
-msgid "Exclude from general search"
-msgstr ""
-
-#: src/models/post-type-basic.php:209
-msgid "If active it will exclude the entries from the general site search results."
-msgstr ""
-
-#: src/models/post-type-basic.php:214
-msgid "Use block editor"
-msgstr ""
-
-#: src/models/post-type-basic.php:215
-msgid "If active when editing an entry, you'll be able to use the block editor."
-msgstr ""
-
-#: src/models/post-type-basic.php:222
-msgid ""
-"Attention! Changing the settings below might lead to the loss of data. "
-"Avoid deleting existing fields if you have already saved data into them. "
-"Proceed with carefull."
-msgstr ""
-
-#: src/models/post-type-basic.php:225
-msgid "Taxonomies"
-msgstr ""
-
-#: src/models/post-type-basic.php:226
-msgid ""
-"Available taxonomies in the plugin. <br> Hierarchical taxonomies will "
-"behave the same way as categories. Non-hierarchical taxonomies will behave "
-"like tags."
-msgstr ""
-
-#: src/models/post-type-basic.php:228 src/models/post-type-basic.php:271
-#: src/models/post-type-basic.php:329
-msgid "Entry {#}"
-msgstr ""
-
-#: src/models/post-type-basic.php:229
-msgid "Add Another Taxonomy"
-msgstr ""
-
-#: src/models/post-type-basic.php:237
-msgid "Singular name for this taxonomy"
-msgstr ""
-
-#: src/models/post-type-basic.php:245
-msgid "Plural name"
-msgstr ""
-
-#: src/models/post-type-basic.php:247
-msgid "Plural name for this taxonomy"
-msgstr ""
-
-#: src/models/post-type-basic.php:251
-msgid "Unique Identifier (slug)"
-msgstr ""
-
-#: src/models/post-type-basic.php:253
-msgid ""
-"Unique word to identify this taxonomy. When changed a new taxonomy will be "
-"created. No spaces are allowed.<br>If empty, it will default to the "
-"singular name of this taxonomy."
-msgstr ""
-
-#: src/models/post-type-basic.php:257
-msgid "Hierarchical?"
-msgstr ""
-
-#: src/models/post-type-basic.php:259
-msgid "Can the terms in this taxonomy have parent-child relationship?"
-msgstr ""
-
-#: src/models/post-type-basic.php:267
-msgid "Information Fields"
-msgstr ""
-
-#: src/models/post-type-basic.php:269
-msgid "Fields that will display when adding new entries."
-msgstr ""
-
-#: src/models/post-type-basic.php:272
-msgid "Add Another Field"
-msgstr ""
-
-#: src/models/post-type-basic.php:279
-msgid "Name this field"
-msgstr ""
-
-#: src/models/post-type-basic.php:293
-msgid "Field type"
-msgstr ""
-
-#: src/models/post-type-basic.php:295
-msgid "Type of field"
-msgstr ""
-
-#: src/models/post-type-basic.php:298
-msgid "Text"
-msgstr ""
-
-#: src/models/post-type-basic.php:299
-msgid "Textarea"
-msgstr ""
-
-#: src/models/post-type-basic.php:300
-msgid "User select"
-msgstr ""
-
-#: src/models/post-type-basic.php:310
-msgid "Template"
-msgstr ""
-
-#: src/models/post-type-basic.php:312
-msgid ""
-"HTML template when the content for this field is displayed. The placeholder "
-"{value} must be present."
-msgstr ""
-
-#: src/models/post-type-basic.php:317
-msgid "Unique ID"
-msgstr ""
-
-#: src/models/post-type-basic.php:319
-msgid ""
-"Unique identifier for this field. Should not be changed once you have added "
-"data.<br>If left blank, it will default to a sanitized version of the name "
-"of this field."
-msgstr ""
-
-#: src/models/post-type-basic.php:327
-msgid "Social Networks fields that will display when adding new entries."
-msgstr ""
-
-#: src/models/post-type-basic.php:330
-msgid "Add Another Social Network"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
+"POT-Creation-Date: 2026-06-28T16:11:03+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: framework-demo\n"
+
+#. Plugin Name of the plugin
+#: framework-demo.php
 msgid "Saltus Framework Demo"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "https://saltus.io/"
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: framework-demo.php
+msgid "https://saltus.dev/"
 msgstr ""
 
-#. Description of the plugin/theme
+#. Description of the plugin
+#: framework-demo.php
 msgid "Saltus Plugin Framework Demo."
 msgstr ""
 
-#. Author of the plugin/theme
+#. Author of the plugin
+#: framework-demo.php
 msgid "Saltus"
+msgstr ""
+
+#. translators: 1: required PHP version, 2: current PHP version.
+#: framework-demo.php:60
+#, php-format
+msgid "Saltus Framework Demo requires PHP %1$s or newer. This site is running PHP %2$s."
+msgstr ""
+
+#: framework-demo.php:85
+msgid "Saltus Framework Demo is missing Composer dependencies. Run composer install from the plugin directory."
+msgstr ""
+
+#: src/models/post-type-all.php:32
+msgid "Shortcode"
+msgstr ""
+
+#: src/models/post-type-all.php:69
+#: src/models/post-type-all.php:71
+msgid "Books"
+msgstr ""
+
+#: src/models/post-type-all.php:70
+#: src/models/post-type-all.php:72
+msgid "Book"
+msgstr ""
+
+#: src/models/post-type-all.php:73
+msgid "Add New"
+msgstr ""
+
+#: src/models/post-type-all.php:74
+msgid "Add New Book"
+msgstr ""
+
+#: src/models/post-type-all.php:75
+msgid "Edit Book"
+msgstr ""
+
+#: src/models/post-type-all.php:76
+msgid "New Book"
+msgstr ""
+
+#: src/models/post-type-all.php:77
+msgid "View Book"
+msgstr ""
+
+#: src/models/post-type-all.php:78
+msgid "View Books"
+msgstr ""
+
+#: src/models/post-type-all.php:79
+msgid "Search Books"
+msgstr ""
+
+#: src/models/post-type-all.php:80
+msgid "No books found."
+msgstr ""
+
+#: src/models/post-type-all.php:81
+msgid "No books found in Trash."
+msgstr ""
+
+#: src/models/post-type-all.php:82
+msgid "Parent Books:"
+msgstr ""
+
+#: src/models/post-type-all.php:83
+msgid "All Books"
+msgstr ""
+
+#: src/models/post-type-all.php:84
+msgid "Book Archives"
+msgstr ""
+
+#: src/models/post-type-all.php:85
+msgid "Book Attributes"
+msgstr ""
+
+#: src/models/post-type-all.php:86
+msgid "Insert into book"
+msgstr ""
+
+#: src/models/post-type-all.php:87
+msgid "Uploaded to this book"
+msgstr ""
+
+#: src/models/post-type-all.php:88
+msgid "Filter books list"
+msgstr ""
+
+#: src/models/post-type-all.php:89
+msgid "Books list navigation"
+msgstr ""
+
+#: src/models/post-type-all.php:90
+msgid "Books list"
+msgstr ""
+
+#: src/models/post-type-all.php:91
+msgid "Book Cover Image"
+msgstr ""
+
+#: src/models/post-type-all.php:92
+msgid "Set Book Cover Image"
+msgstr ""
+
+#: src/models/post-type-all.php:93
+msgid "Remove Book Cover"
+msgstr ""
+
+#: src/models/post-type-all.php:94
+msgid "Use as Book Cover"
+msgstr ""
+
+#. translators: {permalink}: replaced by the book permalink.
+#: src/models/post-type-all.php:99
+msgid "Book information updated. <a href=\"{permalink}\" target=\"_blank\">View Book</a>"
+msgstr ""
+
+#: src/models/post-type-all.php:100
+msgid "Book info updated"
+msgstr ""
+
+#: src/models/post-type-all.php:101
+msgid "Custom field updated"
+msgstr ""
+
+#: src/models/post-type-all.php:102
+msgid "Custom field deleted"
+msgstr ""
+
+#: src/models/post-type-all.php:103
+msgid "Book content restored from revision"
+msgstr ""
+
+#: src/models/post-type-all.php:104
+msgid "Book Published"
+msgstr ""
+
+#: src/models/post-type-all.php:105
+msgid "Book information saved."
+msgstr ""
+
+#. translators: {preview_url}: replaced by the book preview URL.
+#: src/models/post-type-all.php:107
+msgid "Book submitted. <a href=\"{preview_url}\" target=\"_blank\">Preview</a>"
+msgstr ""
+
+#. translators: 1: {date}: scheduled publication date, 2: {preview_url}: replaced by the book preview URL.
+#: src/models/post-type-all.php:109
+msgid "Book scheduled for {date}. <a href=\"{preview_url}\" target=\"_blank\">Preview</a>"
+msgstr ""
+
+#. translators: {preview_url}: replaced by the book preview URL.
+#: src/models/post-type-all.php:111
+msgid "Book draft updated. <a href=\"{preview_url}\" target=\"_blank\">Preview</a>"
+msgstr ""
+
+#: src/models/post-type-all.php:114
+msgid "Book updated. Yay!"
+msgstr ""
+
+#. translators: %s: number of books updated.
+#: src/models/post-type-all.php:116
+#, php-format
+msgid "%s Books updated. Yay!"
+msgstr ""
+
+#: src/models/post-type-all.php:117
+msgid "Book not updated, somebody is editing it"
+msgstr ""
+
+#. translators: %s: number of books not updated because they are locked.
+#: src/models/post-type-all.php:119
+#, php-format
+msgid "%s Books not updated, somebody is editing them"
+msgstr ""
+
+#: src/models/post-type-all.php:120
+msgid "Book permanently deleted. Fahrenheit 451 team was here?"
+msgstr ""
+
+#. translators: %s: number of books permanently deleted.
+#: src/models/post-type-all.php:122
+#, php-format
+msgid "%s Books permanently deleted. Why? :("
+msgstr ""
+
+#: src/models/post-type-all.php:123
+msgid "Book moved to the trash. I'm sad :("
+msgstr ""
+
+#. translators: %s: number of books moved to the trash.
+#: src/models/post-type-all.php:125
+#, php-format
+msgid "%s Books moved to the trash. Why? :("
+msgstr ""
+
+#: src/models/post-type-all.php:126
+msgid "Book recovered from trash. Well done!"
+msgstr ""
+
+#. translators: %s: number of books restored from the trash.
+#: src/models/post-type-all.php:128
+#, php-format
+msgid "%s Books saved from the enemies!"
+msgstr ""
+
+#: src/models/post-type-all.php:132
+msgid "Enter book name here"
+msgstr ""
+
+#: src/models/post-type-all.php:160
+msgid "Information"
+msgstr ""
+
+#: src/models/post-type-all.php:163
+msgid "Details"
+msgstr ""
+
+#: src/models/post-type-all.php:164
+msgid "Book details"
+msgstr ""
+
+#: src/models/post-type-all.php:168
+msgid "Paperback"
+msgstr ""
+
+#: src/models/post-type-all.php:170
+msgid "Number of pages"
+msgstr ""
+
+#: src/models/post-type-all.php:173
+msgid "ISBN"
+msgstr ""
+
+#: src/models/post-type-all.php:177
+#: src/models/post-type-all.php:242
+#: src/models/post-type-all.php:254
+#: src/models/post-type-all.php:259
+#: src/Plugin/Admin/RenamerPage.php:177
+msgid "Description"
+msgstr ""
+
+#: src/models/post-type-all.php:179
+msgid "Short description for this book"
+msgstr ""
+
+#: src/models/post-type-all.php:183
+msgid "Display more options"
+msgstr ""
+
+#: src/models/post-type-all.php:187
+msgid "Icon"
+msgstr ""
+
+#: src/models/post-type-all.php:189
+msgid "Demo field"
+msgstr ""
+
+#: src/models/post-type-all.php:193
+msgid "Icon Color"
+msgstr ""
+
+#: src/models/post-type-all.php:195
+msgid "Social network icon colour"
+msgstr ""
+
+#: src/models/post-type-all.php:201
+msgid "Preview"
+msgstr ""
+
+#: src/models/post-type-all.php:205
+msgid "Gallery"
+msgstr ""
+
+#: src/models/post-type-all.php:207
+msgid "Images from the book."
+msgstr ""
+
+#: src/models/post-type-all.php:212
+#: src/models/post-type-all.php:217
+msgid "Notes"
+msgstr ""
+
+#: src/models/post-type-all.php:213
+msgid "Personal Notes"
+msgstr ""
+
+#: src/models/post-type-all.php:219
+msgid "Personal notes"
+msgstr ""
+
+#: src/models/post-type-all.php:230
+msgid "Plugin Settings"
+msgstr ""
+
+#: src/models/post-type-all.php:232
+msgid "Settings"
+msgstr ""
+
+#: src/models/post-type-all.php:235
+msgid "General"
+msgstr ""
+
+#: src/models/post-type-all.php:236
+msgid "Basic settings that affect the plugin behaviour"
+msgstr ""
+
+#: src/models/post-type-all.php:241
+msgid "Option 01"
+msgstr ""
+
+#: src/models/post-type-all.php:247
+msgid "Option 02"
+msgstr ""
+
+#: src/models/post-type-all.php:248
+msgid "description"
+msgstr ""
+
+#: src/models/post-type-all.php:249
+msgid "subtitle"
+msgstr ""
+
+#: src/models/post-type-all.php:253
+msgid "Option 03"
+msgstr ""
+
+#: src/models/post-type-all.php:258
+msgid "Checkbox"
+msgstr ""
+
+#: src/models/post-type-all.php:267
+msgid "CSS"
+msgstr ""
+
+#: src/models/post-type-all.php:268
+msgid "Add custom styles to the pages loading the layouts."
+msgstr ""
+
+#: src/models/post-type-all.php:272
+msgid "Custom CSS"
+msgstr ""
+
+#: src/models/post-type-all.php:273
+msgid "Custom CSS to load with the layouts"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:40
+#: src/Plugin/Admin/RenamerPage.php:41
+#: src/Plugin/Admin/RenamerPage.php:48
+#: src/Plugin/Admin/RenamerPage.php:49
+#: src/Plugin/Admin/RenamerPage.php:66
+#: src/Plugin/Admin/RenamerPage.php:152
+msgid "Rebrand This Demo"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:88
+msgid "Ready to make this demo yours?"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:89
+msgid "Use Rebrand This Demo to generate your own installable plugin copy."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:93
+msgid "Open Rebrand This Demo"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:96
+msgid "Dismiss"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:105
+msgid "You do not have permission to dismiss this notice."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:119
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:153
+msgid "Make it yours. Generate a customized copy of this demo plugin as a ZIP file. The installed demo plugin is not changed."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:173
+msgid "Plugin Name"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:174
+msgid "Plugin Slug"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:175
+msgid "Main Plugin File"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:176
+msgid "Namespace Segment"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:178
+msgid "Author"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:179
+msgid "Author URI"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:180
+msgid "Plugin URI"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:181
+msgid "Version"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:182
+msgid "Code Prefix"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:187
+msgid "Download Rebranded Plugin ZIP"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:190
+msgid "Copy & Activate Plugin"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:203
+msgid "You do not have permission to generate plugins."
+msgstr ""
+
+#. translators: %s: error message.
+#: src/Plugin/Admin/RenamerPage.php:228
+#, php-format
+msgid "Could not generate the plugin ZIP: %s"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:238
+msgid "You do not have permission to activate plugins."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:242
+msgid "The WordPress plugin directory could not be found."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:247
+msgid "A plugin folder with that slug already exists. Choose a different slug or remove the existing plugin first."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:252
+msgid "Could not create a temporary ZIP file."
+msgstr ""
+
+#. translators: %s: plugin name.
+#: src/Plugin/Admin/RenamerPage.php:269
+#, php-format
+msgid "%s was copied and activated."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:278
+msgid "Could not open the generated ZIP file."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:285
+msgid "Could not copy the generated plugin into the plugins directory."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:326
+msgid "How to rebrand this demo"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:328
+msgid "1. Fill in your plugin identity"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:330
+msgid "Use the public plugin name users should see in WordPress."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:331
+msgid "Choose a lowercase slug, then match the main file to it, such as my-plugin and my-plugin.php."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:332
+msgid "Use a PHP-safe namespace segment like MyPlugin and a lowercase code prefix like my_plugin."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:333
+msgid "Add the description, author details, URLs, and semver version for the first release."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:336
+msgid "2. Choose an install path"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:338
+msgid "Download the ZIP, then upload it from Plugins > Add New > Upload Plugin and activate it."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:339
+msgid "Or use Copy & Activate Plugin to install it directly on this site when the slug is not already in use."
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:342
+msgid "3. Continue from your new plugin"
+msgstr ""
+
+#: src/Plugin/Admin/RenamerPage.php:343
+msgid "The generated plugin is a separate copy. Keep this demo around for reference, or deactivate it after confirming your new plugin works."
+msgstr ""
+
+#. translators: %s: field label
+#: src/Plugin/Renamer/PluginIdentity.php:90
+#, php-format
+msgid "%s is required."
+msgstr ""
+
+#: src/Plugin/Renamer/PluginIdentity.php:95
+msgid "Plugin slug must contain only lowercase letters, numbers, and single dashes."
+msgstr ""
+
+#: src/Plugin/Renamer/PluginIdentity.php:99
+msgid "Main plugin file must be a lowercase dash-safe PHP filename."
+msgstr ""
+
+#: src/Plugin/Renamer/PluginIdentity.php:103
+msgid "Namespace segment must be a valid PHP namespace segment, such as MyPlugin."
+msgstr ""
+
+#: src/Plugin/Renamer/PluginIdentity.php:107
+msgid "Version must be a valid semver string like 1.0.0 or 2.0.0-beta.1."
+msgstr ""
+
+#: src/Plugin/Renamer/PluginIdentity.php:111
+msgid "Code prefix must contain only lowercase letters, numbers, and underscores, and start with a letter."
+msgstr ""
+
+#. translators: %s: field label
+#: src/Plugin/Renamer/PluginIdentity.php:117
+#, php-format
+msgid "%s must be a valid URL or empty."
 msgstr ""

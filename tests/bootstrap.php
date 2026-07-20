@@ -1,0 +1,43 @@
+<?php
+require dirname( __DIR__ ) . '/vendor/autoload.php';
+
+if ( ! function_exists( 'sanitize_text_field' ) ) {
+	function sanitize_text_field( $value ) {
+		return trim( strip_tags( (string) $value ) );
+	}
+}
+
+if ( ! function_exists( 'esc_url_raw' ) ) {
+	function esc_url_raw( $value ) {
+		$value = trim( (string) $value );
+		$value = preg_replace( '/[\x00-\x20<>"\']/', '', $value );
+		return $value;
+	}
+}
+
+if ( ! function_exists( '__' ) ) {
+	function __( $text, $domain = '' ) {
+		return $text;
+	}
+}
+
+if ( ! function_exists( 'wp_tempnam' ) ) {
+	function wp_tempnam( $filename = '' ) {
+		return tempnam( sys_get_temp_dir(), sanitize_file_name( (string) $filename ) );
+	}
+}
+
+if ( ! function_exists( 'sanitize_file_name' ) ) {
+	function sanitize_file_name( $filename ) {
+		return preg_replace( '/[^A-Za-z0-9_.-]/', '-', (string) $filename );
+	}
+}
+
+if ( ! function_exists( 'wp_json_encode' ) ) {
+	function wp_json_encode( $data, $options = 0, $depth = 512 ) {
+		$options |= JSON_UNESCAPED_UNICODE;
+
+		return json_encode( $data, $options, $depth );
+	}
+}
+

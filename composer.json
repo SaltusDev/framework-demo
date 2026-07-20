@@ -1,0 +1,88 @@
+{
+	"name": "saltus/framework-demo",
+	"description": "Modern demo plugin for the Saltus Framework for WordPress.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://saltus.dev/",
+	"authors": [
+		{
+			"name": "Saltus",
+			"email": "web@saltus.dev",
+			"homepage": "https://saltus.dev"
+		}
+	],
+	"keywords": [
+		"wordpress",
+		"plugin",
+		"saltus",
+		"framework"
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+	"require": {
+		"php": ">=8.3",
+		"saltus/framework": "^1.3"
+	},
+	"require-dev": {
+		"brianhenryie/strauss": "^0.22",
+		"phpunit/phpunit": "^11.0",
+		"wp-coding-standards/wpcs": "^3.3",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"brianhenryie/strauss": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"sort-packages": true
+	},
+	"extra": {
+		"strauss": {
+			"namespace_prefix": "Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo\\",
+			"classmap_prefix": "Saltus_WP_Plugin_Saltus_PluginFrameworkDemo_",
+			"target_directory": "vendor-prefixed",
+			"packages": [
+				"saltus/framework"
+			],
+			"override_autoloader": true,
+			"delete_vendor_packages": true,
+			"class_alias": false
+		}
+	},
+	"scripts": {
+		"validate-project": "composer validate --strict",
+		"test:lint": "phpcs",
+		"test:unit": "phpunit",
+		"tests": [
+			"@test:lint",
+			"@test:unit"
+		],
+		"make-pot": "wp i18n make-pot . languages/framework-demo.pot --exclude=vendor,node_modules,dist,release,build",
+		"prefix-namespaces": [
+			"strauss",
+			"@php composer dump-autoload --optimize"
+		],
+		"minify-css": "npx postcss assets/css/*.css --dir assets/css/ --no-map",
+		"check-i18n": "php bin/check-textdomains.php",
+		"version-bump": "php bin/bump.php",
+		"build": "php bin/package.php",
+		"package": "php bin/package.php"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}

@@ -1,0 +1,41 @@
+.framework-demo-renamer__layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 360px;
+	gap: 24px;
+	align-items: start;
+	max-width: 1180px;
+}
+
+.framework-demo-renamer__form,
+.framework-demo-renamer__guide {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	box-sizing: border-box;
+	padding: 16px 20px;
+}
+
+.framework-demo-renamer__form .form-table {
+	margin-top: 0;
+}
+
+.framework-demo-renamer__guide h2 {
+	margin-top: 0;
+}
+
+.framework-demo-renamer__guide h3 {
+	margin: 18px 0 8px;
+}
+
+.framework-demo-renamer__guide ol {
+	margin-left: 20px;
+}
+
+.framework-demo-renamer__guide li {
+	margin-bottom: 8px;
+}
+
+@media (max-width: 960px) {
+	.framework-demo-renamer__layout {
+		grid-template-columns: 1fr;
+	}
+}
