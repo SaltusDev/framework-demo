@@ -9,8 +9,14 @@ framework-demo.php          -- Bootstrap: constants, autoloading, framework init
 ├── src/Core.php            -- Orchestrator: wires i18n, assets, admin pages
 ├── src/Plugin/
 │   ├── I18n.php            -- Textdomain loader (load_plugin_textdomain)
-│   ├── Assets.php          -- Admin styles enqueue (admin-style.css)
-│   ├── Field.php           -- Meta field helper wrappers (get, get_img, etc.)
+│   ├── Assets.php          -- Admin + frontend styles enqueue (admin-style.css, frontend.css)
+│   ├── Field.php           -- Generic field helper wrappers (get, get_img, etc.)
+├── templates/
+│   ├── book-list.php       -- Frontend/block list render for the book model
+│   └── book-single.php     -- Frontend/block single render for the book model
+├── bin/
+│   ├── bump.php            -- Semver version bump CLI
+│   └── validate-mcp-tools.php -- Validates saltus-framework MCP/REST tools against a live site
 │   └── Admin/
 │       └── RenamerPage.php -- Rebrand This Demo admin UI + generator handler
 │   └── Renamer/
@@ -23,7 +29,7 @@ framework-demo.php          -- Bootstrap: constants, autoloading, framework init
     └── taxonomy-multiple.php   -- Multiple taxonomy registrations (genre, writer, country)
 ```
 
-The Saltus Framework (`saltus/framework`) is loaded via Composer and prefixed with Strauss into `vendor-prefixed/`. The framework reads model files from `src/models/` and handles: CPT/taxonomy registration, meta boxes (CMB2-style), settings pages, admin columns/filters, drag-and-drop reordering, duplication, and single-item export.
+The Saltus Framework (`saltus/framework`) is loaded via Composer and prefixed with Strauss into `vendor-prefixed/`. The framework reads model files from `src/models/` and handles: CPT/taxonomy registration, meta boxes (CMB2-style), settings pages, admin columns/filters, drag-and-drop reordering, duplication, single-item export, and — on the `dev-feature/mcp-v1` branch — quick edit, blocks, a frontend shortcode, AI-context governance, and WordPress-native MCP tools/abilities.
 
 **Data flow:**
 1. `framework-demo.php` creates a Framework `Core` instance with the plugin root path
@@ -41,6 +47,8 @@ The Saltus Framework (`saltus/framework`) is loaded via Composer and prefixed wi
 | Plugin-specific code kept minimal | Maximal delegation to the Saltus Framework reduces maintenance surface | 2024-11-01 |
 | Copy & Activate delivery path | Provides one-click install for local/dev environments; ZIP for production/marketplace | 2025-06-30 |
 | PHP 8.3 minimum | Enables typed properties, readonly classes, and modern syntax; aligns with framework requirement | 2025-06-01 |
+| Book model = full framework showcase | Enables MCP discovery, blocks, `[books]` shortcode, AI governance and quick edit in one model to demonstrate the framework surface | 2026-08-06 |
+| `saltus_framework` depends on `dev-feature/mcp-v1` | Exposes the in-progress MCP/abilities/editorial-review features; pinned to the VCS repo until released | 2026-08-06 |
 
 ## Conventions
 
@@ -57,4 +65,5 @@ The Saltus Framework (`saltus/framework`) is loaded via Composer and prefixed wi
 - The `vendor-prefixed/` directory must be rebuilt with `composer prefix-namespaces` after framework updates
 - The plugin auto-deactivates after a successful Copy & Activate to prevent slug collision
 - Model config supports `block_editor: false` — this plugin opts out of the block editor for demo clarity
+- `templates/` are shared by the framework's frontend shortcode and blocks renderers (`$posts`/`$meta_by_post` for list, `$post`/`$meta` for single)
 - Test coverage currently 2 unit tests for the renamer components; PHPCS is configured to WPCS 3.3 standards

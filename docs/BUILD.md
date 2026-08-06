@@ -34,7 +34,18 @@ Then activate **Saltus Framework Demo** in the WordPress admin.
 | `composer make-pot` | Generate/update the .pot translation template |
 | `composer minify-css` | Minify CSS via PostCSS |
 | `composer prefix-namespaces` | Run Strauss to rebuild vendor-prefixed/ |
+| `php bin/bump.php <type>` | Bump plugin version (patch/minor/major/semver) |
 | `npm run minify-css` | Minify CSS via PostCSS (npm equivalent) |
+
+### MCP tool validation
+
+`bin/validate-mcp-tools.php` exercises the `saltus-framework/v1` MCP/REST tools against a live site:
+
+```bash
+php bin/validate-mcp-tools.php https://example.test --user=admin --app-pass='xxxx xxxx xxxx xxxx' --readonly --verbose
+```
+
+Run without `--readonly` to also exercise write tools (duplicate/export/reorder).
 
 ## Build
 
@@ -44,6 +55,8 @@ composer package
 ```
 
 Output: `dist/framework-demo-<version>.zip`
+
+> Note: `composer.json` points `saltus/framework` at the `dev-feature/mcp-v1` VCS branch for the in-progress MCP features. Restore a tagged constraint before production release.
 
 ## Test
 

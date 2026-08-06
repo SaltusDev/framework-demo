@@ -11,6 +11,8 @@ No dedicated logo — the plugin inherits the Saltus brand identity. The Rebrand
 
 ## Color Palette
 
+**Admin tokens (WP defaults):**
+
 | Token | Hex | Usage |
 |-------|-----|-------|
 | `--wp-admin-theme-color` | `#2271b1` | Standard WP admin blue for primary buttons and links |
@@ -18,7 +20,17 @@ No dedicated logo — the plugin inherits the Saltus brand identity. The Rebrand
 | `--wp-admin-theme-color-darker-20` | `#185d8a` | Primary button active |
 | `--framework-demo-bg` | `#f0f0f1` | Admin page background (WP default) |
 
-The plugin does not override WordPress admin colors. It relies on standard WP admin CSS for all UI elements.
+**Frontend tokens** (`assets/css/frontend.css`, `.saltus-demo-books`):
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--saltus-demo-ink` | `#17202a` | Body text |
+| `--saltus-demo-muted` | `#63707c` | Secondary text, meta labels |
+| `--saltus-demo-line` | `#d9e0e6` | Borders, dividers |
+| `--saltus-demo-paper` | `#f7f9fa` | Card/section background |
+| `--saltus-demo-accent` | `#9a3412` | Eyebrow text, link hover |
+
+The plugin does not override WordPress admin colors. It relies on standard WP admin CSS for all UI elements, and ships a self-contained frontend design layer for the book templates.
 
 ## Typography
 
@@ -45,6 +57,14 @@ Typography follows WordPress admin defaults. No custom fonts are loaded.
 - `.framework-demo-renamer__layout` — flexbox two-column
 - `.framework-demo-renamer__form` — left column, `flex: 2`
 - `.framework-demo-renamer__guide` — right sidebar, `flex: 1`
+
+**Frontend Styles** (`assets/css/frontend.css`, loaded via `wp_enqueue_scripts`):
+- Scoped under the `.saltus-demo-books` namespace, shared by the `[books]` shortcode and the `saltus/book-list` / `saltus/book-single` blocks
+- `.saltus-demo-books__list` — responsive grid (`auto-fit minmax(16rem, 1fr)`)
+- `.saltus-demo-books__item` — bordered paper card with hover accent on the title
+- `.saltus-demo-books__cover` — 16/9 media block with `object-fit: cover`
+- `.saltus-demo-books__meta` — flex wrap definition list of book metadata
+- `.saltus-demo-books--single` — padded single-article panel; `--single` variants enlarge the cover and title
 
 ## Layout
 
