@@ -6,7 +6,7 @@
  * Plugin Name:       Saltus Framework Demo
  * Plugin URI:        https://saltus.dev/
  * Description:       Saltus Plugin Framework Demo.
- * Version:           2.0.0
+ * Version:           3.0.0
  * Author:            Saltus
  * Author URI:        https://saltus.dev/
  * License:           GPL-2.0-or-later
@@ -27,7 +27,7 @@ if ( ! defined( __NAMESPACE__ . '\PLUGIN_FILE' ) ) {
 	define( __NAMESPACE__ . '\PLUGIN_FILE', __FILE__ );
 }
 if ( ! defined( __NAMESPACE__ . '\PLUGIN_VERSION' ) ) {
-	define( __NAMESPACE__ . '\PLUGIN_VERSION', '2.0.0' );
+	define( __NAMESPACE__ . '\PLUGIN_VERSION', '3.0.0' );
 }
 if ( ! defined( __NAMESPACE__ . '\PLUGIN_SLUG' ) ) {
 	define( __NAMESPACE__ . '\PLUGIN_SLUG', 'framework-demo' );
