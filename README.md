@@ -2,7 +2,7 @@
 
 This is a modern demo plugin for building WordPress plugins with the Saltus Framework.
 
-It shows how to register custom post types, taxonomies, admin columns, filters, meta boxes, settings pages, assets, and translations using Saltus model configuration files.
+It shows how to register custom post types, taxonomies, admin columns, filters, meta boxes, settings pages, assets, translations, frontend shortcodes, dynamic blocks, AI governance, and WordPress-native MCP/Abilities using Saltus model configuration files.
 
 ## Requirements
 
@@ -25,6 +25,10 @@ The demo models live in `src/models`:
 - `post-type-basic.php` registers a small `movie` post type.
 - `post-type-all.php` registers the larger `book` demo, including meta fields and settings.
 - `taxonomy-multiple.php` registers demo taxonomies for books and posts.
+
+The book model is the complete framework showcase. It enables REST and MCP discovery, guarded draft-first mutations, the `[books]` frontend shortcode, `saltus/book-list` and `saltus/book-single` blocks, quick edit fields, review-safe AI context, duplication, export, and drag-and-drop ordering.
+
+For WordPress-native MCP clients, use the `saltus/*` abilities exposed by the active site. The framework handles discovery, permissions, validation, rate limiting, caching, audit logging, and editorial review of mutations. See [HANDOFF.md](HANDOFF.md) and the framework MCP documentation for the current endpoint and client contract.
 
 ## Rebrand This Demo
 
