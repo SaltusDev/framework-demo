@@ -6,8 +6,24 @@ return array(
 	'name'         => 'book',
 	'features'     => array(
 		'dragAndDrop'   => true,
-		'duplicate'     => true,
-		'single_export' => true,
+		'duplicate'     => array(
+			'label'      => __( 'Duplicate book', 'framework-demo' ),
+			'attr_title' => __( 'Create a draft copy of this book', 'framework-demo' ),
+		),
+		'quick_edit'    => array(
+			'paperback' => array(
+				'title'       => __( 'Pages', 'framework-demo' ),
+				'column_name' => 'paperback',
+			),
+			'isbn'      => array(
+				'title'       => __( 'ISBN', 'framework-demo' ),
+				'column_name' => 'isbn',
+			),
+		),
+		'remember_tabs' => true,
+		'single_export' => array(
+			'label' => __( 'Export book', 'framework-demo' ),
+		),
 		'admin_cols'    => array(
 			'featured_image' => array(
 				'title'          => 'Image',
@@ -137,6 +153,8 @@ return array(
 		'public'             => true,
 		'publicly_queryable' => true,
 		'show_in_rest'       => true,
+		'mcp_tools'          => true,
+		'saltus_rest'        => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
@@ -154,6 +172,34 @@ return array(
 		),
 	),
 	'block_editor' => false,
+	'blocks'       => array(
+		'list'      => true,
+		'single'    => true,
+		'templates' => array(
+			'list'   => 'templates/book-list.php',
+			'single' => 'templates/book-single.php',
+		),
+	),
+	'frontend'     => array(
+		'shortcode'       => true,
+		'shortcode_alias' => 'books',
+		'templates'       => array(
+			'list'   => 'templates/book-list.php',
+			'single' => 'templates/book-single.php',
+		),
+	),
+	'ai_context'   => array(
+		'brand_voice'          => 'Clear, practical, literary, and specific. Avoid hype.',
+		'audiences'            => array( 'readers', 'editors', 'bookshop teams' ),
+		'field_rules'          => array(
+			'post_title'   => array( 'Keep titles concise and preserve the author intent.' ),
+			'post_excerpt' => array( 'Use a useful, spoiler-free summary in one or two sentences.' ),
+			'post_content' => array( 'Preserve quotations and factual details supplied by the editor.' ),
+		),
+		'allowed_statuses'     => array( 'draft', 'pending', 'private' ),
+		'forbidden_actions'    => array( 'publish' ),
+		'require_human_review' => true,
+	),
 	'meta'         => array(
 		'ts_info' => array(
 			'id'       => 'information_metabox',
@@ -164,6 +210,15 @@ return array(
 					'desc'   => __( 'Book details', 'framework-demo' ),
 					'icon'   => 'fa fa-file-text-o',
 					'fields' => array(
+						'cover'      => array(
+							'title'          => __( 'Cover', 'framework-demo' ),
+							'type'           => 'media',
+							'library'        => 'image',
+							'preview_size'   => 'full',
+							'preview_width'  => 620,
+							'preview_height' => 1102,
+							'desc'           => __( 'Upload or select the book cover image', 'framework-demo' ),
+						),
 						'paperback'  => array(
 							'title' => __( 'Paperback', 'framework-demo' ),
 							'type'  => 'text',
