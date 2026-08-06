@@ -313,7 +313,7 @@ class PluginRenamerTest extends TestCase {
 
 		file_put_contents(
 			$source . '/framework-demo.php',
-			"<?php\n/**\n * Source Header That Should Not Matter\n *\n * @wordpress-plugin\n * Plugin Name:       Unrelated Source Plugin\n * Plugin URI:        https://source.invalid/\n * Description:       Source description should not leak.\n * Version:           9.9.9\n * Author:            Source Author\n * Author URI:        https://source-author.invalid/\n * Text Domain:       source-domain\n */\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\ndefine( 'PLUGIN_VERSION', '2.0.0' );\n"
+			"<?php\n/**\n * Source Header That Should Not Matter\n *\n * @wordpress-plugin\n * Plugin Name:       Unrelated Source Plugin\n * Plugin URI:        https://source.invalid/\n * Description:       Source description should not leak.\n * Version:           9.9.9\n * Author:            Source Author\n * Author URI:        https://source-author.invalid/\n * Text Domain:       source-domain\n */\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\ndefine( 'PLUGIN_VERSION', '3.0.0' );\n"
 		);
 		file_put_contents( $source . '/src/Example.php', "<?php\nnamespace Saltus\\WP\\Plugin\\Saltus\\PluginFrameworkDemo;\n" );
 		file_put_contents( $source . '/vendor/autoload.php', '<?php' );

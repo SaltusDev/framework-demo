@@ -12,7 +12,7 @@ class PluginRenamer {
 	private const ORIGINAL_PACKAGE           = 'saltus/framework-demo';
 	private const ORIGINAL_PREFIX            = 'framework_demo';
 	private const ORIGINAL_PREFIX_UPPER      = 'FRAMEWORK_DEMO';
-	private const ORIGINAL_VERSION           = '2.0.0';
+	private const ORIGINAL_VERSION           = '3.0.0';
 
 	private string $source_dir;
 
