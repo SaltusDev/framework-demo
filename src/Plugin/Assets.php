@@ -30,6 +30,19 @@ class Assets {
 	 */
 	public function load_assets(): void {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_styles' ) );
+	}
+
+	/**
+	 * Load the small design layer used by the demo's frontend templates.
+	 */
+	public function load_frontend_styles(): void {
+		wp_enqueue_style(
+			$this->core->get_name() . '_frontend',
+			plugins_url( 'assets/css/frontend.css', $this->core->get_file_path() ),
+			array(),
+			$this->core->get_version()
+		);
 	}
 
 	/**

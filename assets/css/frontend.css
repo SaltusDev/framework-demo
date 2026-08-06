@@ -1,0 +1,140 @@
+.saltus-demo-books {
+    --saltus-demo-ink: #17202a;
+    --saltus-demo-muted: #63707c;
+    --saltus-demo-line: #d9e0e6;
+    --saltus-demo-paper: #f7f9fa;
+    --saltus-demo-accent: #9a3412;
+    color: var(--saltus-demo-ink);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 2rem auto;
+    max-width: 72rem;
+}
+
+.saltus-demo-books__intro {
+    border-bottom: 1px solid var(--saltus-demo-line);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.saltus-demo-books__eyebrow {
+    color: var(--saltus-demo-accent);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    margin: 0 0 .4rem;
+    text-transform: uppercase;
+}
+
+.saltus-demo-books__heading {
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    margin: 0;
+}
+
+.saltus-demo-books__list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.saltus-demo-books__item {
+    background: var(--saltus-demo-paper);
+    border: 1px solid var(--saltus-demo-line);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.saltus-demo-books__link {
+    color: inherit;
+    display: block;
+    text-decoration: none;
+}
+
+.saltus-demo-books__link:hover .saltus-demo-books__title,
+.saltus-demo-books__link:focus .saltus-demo-books__title {
+    color: var(--saltus-demo-accent);
+}
+
+.saltus-demo-books__cover {
+    aspect-ratio: 16 / 9;
+    background: #e8edf0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.saltus-demo-books__cover img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.saltus-demo-books__body {
+    padding: 1.1rem;
+}
+
+.saltus-demo-books__title {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    margin: 0 0 .5rem;
+    transition: color .15s ease;
+}
+
+.saltus-demo-books__excerpt,
+.saltus-demo-books__content {
+    color: var(--saltus-demo-muted);
+    line-height: 1.6;
+}
+
+.saltus-demo-books__meta {
+    border-top: 1px solid var(--saltus-demo-line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem 1rem;
+    margin: 1rem 0 0;
+    padding-top: .75rem;
+}
+
+.saltus-demo-books__meta dt {
+    color: var(--saltus-demo-muted);
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.saltus-demo-books__meta dd {
+    font-size: .9rem;
+    margin: 0;
+}
+
+.saltus-demo-books__date {
+    color: var(--saltus-demo-muted);
+    display: block;
+    font-size: .8rem;
+    margin-top: .9rem;
+}
+
+.saltus-demo-books--single {
+    background: var(--saltus-demo-paper);
+    border: 1px solid var(--saltus-demo-line);
+    border-radius: 6px;
+    padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.saltus-demo-books--single .saltus-demo-books__cover {
+    margin-bottom: 1.5rem;
+    max-width: 38rem;
+}
+
+.saltus-demo-books--single .saltus-demo-books__title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.saltus-demo-books__empty {
+    background: var(--saltus-demo-paper);
+    border: 1px dashed var(--saltus-demo-line);
+    color: var(--saltus-demo-muted);
+    padding: 1.25rem;
+}
