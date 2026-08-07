@@ -1,89 +1,75 @@
-# Handoff: MCP Error Hints
+# Handoff: Adopt Post-3.0.0 Framework Features
 
-Add an actionable `hint` key to every `WP_Error` `$data` array in the REST controllers so MCP clients receive config guidance alongside `code`/`message`/`status`.
+Plan and status: [docs/ROADMAP.md](docs/ROADMAP.md) Phases 3 and 4. Live state:
+[docs/CURRENT.md](docs/CURRENT.md).
 
-## Changes needed
+## The previous handoff is done
 
-### 1. `src/Rest/HealthController.php` — `get_item_permissions_check`
-```php
-return new WP_Error(
-    'rest_forbidden',
-    __('You do not have permission to view framework health.', 'saltus-framework'),
-    [
-        'status' => 403,
-        'hint'   => __('Assign the edit_posts capability to your user role, or use an administrator account.', 'saltus-framework'),
-    ]
-);
+The earlier version of this file specified adding an actionable `hint` key to every `WP_Error`
+`$data` array across the REST controllers, and flagged `MetaController` as missing its PUT route.
+**All of it is already present in `vendor-prefixed/saltus/framework/`:**
+
+| Claimed missing | Actual location |
+|-----------------|-----------------|
+| `ExportController` hints | `src/Rest/ExportController.php:69`, `:102` |
+| `SettingsController` hints | `src/Rest/SettingsController.php:88`, `:108`, `:154`, `:168`, `:191`, `:217` |
+| `MetaController` hints | `src/Rest/MetaController.php:120`, `:177`, `:192` |
+| `ModelsController` hints | `src/Rest/ModelsController.php:82`, `:109`, `:165` |
+| `MetaFieldProvider` hint | `src/Features/Meta/MetaFieldProvider.php:69` |
+| `MetaController` PUT route | `src/Rest/MetaController.php:74-99` + `update_item_permissions_check` at `:165` |
+
+Verified live — `GET /saltus-framework/v1/health` without auth returns:
+
+```json
+{"code":"rest_forbidden","message":"You do not have permission to view framework health.",
+ "data":{"status":403,"hint":"Assign the edit_posts capability to your user role, or use an administrator account."}}
 ```
 
-### 2. `src/Rest/ExportController.php` — `get_item_permissions_check` + `get_item`
-Permission check:
+One drift from the original spec: the shipped hints name the **real** config keys
+(`show_in_rest` under a section, `mcp_tools` in options) rather than the `saltus_rest` key the old
+handoff quoted. That key was never read by the framework at all.
+
+## Fixed in this pass
+
+- `framework-demo.php` now passes `__FILE__` as the framework `Core`'s second argument, so
+  activation/deactivation hooks register and the MCP audit-cleanup cron is scheduled
+- Dropped the inert `saltus_rest` option; the model now documents the real gate keys inline
+- `src/Plugin/Ai/AssistantProvider.php` answers `saltus/framework/ai/assistant_actions` with
+  offline, deterministic handlers, wired from `Core::init()`
+- `Assets::correct_framework_asset_url()` repoints framework asset URLs to `vendor-prefixed/`
+- MCP validator: 17 → 21 checks, plus corrected `saltus_rest` wording in its failure messages
+- 47 tests (was 23), PHPCS clean, `composer validate --strict` clean
+
+## Still open
+
+**Blocked upstream — per-model editorial review.** `ProposalService::should_queue()` applies its
+filter with only the tool name:
+
 ```php
-'hint' => __('Assign the export capability to your user role via Users → Edit User, or use an administrator account.', 'saltus-framework'),
+apply_filters( 'saltus/framework/editorial_review/require_human_review', true, $tool );
 ```
 
-`model_rest_capability_disabled` in `get_item`:
-```php
-'hint' => sprintf(
-    __("Add 'saltus_rest' => [ 'capabilities' => [ 'export' => true ] ] to the model config for '%s' in src/models/.", 'saltus-framework'),
-    $post->post_type
-),
-```
+No `post_type`, no `$args`. A plugin callback cannot resolve which model is being mutated, so
+`ai_context.require_human_review` is unreachable and every mutating tool queues on every model —
+including `movie`, which declares no `ai_context`. Left alone deliberately: the only plugin-side
+lever is a blanket on/off, which is worse than the current default. Needs the framework to pass
+`$args` or consult `AiContextProvider` itself.
 
-### 3. `src/Rest/DuplicateController.php` — 3 locations
-- `create_item_permissions_check` (`rest_forbidden`): `"Assign the edit_posts capability to your user role, or use an administrator account."`
-- `create_item` (`model_rest_capability_disabled`): `sprintf("Add 'saltus_rest' => [ 'capabilities' => [ 'duplicate' => true ] ] to the model config for '%s' in src/models/.", $post->post_type)`
-- `create_item` (second `rest_forbidden`): `sprintf("You need the edit_post capability for post ID %d. Assign a role with this capability or use an administrator account.", $post_id)`
+**Three more upstream bugs found while adopting** — all in regenerated directories, so do not
+hand-patch. Full detail in ROADMAP Phase 4:
 
-### 4. `src/Rest/ModelsController.php` — 3 locations
-- `get_items_permissions_check` (`rest_forbidden`): `"Assign edit_posts to your user, or ensure at least one model has 'saltus_rest' => true in its config."`
-- `get_item_permissions_check` (`rest_forbidden`): `sprintf("Assign edit_posts to your user, or ensure model '%s' has 'saltus_rest' => true in its config.", $model_name ?? '(unknown)')`
-- `get_item` (`model_not_found`): `sprintf("Model '%s' is not registered in the Saltus modeler. Check the model slug and ensure it is registered in src/models/.", $name)`
+1. Strauss's alias autoloader emits `namespace \;` for global-namespace Codestar classes, which is
+   a parse error. **WP-CLI is unusable on this dev install as a result.** Production is unaffected
+   (Strauss is `require-dev`).
+2. `wp saltus` cannot register subcommands — WP-CLI throws `'wp saltus' can't have subcommands`.
+   The whole command tree is unreachable.
+3. The framework references block/assistant JS and CSS and default list/single templates that are
+   not in the package. The demo overrides both templates, so its own rendering works.
 
-### 5. `src/Rest/MetaController.php` — 3 locations
-- `get_items_permissions_check` (`rest_forbidden`): `"Assign edit_posts to your user, or ensure the model has 'saltus_rest' => [ 'capabilities' => [ 'meta' => true ] ] in its config."`
-- `update_item_permissions_check` (`model_not_found`): `sprintf("Add 'saltus_rest' => [ 'capabilities' => [ 'meta' => true ] ] to the model config for '%s' in src/models/.", $post_type)`
-- `update_item_permissions_check` (`rest_forbidden`): `sprintf("Assign the '%s' capability to your user role for post ID %d, or use an administrator account.", $this->post_type_edit_capability((string) $post_type), $post_id)`
+## Verification
 
-### 6. `src/Rest/SettingsController.php` — 6 locations
-All `model_not_found` returns (4x: `get_item_permissions_check`, `update_item_permissions_check`, `get_item`, `update_item`):
-```php
-'hint' => sprintf(
-    __("Add 'saltus_rest' => [ 'capabilities' => [ 'settings' => true ] ] to the model config for '%s' in src/models/.", 'saltus-framework'),
-    $post_type
-),
-```
+Green: `vendor/bin/phpunit` (47 tests, 127 assertions), `vendor/bin/phpcs`,
+`composer validate --strict`, `php -l` on changed non-`src` files.
 
-`rest_forbidden` in `get_item_permissions_check`:
-```php
-'hint' => sprintf(
-    __("Assign the '%s' capability to your user role, or use an administrator account.", 'saltus-framework'),
-    $capability
-),
-```
-
-`rest_forbidden` in `update_item_permissions_check`:
-```php
-'hint' => __("Assign the 'manage_options' capability to your user role. Only administrators can update settings.", 'saltus-framework'),
-```
-
-### 7. `src/Rest/ReorderController.php` — `create_item_permissions_check`
-```php
-'hint' => __("Assign edit_posts to your user, or ensure all requested posts are editable by the current user. Check that each post's post type has 'saltus_rest' configured.", 'saltus-framework'),
-```
-
-### 8. `src/Features/Meta/MetaFieldProvider.php` — `post_type_meta`
-```php
-'hint' => sprintf(
-    __("Model '%s' is not registered or the post type is not enabled. Check the model slug and ensure it has 'saltus_rest' => [ 'capabilities' => [ 'meta' => true ] ] in src/models/.", 'saltus-framework'),
-    $post_type
-),
-```
-
----
-
-## Notes
-- All hints use WP i18n `__()` / `sprintf()` so they're translatable
-- Hints are returned in `$data['hint']` alongside existing `$data['status']` — standard WP_Error format, no new response structure
-- After committing these to `saltus-framework-git`, run `strauss` in `framework-demo` to rebuild `vendor-prefixed/`
-- The `vendor-prefixed/MetaController.php` is also missing the `update_item_permissions_check` / `update_item` methods (PUT route) — this should be synced
+Not yet run: `bin/validate-mcp-tools.php` end to end (needs an application password), and a browser
+check of the `[books]` shortcode and the two blocks.

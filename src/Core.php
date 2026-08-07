@@ -2,8 +2,11 @@
 namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
 
 use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\Admin\RenamerPage;
+use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\Ai\AssistantProvider;
 use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\Assets;
+use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\CodestarCompat;
 use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\I18n;
+use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\OptionalModels;
 
 /**
  * The core class, where logic is defined.
@@ -76,8 +79,32 @@ class Core {
 	 */
 	public function init(): void {
 		$this->set_locale();
+		$this->set_codestar_compat();
 		$this->set_assets();
 		$this->set_admin_pages();
+		$this->set_ai_providers();
+		$this->set_optional_models();
+	}
+
+	/**
+	 * Register opt-in models that cannot gate themselves.
+	 *
+	 * PHP models gate inline via `saltus_demo_model_enabled()`; the JSON model cannot, so it is
+	 * injected through the framework's `extra_models` filter. See OptionalModels.
+	 */
+	private function set_optional_models(): void {
+		$optional = new OptionalModels( $this->get_dir_path() . 'src/models-optional' );
+		$optional->register();
+	}
+
+	/**
+	 * Close the Strauss aliasing gap for global-namespace Codestar helpers.
+	 *
+	 * Without this, any screen rendering a `typography` meta field fatals. See CodestarCompat.
+	 */
+	private function set_codestar_compat(): void {
+		$compat = new CodestarCompat();
+		$compat->register();
 	}
 
 	/**
@@ -99,5 +126,16 @@ class Core {
 	private function set_admin_pages(): void {
 		$renamer_page = new RenamerPage( $this );
 		$renamer_page->register();
+	}
+
+	/**
+	 * Answer the framework's AI extension points.
+	 *
+	 * The framework ships the assistant UI and the action contract but no handler, so without
+	 * this the in-editor panel returns 501 for every action.
+	 */
+	private function set_ai_providers(): void {
+		$assistant = new AssistantProvider();
+		$assistant->register();
 	}
 }

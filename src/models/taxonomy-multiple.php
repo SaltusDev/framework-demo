@@ -1,4 +1,20 @@
 <?php
+/**
+ * Taxonomy trio — hierarchical, flat, and multi-association.
+ *
+ * - `genre` (category-style, hierarchical) → `book` only
+ * - `writer` (tag-style, flat) → `book` only
+ * - `country` (tag-style) → `book` + core `post`, demonstrating multi-post-type association
+ *
+ * **Note on taxonomy meta:** Taxonomy models accept a `meta` key and silently ignore it.
+ * `ModelFactory::create()` only calls `process_services()` for `PostType`; `Taxonomy::set_meta()`
+ * stores the config into `args` where nothing consumes it. Codestar has `createTaxonomyOptions()`,
+ * but the framework never calls it. Term meta is not a framework feature as of v3.0.0.
+ *
+ * For a taxonomy opt-out example (single association, `show_in_rest: false`), see `venue_type`.
+ *
+ * @package Saltus\WP\Plugin\Saltus\PluginFrameworkDemo
+ */
 return array(
 	array(
 		'type'         => 'category',

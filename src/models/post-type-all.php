@@ -1,4 +1,27 @@
 <?php
+/**
+ * Book — the kitchen sink.
+ *
+ * This model demonstrates almost every framework feature together: meta, settings, admin cols/filters,
+ * duplicate, export, drag-and-drop, remember tabs, quick edit, shortcode + blocks with custom templates,
+ * and AI context with editorial review. Its value is showing how these features compose, not isolating
+ * one for study.
+ *
+ * **To learn a single feature, see the focused models instead:**
+ *
+ * - Meta field types → `recipe` (all 44 Codestar types)
+ * - Admin list mastery → `event` (all column/filter kinds + hooks)
+ * - Frontend & blocks → `venue` (framework default templates, no overrides)
+ * - Settings pages → `staff` (multi-section, custom parent, tabbed fields)
+ * - AI governance → `release` (strict context, editorial review, per-section opt-outs)
+ * - Serialized meta → `artwork` (data_type comparison, REST shape)
+ * - Model formats → `snippet` (JSON model)
+ * - Opt-out patterns → `internal_note` (REST/MCP gates, private CPT)
+ *
+ * This model is the reference for "all of the above, working together."
+ *
+ * @package Saltus\WP\Plugin\Saltus\PluginFrameworkDemo
+ */
 
 return array(
 	'active'       => true,
@@ -152,9 +175,14 @@ return array(
 	'options'      => array(
 		'public'             => true,
 		'publicly_queryable' => true,
+		// Gates the Saltus REST routes for this model. Individual sections ('meta',
+		// 'settings', 'blocks') and features ('duplicate', 'single_export',
+		// 'drag_and_drop') may override it with their own 'show_in_rest'.
 		'show_in_rest'       => true,
+		// Gates the WordPress-native MCP abilities for this model. Sections and
+		// features override it with 'show_in_mcp'. Unlike REST, this defaults to
+		// off, so a model is never exposed to AI clients unless it opts in.
 		'mcp_tools'          => true,
-		'saltus_rest'        => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
@@ -201,6 +229,9 @@ return array(
 		'require_human_review' => true,
 	),
 	'meta'         => array(
+		// Add 'show_in_rest' => false here to keep meta out of the Saltus REST routes,
+		// or 'show_in_mcp' => false to keep it away from AI clients while leaving the
+		// REST routes intact. Both default to the model-level options above.
 		'ts_info' => array(
 			'id'       => 'information_metabox',
 			'title'    => __( 'Information', 'framework-demo' ),
@@ -286,7 +317,7 @@ return array(
 			'capability' => 'manage_options',
 			'menu_title' => __( 'Settings', 'framework-demo' ),
 			'sections'   => array(
-				'general' => array(
+				'general'     => array(
 					'title'  => __( 'General', 'framework-demo' ),
 					'desc'   => __( 'Basic settings that affect the plugin behaviour', 'framework-demo' ),
 					'icon'   => 'fa fa-cog fa-lg',
@@ -318,7 +349,7 @@ return array(
 				),
 
 
-				'custom'  => array(
+				'custom'      => array(
 					'title'  => __( 'CSS', 'framework-demo' ),
 					'desc'   => __( 'Add custom styles to the pages loading the layouts.', 'framework-demo' ),
 					'icon'   => 'fa fa-code fa-lg',
@@ -327,6 +358,68 @@ return array(
 							'title' => __( 'Custom CSS', 'framework-demo' ),
 							'desc'  => __( 'Custom CSS to load with the layouts', 'framework-demo' ),
 							'type'  => 'code_editor',
+						),
+					),
+				),
+
+				'demo_models' => array(
+					'title'  => __( 'Demo Models', 'framework-demo' ),
+					'desc'   => __( 'Enable additional models that demonstrate specific framework features. Each model is focused on one capability—meta fields, admin filters, frontend rendering, etc.—so you can study them in isolation rather than mining the kitchen-sink "book" model.', 'framework-demo' ),
+					'icon'   => 'fa fa-cubes',
+					'fields' => array(
+						'enable_recipe'        => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Recipe', 'framework-demo' ),
+							'desc'    => __( 'All 44 Codestar field types across tabbed sections. The meta field gallery.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_event'         => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Event', 'framework-demo' ),
+							'desc'    => __( 'All admin column sources, all filter kinds, sortable/capability-gated columns, and admin_filters hooks.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_venue'         => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Venue', 'framework-demo' ),
+							'desc'    => __( 'Shortcode + blocks with framework default templates (no overrides). Frontend rendering baseline.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_staff'         => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Staff', 'framework-demo' ),
+							'desc'    => __( 'Multi-section settings page with custom menu parent, capability, and tabbed fields.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_release'       => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Release', 'framework-demo' ),
+							'desc'    => __( 'AI governance: strict ai_context, editorial review, per-section show_in_mcp opt-outs.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_artwork'       => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Artwork', 'framework-demo' ),
+							'desc'    => __( 'Serialized vs unserialized meta, register_rest_api, nested repeater paths. REST shape comparison.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_snippet'       => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Snippet', 'framework-demo' ),
+							'desc'    => __( 'Model declared in JSON (not PHP). Proves the loader accepts multiple formats.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_internal_note' => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Internal Note', 'framework-demo' ),
+							'desc'    => __( 'Opt-out reference: show_in_rest: false, mcp_tools absent, private CPT. The negative space.', 'framework-demo' ),
+							'default' => false,
+						),
+						'enable_venue_type'    => array(
+							'type'    => 'switcher',
+							'title'   => __( 'Venue Type (taxonomy)', 'framework-demo' ),
+							'desc'    => __( 'Taxonomy with show_in_rest: false and single association, contrasting the genre/writer/country trio.', 'framework-demo' ),
+							'default' => false,
 						),
 					),
 				),

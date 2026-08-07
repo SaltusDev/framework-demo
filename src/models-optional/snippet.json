@@ -1,0 +1,41 @@
+{
+	"type": "cpt",
+	"name": "snippet",
+	"labels": {
+		"has_one": "Snippet",
+		"has_many": "Snippets"
+	},
+	"options": {
+		"menu_icon": "dashicons-editor-code",
+		"supports": [
+			"title",
+			"editor"
+		]
+	},
+	"meta": {
+		"snippet_details": {
+			"id": "snippet_details",
+			"title": "Snippet Details",
+			"fields": {
+				"snippet_language": {
+					"type": "select",
+					"title": "Language",
+					"options": {
+						"php": "PHP",
+						"js": "JavaScript",
+						"css": "CSS",
+						"html": "HTML"
+					}
+				},
+				"snippet_code": {
+					"type": "code_editor",
+					"title": "Code",
+					"settings": {
+						"theme": "monokai",
+						"mode": "javascript"
+					}
+				}
+			}
+		}
+	}
+}

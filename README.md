@@ -20,15 +20,44 @@ composer install
 
 Then activate **Saltus Framework Demo** in WordPress.
 
-The demo models live in `src/models`:
+## Models
 
-- `post-type-basic.php` registers a small `movie` post type.
-- `post-type-all.php` registers the larger `book` demo, including meta fields and settings.
-- `taxonomy-multiple.php` registers demo taxonomies for books and posts.
+The demo includes 12 models (10 CPTs + 4 taxonomies) demonstrating the framework surface. Two are always active; the rest are opt-in via **Books → Settings → Demo Models**.
 
-The book model is the complete framework showcase. It enables REST and MCP discovery, guarded draft-first mutations, the `[books]` frontend shortcode, `saltus/book-list` and `saltus/book-single` blocks, quick edit fields, review-safe AI context, duplication, export, and drag-and-drop ordering.
+### Always active
+
+- **`movie`** — the minimum viable model. Type, name, supports, three labels. Its value is being boring: it proves the framework's defaults work.
+- **`book`** — the kitchen sink. Meta, settings, admin cols/filters, duplicate, export, drag-and-drop, remember tabs, quick edit, shortcode + blocks with custom templates, AI context with editorial review. The reference for "all of the above, working together."
+
+### Opt-in (enable via settings)
+
+| Model | Demonstrates |
+|-------|--------------|
+| **`recipe`** | All 44 Codestar field types across tabbed sections. The meta field gallery. |
+| **`event`** | All admin column sources, all filter kinds, sortable/capability-gated columns, admin_filters hooks. |
+| **`venue`** | Shortcode + blocks with framework default templates (no overrides). Frontend rendering baseline. |
+| **`staff`** | Multi-section settings page with custom menu parent, capability, and tabbed fields. |
+| **`release`** | AI governance: strict ai_context, editorial review, per-section show_in_mcp opt-outs. |
+| **`artwork`** | Serialized vs unserialized meta, register_rest_api, nested repeater paths. REST shape comparison. |
+| **`snippet`** | Model declared in JSON (not PHP). Proves the loader accepts multiple formats. |
+| **`internal_note`** | Opt-out reference: show_in_rest: false, mcp_tools absent, private CPT. The negative space. |
+| **`venue_type`** | Taxonomy with show_in_rest: false and single association, contrasting the genre/writer/country trio. |
+
+### Taxonomies
+
+- **`genre`** (category-style, hierarchical) → `book`
+- **`writer`** (tag-style, flat) → `book`
+- **`country`** (tag-style) → `book` + core `post` (multi-association demo)
+- **`event_category`** → `event` (ships with the event model)
+- **`venue_type`** → `venue` (opt-in, REST-disabled)
+
+See [docs/DEMO-PLAN.md](docs/DEMO-PLAN.md) for the design rationale and [docs/FEATURE-MATRIX.md](docs/FEATURE-MATRIX.md) for the enumerated framework surface.
+
+## MCP & AI Context
 
 For WordPress-native MCP clients, use the `saltus/*` abilities exposed by the active site. The framework handles discovery, permissions, validation, rate limiting, caching, audit logging, and editorial review of mutations. See [HANDOFF.md](HANDOFF.md) and the framework MCP documentation for the current endpoint and client contract.
+
+The `book` model demonstrates permissive-ish AI context; `release` demonstrates strict governance (draft-only, forbidden publish/delete, editorial review required).
 
 ## Rebrand This Demo
 

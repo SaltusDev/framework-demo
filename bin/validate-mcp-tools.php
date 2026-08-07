@@ -934,7 +934,7 @@ class GetMetaFieldsValidator extends BaseToolValidator {
 		} elseif ( $response['code'] === 404 && isset( $response['body']['code'] ) ) {
 			$checks[] = [ 'name' => 'Model not found', 'pass' => false, 'actual' => $response['body']['code'] ];
 			if ( $response['body']['code'] === 'model_not_found' ) {
-				return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' not found in Saltus registry — no saltus_rest config" ];
+				return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' not found in Saltus registry — no show_in_rest config" ];
 			}
 		} else {
 			$checks[] = [ 'name' => 'HTTP status', 'pass' => false, 'actual' => (string) $response['code'] ];
@@ -978,7 +978,7 @@ class GetSettingsValidator extends BaseToolValidator {
 		} elseif ( $response['code'] === 404 && isset( $response['body']['code'] ) ) {
 			$checks[] = [ 'name' => 'Model not found', 'pass' => false, 'actual' => $response['body']['code'] ];
 			if ( $response['body']['code'] === 'model_not_found' ) {
-				return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' not found in Saltus registry — no saltus_rest config" ];
+				return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' not found in Saltus registry — no show_in_rest config" ];
 			}
 		} else {
 			$checks[] = [ 'name' => 'HTTP status', 'pass' => false, 'actual' => (string) $response['code'] ];
@@ -1024,13 +1024,292 @@ class UpdateSettingsValidator extends BaseToolValidator {
 		} elseif ( $response['code'] === 404 && isset( $response['body']['code'] ) ) {
 			$checks[] = [ 'name' => 'Model not found', 'pass' => false, 'actual' => $response['body']['code'] ];
 			if ( $response['body']['code'] === 'model_not_found' ) {
-				return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' not found in Saltus registry — no saltus_rest config" ];
+				return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' not found in Saltus registry — no show_in_rest config" ];
 			}
 		} else {
 			$checks[] = [ 'name' => 'HTTP status', 'pass' => false, 'actual' => (string) $response['code'] ];
 		}
 		$checks[] = [ 'name' => 'Post type', 'pass' => true, 'actual' => $this->post_type ?? '?' ];
 		$all_pass = ! in_array( false, array_column( $checks, 'pass' ), true );
+		return [ 'pass' => $all_pass, 'errors' => $errors, 'checks' => $checks ];
+	}
+}
+
+class ListBlockModelsValidator extends BaseToolValidator {
+	public function __construct() { parent::__construct( 'GET', '/saltus-framework/v1/blocks' ); }
+	public function get_name(): string { return 'list_block_models'; }
+	public function get_description(): string { return 'List Saltus post type models with their registered list and single blocks'; }
+	public function get_parameters(): array { return []; }
+	public function get_readonly(): bool { return true; }
+
+	public function build_test_url( string $site_url, array $discovered_routes ): ?string {
+		$routes_sf     = $discovered_routes['saltus-framework/v1'] ?? null;
+		$sf_route_keys = $routes_sf['routes'] ?? null;
+		if ( $sf_route_keys && isset( $sf_route_keys['/saltus-framework/v1/blocks'] ) ) {
+			return "{$site_url}/wp-json/saltus-framework/v1/blocks";
+		}
+		return null;
+	}
+
+	public function validate_response( array $response, array $routes, string $resolved_url ): array {
+		$checks = [];
+
+		if ( $response['error'] !== null ) {
+			return [ 'pass' => false, 'errors' => [ "cURL error: {$response['error']}" ], 'checks' => [] ];
+		}
+
+		$checks[] = [ 'name' => 'HTTP 200', 'pass' => $response['code'] === 200, 'actual' => $response['code'] ];
+
+		$body = $response['body'];
+		if ( is_array( $body ) ) {
+			$checks[] = [ 'name' => 'Has post_types', 'pass' => isset( $body['post_types'] ), 'actual' => isset( $body['post_types'] ) ? 'array' : 'missing' ];
+			if ( isset( $body['post_types'][0] ) ) {
+				$checks[] = [ 'name' => 'Entry has blocks', 'pass' => isset( $body['post_types'][0]['blocks'] ), 'actual' => isset( $body['post_types'][0]['blocks'] ) ? 'array' : 'missing' ];
+			}
+		} else {
+			$checks[] = [ 'name' => 'Valid JSON body', 'pass' => false, 'actual' => gettype( $body ) ];
+		}
+
+		$all_pass = ! in_array( false, array_column( $checks, 'pass' ), true );
+
+		return [ 'pass' => $all_pass, 'errors' => [], 'checks' => $checks ];
+	}
+}
+
+class GetContextValidator extends BaseToolValidator {
+	public function __construct() { parent::__construct( 'GET', '/saltus-framework/v1/context/{post_type}' ); }
+	public function get_name(): string { return 'get_context'; }
+	public function get_description(): string { return 'Get the AI governance context for a Saltus model'; }
+	public function get_parameters(): array { return [ 'post_type' => [ 'type' => 'string', 'required' => true ] ]; }
+	public function get_readonly(): bool { return true; }
+	public function is_cpt_scoped(): bool { return true; }
+
+	public function build_test_url( string $site_url, array $discovered_routes ): ?string {
+		$routes_sf     = $discovered_routes['saltus-framework/v1'] ?? null;
+		$sf_route_keys = $routes_sf['routes'] ?? null;
+		if ( ! $sf_route_keys || ! find_route_key( $sf_route_keys, '/saltus-framework/v1/context/' ) ) {
+			return null;
+		}
+		if ( $this->post_type === null ) {
+			return null;
+		}
+		return "{$site_url}/wp-json/saltus-framework/v1/context/{$this->post_type}";
+	}
+
+	public function validate_response( array $response, array $routes, string $resolved_url ): array {
+		$checks = [];
+
+		if ( $response['error'] !== null ) {
+			return [ 'pass' => false, 'errors' => [ "cURL error: {$response['error']}" ], 'checks' => [] ];
+		}
+
+		if ( $response['code'] === 200 ) {
+			$checks[] = [ 'name' => 'Context fetched', 'pass' => true, 'actual' => 'HTTP 200' ];
+			$body = $response['body'];
+			if ( is_array( $body ) ) {
+				$checks[] = [ 'name' => 'Has configured flag', 'pass' => array_key_exists( 'configured', $body ), 'actual' => array_key_exists( 'configured', $body ) ? var_export( $body['configured'], true ) : 'missing' ];
+				$checks[] = [ 'name' => 'Has allowed_statuses', 'pass' => isset( $body['allowed_statuses'] ), 'actual' => isset( $body['allowed_statuses'] ) ? 'array' : 'missing' ];
+				$checks[] = [ 'name' => 'Has require_human_review', 'pass' => array_key_exists( 'require_human_review', $body ), 'actual' => array_key_exists( 'require_human_review', $body ) ? var_export( $body['require_human_review'], true ) : 'missing' ];
+			} else {
+				$checks[] = [ 'name' => 'Valid JSON body', 'pass' => false, 'actual' => gettype( $body ) ];
+			}
+		} elseif ( $response['code'] === 404 && isset( $response['body']['code'] ) ) {
+			$checks[] = [ 'name' => 'Model not found', 'pass' => false, 'actual' => $response['body']['code'] ];
+			return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' is not exposed via the models capability" ];
+		} elseif ( $response['code'] === 403 ) {
+			$checks[] = [ 'name' => 'Context denied', 'pass' => false, 'actual' => 'HTTP 403' ];
+			return [ 'pass' => false, 'errors' => [], 'checks' => $checks, 'expected' => "Model '{$this->post_type}' does not enable the models capability" ];
+		} else {
+			$checks[] = [ 'name' => 'HTTP status', 'pass' => false, 'actual' => (string) $response['code'] ];
+		}
+
+		$checks[] = [ 'name' => 'Post type', 'pass' => true, 'actual' => $this->post_type ?? '?' ];
+		$all_pass = ! in_array( false, array_column( $checks, 'pass' ), true );
+
+		return [ 'pass' => $all_pass, 'errors' => [], 'checks' => $checks ];
+	}
+}
+
+class UpdateMetaFieldsValidator extends BaseToolValidator {
+	public function __construct() { parent::__construct( 'PUT', '/saltus-framework/v1/meta/{post_type}/{post_id}' ); }
+	public function get_name(): string { return 'update_meta_fields'; }
+	public function get_description(): string { return 'Update meta fields for a specific post of a registered Saltus post type'; }
+	public function get_parameters(): array {
+		return [
+			'post_id'   => [ 'type' => 'number', 'required' => true ],
+			'post_type' => [ 'type' => 'string', 'required' => true ],
+			'meta'      => [ 'type' => 'object', 'required' => true ],
+		];
+	}
+	public function get_readonly(): bool { return false; }
+	public function is_cpt_scoped(): bool { return true; }
+
+	/**
+	 * Probe with OPTIONS so the check never mutates editorial content.
+	 */
+	public function get_validate_method(): string {
+		return 'OPTIONS';
+	}
+
+	public function build_test_url( string $site_url, array $discovered_routes ): ?string {
+		$routes_sf     = $discovered_routes['saltus-framework/v1'] ?? null;
+		$sf_route_keys = $routes_sf['routes'] ?? null;
+		if ( ! $sf_route_keys || ! find_route_key( $sf_route_keys, '/saltus-framework/v1/meta/' ) ) {
+			return null;
+		}
+		if ( $this->post_type === null ) {
+			return null;
+		}
+		$auth    = build_auth( $GLOBALS['_username'] ?? null, $GLOBALS['_password'] ?? null );
+		$post_id = get_first_post_id( $site_url, $this->post_type, $auth );
+		if ( $post_id === null ) {
+			return null;
+		}
+		return "{$site_url}/wp-json/saltus-framework/v1/meta/{$this->post_type}/{$post_id}";
+	}
+
+	public function validate_response( array $response, array $routes, string $resolved_url ): array {
+		$checks = [];
+
+		if ( $response['error'] !== null ) {
+			return [ 'pass' => false, 'errors' => [ "cURL error: {$response['error']}" ], 'checks' => [] ];
+		}
+
+		$checks[] = [ 'name' => 'Endpoint exists (OPTIONS)', 'pass' => $response['code'] === 200, 'actual' => $response['code'] ];
+
+		$body = $response['body'];
+		if ( is_array( $body ) && isset( $body['endpoints'] ) && is_array( $body['endpoints'] ) ) {
+			$has_write = false;
+			foreach ( $body['endpoints'] as $ep ) {
+				$methods = (array) ( $ep['methods'] ?? [] );
+				if ( in_array( 'PUT', $methods, true ) || in_array( 'PATCH', $methods, true ) || in_array( 'POST', $methods, true ) ) {
+					$has_write = true;
+					break;
+				}
+			}
+			$checks[] = [ 'name' => 'Write method allowed', 'pass' => $has_write, 'actual' => $has_write ? 'yes' : 'no' ];
+		} else {
+			$checks[] = [ 'name' => 'Has endpoints', 'pass' => false, 'actual' => 'missing' ];
+		}
+
+		$checks[] = [ 'name' => 'Post type', 'pass' => true, 'actual' => $this->post_type ?? '?' ];
+		$all_pass = ! in_array( false, array_column( $checks, 'pass' ), true );
+
+		return [ 'pass' => $all_pass, 'errors' => [], 'checks' => $checks ];
+	}
+}
+
+class ListProposalsValidator extends BaseToolValidator {
+	public function __construct() { parent::__construct( 'GET', '/saltus-framework/v1/proposals' ); }
+	public function get_name(): string { return 'proposals'; }
+	public function get_description(): string { return 'List queued AI change proposals awaiting editorial review'; }
+	public function get_parameters(): array { return [ 'status' => [ 'type' => 'string' ], 'per_page' => [ 'type' => 'number', 'default' => 50 ] ]; }
+	public function get_readonly(): bool { return true; }
+
+	public function build_test_url( string $site_url, array $discovered_routes ): ?string {
+		$routes_sf     = $discovered_routes['saltus-framework/v1'] ?? null;
+		$sf_route_keys = $routes_sf['routes'] ?? null;
+		if ( $sf_route_keys && isset( $sf_route_keys['/saltus-framework/v1/proposals'] ) ) {
+			return "{$site_url}/wp-json/saltus-framework/v1/proposals";
+		}
+		return null;
+	}
+
+	public function validate_response( array $response, array $routes, string $resolved_url ): array {
+		$checks = [];
+
+		if ( $response['error'] !== null ) {
+			return [ 'pass' => false, 'errors' => [ "cURL error: {$response['error']}" ], 'checks' => [] ];
+		}
+
+		$checks[] = [ 'name' => 'HTTP 200', 'pass' => $response['code'] === 200, 'actual' => $response['code'] ];
+
+		$body = $response['body'];
+		$checks[] = [ 'name' => 'Returns list', 'pass' => is_array( $body ) && array_is_list( $body ), 'actual' => is_array( $body ) ? 'array' : gettype( $body ) ];
+
+		$all_pass = ! in_array( false, array_column( $checks, 'pass' ), true );
+
+		return [ 'pass' => $all_pass, 'errors' => [], 'checks' => $checks ];
+	}
+}
+
+/**
+ * Asserts that the demo's opt-out models never appear in MCP discovery.
+ *
+ * `internal_note` sets `show_in_rest => false` and omits `mcp_tools`; `venue_type` is a taxonomy with
+ * `show_in_rest => false`. Neither should ever be listed by `GET /models`, whether or not its demo
+ * toggle is enabled — the whole point of those two models is proving the gates hold. A regression
+ * here would silently expose content the config says to hide, which no other check would catch.
+ */
+class OptOutModelsValidator extends BaseToolValidator {
+	/** @var list<string> Models that must never be discoverable. */
+	private const OPT_OUT_MODELS = [ 'internal_note', 'venue_type' ];
+
+	public function __construct() { parent::__construct( 'GET', '/saltus-framework/v1/models' ); }
+	public function get_name(): string { return 'opt_out_models'; }
+	public function get_description(): string { return 'Assert REST/MCP opt-out models are absent from discovery'; }
+	public function get_parameters(): array { return []; }
+	public function get_readonly(): bool { return true; }
+
+	public function build_test_url( string $site_url, array $discovered_routes ): ?string {
+		$routes_sf     = $discovered_routes['saltus-framework/v1'] ?? null;
+		$sf_route_keys = $routes_sf['routes'] ?? null;
+		if ( $sf_route_keys && isset( $sf_route_keys['/saltus-framework/v1/models'] ) ) {
+			return "{$site_url}/wp-json/saltus-framework/v1/models";
+		}
+		return null;
+	}
+
+	public function validate_response( array $response, array $routes, string $resolved_url ): array {
+		$checks = [];
+
+		if ( $response['error'] !== null ) {
+			return [ 'pass' => false, 'errors' => [ "cURL error: {$response['error']}" ], 'checks' => [] ];
+		}
+
+		$body = $response['body'];
+
+		// A 401/403 means we cannot see the list at all, so the assertion is not exercised.
+		if ( in_array( $response['code'], [ 401, 403 ], true ) ) {
+			return [
+				'pass'     => false,
+				'errors'   => [],
+				'checks'   => [ [ 'name' => 'Discovery readable', 'pass' => false, 'actual' => "HTTP {$response['code']}" ] ],
+				'expected' => 'Authenticate with --user/--app-pass to exercise the opt-out assertion',
+			];
+		}
+
+		if ( ! is_array( $body ) || ! array_is_list( $body ) ) {
+			return [
+				'pass'   => false,
+				'errors' => [ 'Expected a list of models' ],
+				'checks' => [ [ 'name' => 'Returns list', 'pass' => false, 'actual' => gettype( $body ) ] ],
+			];
+		}
+
+		$listed = [];
+		foreach ( $body as $model ) {
+			if ( is_array( $model ) && isset( $model['name'] ) ) {
+				$listed[] = (string) $model['name'];
+			}
+		}
+
+		$errors = [];
+		foreach ( self::OPT_OUT_MODELS as $slug ) {
+			$absent = ! in_array( $slug, $listed, true );
+			$checks[] = [
+				'name'   => "{$slug} absent",
+				'pass'   => $absent,
+				'actual' => $absent ? 'absent (correct)' : 'PRESENT — gate leaked',
+			];
+			if ( ! $absent ) {
+				$errors[] = "{$slug} is exposed via MCP discovery but its config opts out";
+			}
+		}
+
+		$checks[]  = [ 'name' => 'Models listed', 'pass' => true, 'actual' => (string) count( $listed ) ];
+		$all_pass  = ! in_array( false, array_column( $checks, 'pass' ), true );
+
 		return [ 'pass' => $all_pass, 'errors' => $errors, 'checks' => $checks ];
 	}
 }
@@ -1055,8 +1334,13 @@ $tools = [
 	new CreateTermValidator(),
 	new ListMetaFieldsValidator(),
 	new GetMetaFieldsValidator(),
+	new UpdateMetaFieldsValidator(),
 	new GetSettingsValidator(),
 	new UpdateSettingsValidator(),
+	new ListBlockModelsValidator(),
+	new GetContextValidator(),
+	new ListProposalsValidator(),
+	new OptOutModelsValidator(),
 ];
 
 $GLOBALS['_username'] = $username;

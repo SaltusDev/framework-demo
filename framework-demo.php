@@ -6,7 +6,7 @@
  * Plugin Name:       Saltus Framework Demo
  * Plugin URI:        https://saltus.dev/
  * Description:       Saltus Plugin Framework Demo.
- * Version:           3.0.0
+ * Version:           3.1.0
  * Author:            Saltus
  * Author URI:        https://saltus.dev/
  * License:           GPL-2.0-or-later
@@ -27,7 +27,7 @@ if ( ! defined( __NAMESPACE__ . '\PLUGIN_FILE' ) ) {
 	define( __NAMESPACE__ . '\PLUGIN_FILE', __FILE__ );
 }
 if ( ! defined( __NAMESPACE__ . '\PLUGIN_VERSION' ) ) {
-	define( __NAMESPACE__ . '\PLUGIN_VERSION', '3.0.0' );
+	define( __NAMESPACE__ . '\PLUGIN_VERSION', '3.1.0' );
 }
 if ( ! defined( __NAMESPACE__ . '\PLUGIN_SLUG' ) ) {
 	define( __NAMESPACE__ . '\PLUGIN_SLUG', 'framework-demo' );
@@ -100,8 +100,13 @@ if ( ! class_exists( $framework_core_class ) || ! class_exists( Core::class ) ) 
 
 /*
  * The framework needs the plugin root path so it can load the model files.
+ *
+ * The second argument is the main plugin file. Without it the framework falls back to
+ * the project path (a directory), its internal is_file() guard fails, and activation /
+ * deactivation hooks are never registered — which leaves the MCP audit cleanup cron
+ * unscheduled.
  */
-$saltus_framework = new $framework_core_class( __DIR__ );
+$saltus_framework = new $framework_core_class( __DIR__, __FILE__ );
 $saltus_framework->register();
 
 add_action(
