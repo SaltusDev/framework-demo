@@ -11,6 +11,16 @@ use Saltus\WP\Plugin\Saltus\PluginFrameworkDemo\Plugin\Renamer\ValidationExcepti
  */
 class RenamerPage {
 
+	/**
+	 * Checkbox fields on the renamer form.
+	 *
+	 * Held separately because `PluginIdentity::defaults()` contains only the text fields, and the
+	 * form's redisplay logic is driven by that list.
+	 *
+	 * @var list<string>
+	 */
+	private const CHECKBOX_FIELDS = array( 'saltus_contributor', 'include_studio' );
+
 	private const PAGE_SLUG       = 'framework-demo-renamer';
 	private const TOOLS_PAGE_SLUG = 'framework-demo-renamer-tools';
 	private const NONCE_ACTION    = 'framework_demo_generate_plugin';
@@ -120,7 +130,12 @@ class RenamerPage {
 			wp_die( esc_html__( 'You do not have permission to access this page.', 'framework-demo' ) );
 		}
 
-		$values          = PluginIdentity::defaults();
+		// Checkbox keys are seeded empty so array_intersect_key() below can restore them from a
+		// failed submission; defaults() itself holds only text fields.
+		$values          = array_merge(
+			PluginIdentity::defaults(),
+			array_fill_keys( self::CHECKBOX_FIELDS, '' )
+		);
 		$error_key       = sanitize_text_field( $_GET['framework_demo_error'] ?? '' );
 		$success_key     = sanitize_text_field( $_GET['framework_demo_success'] ?? '' );
 		$error_message   = '';
@@ -181,7 +196,8 @@ class RenamerPage {
 						<?php $this->render_text_field( 'plugin_uri', __( 'Plugin URI', 'framework-demo' ), $values['plugin_uri'], false, 'url' ); ?>
 						<?php $this->render_text_field( 'version', __( 'Version', 'framework-demo' ), $values['version'], true ); ?>
 						<?php $this->render_text_field( 'prefix', __( 'Code Prefix', 'framework-demo' ), $values['prefix'], true ); ?>
-						<?php $this->render_checkbox_field( 'saltus_contributor', __( 'Credit Saltus as contributor', 'framework-demo' ), __( 'Include Saltus as a co-author in the generated plugin\'s composer.json', 'framework-demo' ) ); ?>
+						<?php $this->render_checkbox_field( 'saltus_contributor', __( 'Credit Saltus as contributor', 'framework-demo' ), __( 'Include Saltus as a co-author in the generated plugin\'s composer.json', 'framework-demo' ), $values['saltus_contributor'] === '1' ); ?>
+						<?php $this->render_checkbox_field( 'include_studio', __( 'Include model authoring tools', 'framework-demo' ), __( 'Keep Saltus Studio active in the generated plugin. Studio can write PHP into src/models/, which the framework loads on every request — useful while building, rarely wanted in production. Leave unchecked to ship the code disabled.', 'framework-demo' ), $values['include_studio'] === '1' ); ?>
 					</table>
 
 					<p class="submit">
@@ -332,7 +348,21 @@ class RenamerPage {
 		<?php
 	}
 
-	private function render_checkbox_field( string $id, string $label, string $description ): void {
+	/**
+	 * Render a checkbox, preserving its state across a validation-error redirect.
+	 *
+	 * The `$checked` argument exists because the redisplay loop is driven by
+	 * `PluginIdentity::defaults()`, which contains only text fields — so a checkbox silently reverted
+	 * to unchecked whenever the form came back with an error. Harmless for the contributor credit;
+	 * not harmless for "include model authoring tools", where a user who ticked it, hit a typo in
+	 * another field, and resubmitted would get a plugin with Studio disabled and no indication why.
+	 *
+	 * @param string $id          Field name.
+	 * @param string $label       Field label.
+	 * @param string $description Inline description.
+	 * @param bool   $checked     Whether the box was ticked on the previous submission.
+	 */
+	private function render_checkbox_field( string $id, string $label, string $description, bool $checked = false ): void {
 		?>
 		<tr>
 			<th scope="row">
@@ -346,6 +376,7 @@ class RenamerPage {
 							id="<?php echo esc_attr( $id ); ?>"
 							type="checkbox"
 							value="1"
+							<?php checked( $checked ); ?>
 						>
 						<?php echo esc_html( $description ); ?>
 					</label>
@@ -367,6 +398,11 @@ class RenamerPage {
 				<li><?php esc_html_e( 'Use a PHP-safe namespace segment like MyPlugin and a lowercase code prefix like my_plugin.', 'framework-demo' ); ?></li>
 				<li><?php esc_html_e( 'Add the description, author details, URLs, and semver version for the first release.', 'framework-demo' ); ?></li>
 			</ol>
+
+			<h3><?php esc_html_e( 'About the model authoring tools', 'framework-demo' ); ?></h3>
+			<p><?php esc_html_e( 'Saltus Studio generates model configuration: it validates a config against the bundled schema and writes the matching PHP into src/models/, which the framework loads on every request.', 'framework-demo' ); ?></p>
+			<p><?php esc_html_e( 'That makes it a code-authoring surface, so it is switched off in generated plugins by default. The classes are still included, and removing the constant from your main plugin file turns them back on if you want to keep building models through the UI.', 'framework-demo' ); ?></p>
+			<p><?php esc_html_e( 'Either way, the command-line tools stay with this demo: run composer lint:models to validate your model files and composer schema to regenerate the schema after a framework update.', 'framework-demo' ); ?></p>
 
 			<h3><?php esc_html_e( '2. Choose an install path', 'framework-demo' ); ?></h3>
 			<ol>
@@ -397,6 +433,20 @@ class RenamerPage {
 		foreach ( array_keys( PluginIdentity::defaults() ) as $key ) {
 			$value          = isset( $request[ $key ] ) && ! is_array( $request[ $key ] ) ? (string) $request[ $key ] : '';
 			$values[ $key ] = sanitize_text_field( $value );
+		}
+
+		/*
+		 * Checkboxes are absent from defaults() but must survive the error redirect: see
+		 * render_checkbox_field(). An unticked box submits nothing, hence '' rather than '0'.
+		 *
+		 * The `=== '1'` test matches `PluginIdentity::from_request()` exactly. With a bare `! empty()`
+		 * here the two disagreed: a value of `yes` or `false` is truthy, so the redisplayed form showed
+		 * the box ticked while the identity built from the same request had the option off — which is the
+		 * misleading-checkbox failure this handling exists to prevent, in the other direction.
+		 */
+		foreach ( self::CHECKBOX_FIELDS as $key ) {
+			$submitted      = isset( $request[ $key ] ) && ! is_array( $request[ $key ] ) ? (string) $request[ $key ] : '';
+			$values[ $key ] = $submitted === '1' ? '1' : '';
 		}
 
 		return $values;

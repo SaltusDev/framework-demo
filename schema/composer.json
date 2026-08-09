@@ -1,0 +1,34 @@
+{
+	"name": "saltus/model-schema",
+	"description": "JSON Schema, PHP enum map and TypeScript types for Saltus Framework model configuration.",
+	"type": "library",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://saltus.dev/",
+	"authors": [
+		{
+			"name": "Saltus",
+			"email": "web@saltus.dev",
+			"homepage": "https://saltus.dev"
+		}
+	],
+	"keywords": [
+		"wordpress",
+		"saltus",
+		"json-schema",
+		"code-generation"
+	],
+	"require": {
+		"php": ">=8.3"
+	},
+	"autoload": {
+		"files": []
+	},
+	"extra": {
+		"saltus-model-schema": {
+			"schema": "model.schema.json",
+			"enums": "model-enums.php",
+			"types": "model.d.ts",
+			"generator": "../bin/generate-model-schema.php"
+		}
+	}
+}

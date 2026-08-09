@@ -1,4 +1,5 @@
 {
+	"$schema": "../../schema/model.schema.json",
 	"type": "cpt",
 	"name": "snippet",
 	"labels": {

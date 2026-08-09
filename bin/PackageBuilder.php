@@ -110,8 +110,15 @@ class PackageBuilder {
 	private function isExcludedFromRelease( string $relative ): bool {
 		$parts = explode( DIRECTORY_SEPARATOR, $relative );
 
+		/*
+		 * `.claude` and `docs` are development-only. `.claude/settings.local.json` is a local agent
+		 * permission config, and `docs/` is this repo's internal planning material (ROADMAP, EPIC-STUDIO,
+		 * CURRENT) describing unshipped work and known upstream bugs. Neither belongs in a distributed
+		 * ZIP. Kept in step with `PluginRenamer::should_exclude()`, which excludes the same three.
+		 */
 		$excluded_dirs = array(
 			'.agents',
+			'.claude',
 			'.codex',
 			'.git',
 			'.github',
@@ -119,6 +126,7 @@ class PackageBuilder {
 			'bin',
 			'build',
 			'dist',
+			'docs',
 			'node_modules',
 			'release',
 			'reports',
@@ -131,10 +139,13 @@ class PackageBuilder {
 			return true;
 		}
 
+		// Matched by basename. `readme.txt` is deliberately absent: WP.org reads the stable tag,
+		// tested-up-to and changelog from it, so it must ship.
 		$basename       = basename( $relative );
 		$excluded_files = array(
 			'.gitignore',
 			'.phpunit.result.cache',
+			'HANDOFF.md',
 			'package.json',
 			'package-lock.json',
 			'phpcs.xml',

@@ -84,6 +84,10 @@
 		],
 		"minify-css": "npx postcss assets/css/*.css --dir assets/css/ --no-map",
 		"check-i18n": "php bin/check-textdomains.php",
+		"schema": "php bin/generate-model-schema.php",
+		"schema:check": "php bin/generate-model-schema.php --check",
+		"lint:models": "php bin/lint-models.php",
+		"studio:sync": "php bin/sync-studio-build.php",
 		"version-bump": "php bin/bump.php",
 		"build": "php bin/package.php",
 		"package": "php bin/package.php"

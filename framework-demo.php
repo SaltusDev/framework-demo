@@ -7,13 +7,14 @@
  * Plugin URI:        https://saltus.dev/
  * Description:       Saltus Plugin Framework Demo.
  * Version:           3.1.0
+ * Requires at least: 6.0
+ * Requires PHP:      8.3
  * Author:            Saltus
  * Author URI:        https://saltus.dev/
  * License:           GPL-2.0-or-later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       framework-demo
  * Domain Path:       /languages
- * Requires PHP:      8.3
  */
 
 namespace Saltus\WP\Plugin\Saltus\PluginFrameworkDemo;
@@ -80,12 +81,17 @@ if ( ! class_exists( Core::class ) && file_exists( __DIR__ . '/src/Core.php' ) )
 	require_once __DIR__ . '/src/Core.php';
 }
 
-$framework_core_class = __NAMESPACE__ . '\\Saltus\\WP\\Framework\\Core';
-if ( ! class_exists( $framework_core_class ) ) {
-	$framework_core_class = '\\Saltus\\WP\\Framework\\Core';
+/*
+ * Prefixed because this is file scope in the plugin bootstrap, which is the global namespace as far
+ * as WPCS is concerned. Renamed from `$framework_core_class` when the ruleset was widened past
+ * `./src/` and started checking this file for the first time.
+ */
+$framework_demo_core_class = __NAMESPACE__ . '\\Saltus\\WP\\Framework\\Core';
+if ( ! class_exists( $framework_demo_core_class ) ) {
+	$framework_demo_core_class = '\\Saltus\\WP\\Framework\\Core';
 }
 
-if ( ! class_exists( $framework_core_class ) || ! class_exists( Core::class ) ) {
+if ( ! class_exists( $framework_demo_core_class ) || ! class_exists( Core::class ) ) {
 	add_action(
 		'admin_notices',
 		static function (): void {
@@ -106,7 +112,7 @@ if ( ! class_exists( $framework_core_class ) || ! class_exists( Core::class ) ) 
  * deactivation hooks are never registered — which leaves the MCP audit cleanup cron
  * unscheduled.
  */
-$saltus_framework = new $framework_core_class( __DIR__, __FILE__ );
+$saltus_framework = new $framework_demo_core_class( __DIR__, __FILE__ );
 $saltus_framework->register();
 
 add_action(

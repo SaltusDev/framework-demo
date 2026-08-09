@@ -56,6 +56,13 @@
 				<element value="Saltus"/>
 				<element value="Saltus_Framework"/>
 				<element value="sframework"/>
+				<!--
+					This plugin's own prefix, matching its slug and text domain. Hooks it defines use
+					it so the renamer rewrites them per generated plugin: `framework_demo/studio/enabled`
+					becomes `acme_lib/studio/enabled`. A `saltus`-prefixed hook would survive rebranding
+					unchanged and leave every generated plugin listening on someone else's namespace.
+				-->
+				<element value="framework_demo"/>
 			</property>
 		</properties>
 	</rule>
@@ -78,8 +85,37 @@
 	<!-- php compat -->
 	<rule ref="PHPCompatibility"/>
 
-	<!-- phpcs parameters -->
+	<!--
+		# Scanned paths
+
+		This used to be `./src/` alone, which meant the repository root and `bin/` were outside every
+		"PHPCS clean" claim the project ever made. Widened so the plugin bootstrap, the uninstall
+		routine, the generated schema artifacts and the newer CLI tools are all covered.
+
+		Three legacy scripts are excluded rather than fixed, with a count each so the debt is visible
+		instead of implied. They are development-only (`bin/` never ships: it is excluded from both the
+		release ZIP and rebranded plugins), and rewriting 623 violations across three files would be a
+		large diff with no user-visible effect. Fix them when they are next touched, and delete the
+		matching line here.
+
+		The scanned paths carry **zero** errors and zero warnings. `ignore_warnings_on_exit` is
+		deliberately not set: phpcs exits non-zero on warnings, and `composer test:lint` is a CI gate, so
+		muting them globally would mean the next warning to appear is one nobody has to answer for. Warnings
+		here get fixed or exempted individually, with the reasoning at the exemption.
+	-->
 	<file>./src/</file>
+	<file>./bin/</file>
+	<file>./schema/</file>
+	<file>./framework-demo.php</file>
+	<file>./uninstall.php</file>
+	<file>./index.php</file>
+
+	<!-- Legacy CLI scripts, pre-dating this ruleset. Violation counts at time of exclusion: -->
+	<exclude-pattern>bin/validate-mcp-tools.php</exclude-pattern><!-- 527 -->
+	<exclude-pattern>bin/check-textdomains.php</exclude-pattern><!-- 45 -->
+	<exclude-pattern>bin/bump.php</exclude-pattern><!-- 26 -->
+	<exclude-pattern>bin/PackageBuilder.php</exclude-pattern><!-- 25 -->
+
 	<arg name="extensions" value="php" />
 	<arg name="encoding" value="UTF-8" />
 	<arg value="ps"/>

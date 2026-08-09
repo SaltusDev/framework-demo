@@ -3,7 +3,12 @@ name: CI
 on:
   push:
     branches:
+      # `dev` is the default branch and release work happens on `release/**`, so without both of
+      # these the lint/test/schema gates fire only via pull request — which is how three red steps
+      # went unnoticed through a whole release cycle.
       - main
+      - dev
+      - 'release/**'
       - 'feature/**'
       - 'fix/**'
   pull_request:
@@ -50,6 +55,23 @@ jobs:
 
       - name: Check i18n text domains
         run: composer check-i18n
+
+      # Fails if the committed schema no longer matches the framework surface it was generated
+      # from — a framework bump that adds a Codestar field type or a `type` alias turns CI red
+      # until the schema is regenerated, rather than letting the two drift silently.
+      #
+      # Reads the framework from `vendor/`, since only `composer install` has run at this point.
+      # `composer prefix-namespaces` is a separate step that creates `vendor-prefixed/`, so a
+      # generator resolving that path only would fail here on every run (ROADMAP P6.1a). Both trees
+      # answer it identically; the generator tries prefixed first and falls back.
+      - name: Check model schema is current
+        run: composer schema:check
+
+      # The framework validates no configuration at all: a model with a typo, an unknown field
+      # type, or an unlucky key order is dropped silently. This step is that missing layer.
+      # Warnings do not fail the build; errors mean a model would not register as written.
+      - name: Lint model configuration
+        run: composer lint:models
 
       - name: Build release ZIP
         run: composer build

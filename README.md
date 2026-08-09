@@ -22,7 +22,7 @@ Then activate **Saltus Framework Demo** in WordPress.
 
 ## Models
 
-The demo includes 12 models (10 CPTs + 4 taxonomies) demonstrating the framework surface. Two are always active; the rest are opt-in via **Books → Settings → Demo Models**.
+The demo includes 15 models (10 CPTs + 5 taxonomies) demonstrating the framework surface. Two are always active; the rest are opt-in via **Books → Settings → Demo Models**.
 
 ### Always active
 

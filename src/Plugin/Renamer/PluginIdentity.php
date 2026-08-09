@@ -20,6 +20,18 @@ class PluginIdentity {
 	public bool $saltus_contributor = false;
 
 	/**
+	 * Whether the generated plugin keeps the Saltus Studio model-authoring tools.
+	 *
+	 * Off by default. Studio is scaffolding: in *this* plugin it is the point, but a generated plugin
+	 * that ships it carries a REST surface able to rewrite its own source, which a WordPress.org
+	 * reviewer would reasonably question. Opting out leaves the code in place but never registers the
+	 * routes — see `Core::set_studio()`.
+	 *
+	 * @var bool
+	 */
+	public bool $include_studio = false;
+
+	/**
 	 * @param array<string,string> $data Renamer field values.
 	 */
 	public function __construct( array $data ) {
@@ -35,6 +47,7 @@ class PluginIdentity {
 		$this->version            = $data['version'];
 		$this->prefix             = $data['prefix'];
 		$this->saltus_contributor = ! empty( $data['saltus_contributor'] );
+		$this->include_studio     = ! empty( $data['include_studio'] );
 	}
 
 	/**
@@ -67,6 +80,7 @@ class PluginIdentity {
 		}
 
 		$data['saltus_contributor'] = ! empty( $request['saltus_contributor'] ) && ! is_array( $request['saltus_contributor'] ) && (string) $request['saltus_contributor'] === '1';
+		$data['include_studio']     = ! empty( $request['include_studio'] ) && ! is_array( $request['include_studio'] ) && (string) $request['include_studio'] === '1';
 		$data['author_uri']         = trim( $data['author_uri'] );
 		$data['plugin_uri']         = trim( $data['plugin_uri'] );
 

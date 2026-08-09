@@ -216,7 +216,10 @@ active theme takes precedence over the framework default. The resolution order i
 
 ```php
 'settings' => array(
-	'staff-options' => array(
+	// The key is the option name. Keep the plugin slug in it: an unqualified id survives rebranding
+	// verbatim, so every generated plugin would share one row and uninstalling any of them would
+	// delete the others' settings.
+	'framework-demo-staff-options' => array(
 		'menu_title'  => 'Directory Options',          // Differs from 'title'
 		'menu_parent' => 'options-general.php',        // Under Settings, not Staff submenu
 		'capability'  => 'manage_options',
@@ -247,7 +250,7 @@ active theme takes precedence over the framework default. The resolution order i
 2. Visit **Settings → Directory Options** (note: under Settings, not under Staff).
 3. See three sections with icons: Display Settings, Styling, Advanced.
 4. In the Styling section, see the tabbed "Color Scheme" field with Primary/Secondary tabs.
-5. Save settings and verify they round-trip via `get_option('staff-options')`.
+5. Save settings and verify they round-trip via `get_option('framework-demo-staff-options')`.
 
 ---
 

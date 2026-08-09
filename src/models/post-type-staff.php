@@ -50,8 +50,15 @@ return array(
 		),
 	),
 	'settings' => array(
-		'staff-options' => array(
-			'id'          => 'staff-options',
+		/*
+		 * The settings key IS the option name — the framework passes it straight to
+		 * `CSF::createOptions()`. It is slug-qualified deliberately: as the bare `staff-options` it
+		 * contained no `framework-demo` string, so the renamer left it verbatim and every generated
+		 * plugin wrote to the same generic row. Uninstalling any one of them then deleted the others'
+		 * settings. Keep the plugin slug in any settings id so rebranding namespaces it.
+		 */
+		'framework-demo-staff-options' => array(
+			'id'          => 'framework-demo-staff-options',
 			'title'       => 'Staff Directory Settings',
 			'menu_title'  => 'Directory Options',
 			'menu_parent' => 'options-general.php', // Under Settings, not the Staff submenu
